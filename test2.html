@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Alex Morgan | Visual Artist — Photography, Video, Design</title>
+    <meta name="description" content="Portfolio of Alex Morgan — photographer, video editor, and graphic designer. Visual storytelling across all mediums.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #050505;
+            color: #e5e5e5;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            background: rgba(5, 5, 5, 0.6);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: #e5e5e5;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #fff;
+        }
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 5%;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ========== HERO SECTION - CINEMATIC STYLE ========== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        /* Video Background */
+        .hero-video-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1);
+            transition: transform 8s ease;
+        }
+
+        .hero:hover .hero-video {
+            transform: scale(1.05);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        /* Title Card */
+        .hero-title-card {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Lines above/below name */
+        .title-line {
+            width: 60px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.7);
+            margin: 0 auto;
+        }
+
+        .top-line {
+            margin-bottom: 2rem;
+            animation: expandWidth 0.8s ease-out 0.3s both;
+        }
+
+        .bottom-line {
+            margin-top: 1.5rem;
+            animation: expandWidth 0.8s ease-out 1.8s both;
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 60px;
+                opacity: 1;
+            }
+        }
+
+        /* Cinematic Name */
+        .hero-name-cinematic {
+            margin: 0;
+            font-size: clamp(2.5rem, 10vw, 6rem);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            line-height: 1.2;
+        }
+
+        .name-first, .name-last {
+            display: inline-block;
+            animation: fadeInLetter 0.6s ease-out both;
+        }
+
+        .name-first {
+            animation-delay: 0.4s;
+        }
+
+        .name-last {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes fadeInLetter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+                filter: blur(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        /* Typed text area */
+        .hero-typed-wrapper {
+            margin-top: 1rem;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            letter-spacing: 3px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .typed-prefix {
+            margin-right: 0.3rem;
+        }
+
+        .typed-text {
+            display: inline-block;
+            min-width: 180px;
+        }
+
+        /* CTA Button */
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 2.5rem;
+            padding: 0.8rem 2rem;
+            color: white;
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 40px;
+            background: transparent;
+            transition: all 0.4s ease;
+        }
+
+        .hero-cta:hover {
+            background: white;
+            color: black;
+            border-color: white;
+            gap: 1rem;
+        }
+
+        /* Scroll Hint */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.6;
+            animation: fadeInScroll 1s ease-out 2s both;
+        }
+
+        @keyframes fadeInScroll {
+            from { opacity: 0; }
+            to { opacity: 0.6; }
+        }
+
+        .scroll-hint span {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: white;
+        }
+
+        .scroll-mouse {
+            width: 26px;
+            height: 40px;
+            border: 1.5px solid white;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .scroll-mouse::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 8px;
+            background: white;
+            border-radius: 2px;
+            animation: scrollWheel 1.5s infinite;
+        }
+
+        @keyframes scrollWheel {
+            0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            80% { opacity: 0; transform: translateX(-50%) translateY(12px); }
+            100% { opacity: 0; }
+        }
+
+        /* Section headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        .section-header p {
+            color: #888;
+            margin-top: 0.5rem;
+        }
+
+        /* Filter buttons */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #333;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            color: #ccc;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: white;
+            color: black;
+            border-color: white;
+        }
+
+        /* Gallery grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: #111;
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .gallery-item img, .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover .overlay {
+            transform: translateY(0);
+        }
+        .gallery-item .overlay span {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .service-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .service-card:hover {
+            background: rgba(255,255,255,0.05);
+            transform: translateY(-8px);
+        }
+        .service-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ccc;
+        }
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+        .service-card p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .about-text p {
+            margin-bottom: 1rem;
+            color: #bbb;
+        }
+        .about-image {
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            border-radius: 24px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: #555;
+        }
+
+        /* Contact form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: white;
+            font-family: inherit;
+        }
+        .contact-form button {
+            width: 100%;
+            padding: 1rem;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .contact-form button:hover {
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu {
+                display: block;
+            }
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            .hero-overlay {
+                background: rgba(0, 0, 0, 0.65);
+            }
+            .title-line {
+                width: 40px;
+            }
+            .hero-cta {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">AM</div>
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+    <div class="mobile-menu"><i class="fas fa-bars"></i></div>
+</nav>
+
+<!-- HERO SECTION - CINEMATIC -->
+<section id="home" class="hero">
+    <!-- Background Video -->
+    <div class="hero-video-wrapper">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <!-- REPLACE THIS URL WITH YOUR OWN SHOWREEL VIDEO -->
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-woods-1260-large.mp4" type="video/mp4">
+            <!-- Fallback image -->
+            <img src="https://picsum.photos/id/104/1920/1080" alt="Background">
+        </video>
+        <div class="hero-overlay"></div>
+    </div>
+
+    <!-- Centered Title Card -->
+    <div class="hero-title-card">
+        <div class="title-line top-line"></div>
+        <h1 class="hero-name-cinematic">
+            <span class="name-first">ALEX</span>
+            <span class="name-last">MORGAN</span>
+        </h1>
+        <div class="hero-typed-wrapper">
+            <span class="typed-prefix">—</span>
+            <span id="typed-text" class="typed-text"></span>
+        </div>
+        <div class="title-line bottom-line"></div>
+        <a href="#work" class="hero-cta">
+            <span>ENTER PORTFOLIO</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint">
+        <div class="scroll-mouse"></div>
+        <span>SCROLL</span>
+    </div>
+</section>
+
+<!-- WORK SECTION -->
+<section id="work">
+    <div class="container">
+        <div class="section-header">
+            <h2>Selected Work</h2>
+            <p>Photography, video projects, and design pieces</p>
+        </div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="photo">📷 Photo</button>
+            <button class="filter-btn" data-filter="video">🎥 Video</button>
+            <button class="filter-btn" data-filter="design">🎨 Design</button>
+        </div>
+        <div class="gallery" id="gallery">
+            <!-- Gallery items populated by JS -->
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section id="services">
+    <div class="container">
+        <div class="section-header">
+            <h2>What I Do</h2>
+            <p>Creative services across all visual mediums</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-camera"></i>
+                <h3>Photography</h3>
+                <p>Portrait, fashion, editorial, and fine art photography. Natural light & studio.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-video"></i>
+                <h3>Video Editing</h3>
+                <p>Cinematic editing, color grading, motion graphics. DaVinci & Premiere Pro.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-pen-fancy"></i>
+                <h3>Graphic Design</h3>
+                <p>Brand identity, posters, album art, and social media visuals.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section id="about">
+    <div class="container">
+        <div class="section-header">
+            <h2>About</h2>
+            <p>Behind the lens & the screen</p>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>I'm Alex — a visual artist based between NYC and LA. With over 8 years of experience across photography, post-production, and design, I help brands and individuals tell their stories with intention and edge.</p>
+                <p>My work blends documentary honesty with cinematic polish. Whether it's a campaign, a music video, or a brand identity, I bring the same level of care and obsession to every frame and pixel.</p>
+                <p><strong>Clients include:</strong> Nike, Vogue, Adidas, and independent musicians worldwide.</p>
+            </div>
+            <div class="about-image">
+                <i class="fas fa-user-astronaut" style="font-size: 6rem; opacity: 0.3;"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact">
+    <div class="container">
+        <div class="section-header">
+            <h2>Let's Work Together</h2>
+            <p>Inquiries, commissions, or just to say hello</p>
+        </div>
+        <form class="contact-form" action="#" method="post">
+            <input type="text" placeholder="Your name" required>
+            <input type="email" placeholder="Email address" required>
+            <textarea rows="4" placeholder="Tell me about your project..."></textarea>
+            <button type="submit">Send Message →</button>
+        </form>
+    </div>
+</section>
+
+<footer>
+    <p>© 2025 Alex Morgan — Visual Artist. All work is original.</p>
+</footer>
+
+<script>
+    // ========== TYPED TEXT EFFECT ==========
+    const words = ["Photographer", "Video Editor", "Graphic Designer"];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typedElement = document.getElementById("typed-text");
+
+    function typeEffect() {
+        const currentWord = words[wordIndex];
+        
+        if (isDeleting) {
+            typedElement.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typedElement.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+        }
+        
+        if (!isDeleting && charIndex === currentWord.length) {
+            isDeleting = true;
+            setTimeout(typeEffect, 2000);
+            return;
+        }
+        
+        if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+        }
+        
+        const speed = isDeleting ? 60 : 120;
+        setTimeout(typeEffect, speed);
+    }
+
+    typeEffect();
+
+    // ========== GALLERY DATA ==========
+    const galleryItems = [
+        { type: 'photo', title: 'Urban Solitude', thumbnail: 'https://picsum.photos/id/104/600/450' },
+        { type: 'photo', title: 'Golden Hour Portrait', thumbnail: 'https://picsum.photos/id/30/600/450' },
+        { type: 'video', title: 'Cinematic Reel 2024', thumbnail: 'https://picsum.photos/id/96/600/450' },
+        { type: 'design', title: 'Album Art Series', thumbnail: 'https://picsum.photos/id/20/600/450' },
+        { type: 'photo', title: 'Fashion Editorial', thumbnail: 'https://picsum.photos/id/26/600/450' },
+        { type: 'design', title: 'Brand Identity Pack', thumbnail: 'https://picsum.photos/id/15/600/450' },
+        { type: 'video', title: 'Travel Documentary', thumbnail: 'https://picsum.photos/id/99/600/450' },
+        { type: 'photo', title: 'Studio Still Life', thumbnail: 'https://picsum.photos/id/127/600/450' }
+    ];
+
+    function renderGallery(filter = 'all') {
+        const gallery = document.getElementById('gallery');
+        const filtered = filter === 'all' ? galleryItems : galleryItems.filter(item => item.type === filter);
+        
+        gallery.innerHTML = filtered.map(item => `
+            <div class="gallery-item" data-type="${item.type}">
+                <img src="${item.thumbnail}" alt="${item.title}">
+                <div class="overlay">
+                    <span>${item.title}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.getAttribute('data-filter');
+            renderGallery(filter);
+        });
+    });
+
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu').addEventListener('click', () => {
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks.style.display === 'flex') {
+            navLinks.style.display = 'none';
+        } else {
+            navLinks.style.display = 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '70px';
+            navLinks.style.right = '5%';
+            navLinks.style.backgroundColor = '#0a0a0a';
+            navLinks.style.padding = '1rem';
+            navLinks.style.borderRadius = '16px';
+            navLinks.style.border = '1px solid #333';
+        }
+    });
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Initial gallery render
+    renderGallery('all');
+</script>
+
+</body>
+</html>
