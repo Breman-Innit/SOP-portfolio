@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Alex Morgan | Visual Artist — Photography, Video, Design</title>
+    <meta name="description" content="Portfolio of Alex Morgan — photographer, video editor, and graphic designer. Visual storytelling across all mediums.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #050505;
+            color: #e5e5e5;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* ========== CREATIVE PRELOADER ========== */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050505;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .preloader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-content {
+            text-align: center;
+            max-width: 400px;
+            padding: 2rem;
+        }
+
+        /* Aperture / Shutter animation */
+        .aperture {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .aperture-ring {
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            position: absolute;
+            animation: pulseRing 1.5s ease-out infinite;
+        }
+
+        .aperture-ring:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .aperture-ring:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+                border-color: rgba(255,255,255,0.6);
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+                border-color: rgba(255,255,255,0);
+            }
+        }
+
+        .shutter-blades {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+        }
+
+        .blade {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 35px solid rgba(255,255,255,0.9);
+            transform-origin: 50% 100%;
+            animation: rotateBlades 2s linear infinite;
+        }
+
+        .blade:nth-child(1) { transform: rotate(0deg) translateY(-5px); animation-delay: 0s; }
+        .blade:nth-child(2) { transform: rotate(45deg) translateY(-5px); animation-delay: 0.25s; }
+        .blade:nth-child(3) { transform: rotate(90deg) translateY(-5px); animation-delay: 0.5s; }
+        .blade:nth-child(4) { transform: rotate(135deg) translateY(-5px); animation-delay: 0.75s; }
+        .blade:nth-child(5) { transform: rotate(180deg) translateY(-5px); animation-delay: 1s; }
+        .blade:nth-child(6) { transform: rotate(225deg) translateY(-5px); animation-delay: 1.25s; }
+        .blade:nth-child(7) { transform: rotate(270deg) translateY(-5px); animation-delay: 1.5s; }
+        .blade:nth-child(8) { transform: rotate(315deg) translateY(-5px); animation-delay: 1.75s; }
+
+        @keyframes rotateBlades {
+            0% { opacity: 0.3; border-bottom-color: rgba(255,255,255,0.4); }
+            50% { opacity: 1; border-bottom-color: rgba(255,255,255,1); }
+            100% { opacity: 0.3; border-bottom-color: rgba(255,255,255,0.4); }
+        }
+
+        .preloader-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .preloader-tagline {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        /* Progress Bar Container */
+        .progress-container {
+            width: 100%;
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 0.8rem;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #fff, #888);
+            border-radius: 2px;
+            transition: width 0.1s linear;
+        }
+
+        .progress-text {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #888;
+            font-family: monospace;
+        }
+
+        .loading-status {
+            font-size: 0.65rem;
+            color: #555;
+            margin-top: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Film strip decoration */
+        .film-strip {
+            position: absolute;
+            bottom: 2rem;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            opacity: 0.3;
+        }
+
+        .film-strip span {
+            width: 4px;
+            height: 20px;
+            background: #fff;
+            border-radius: 2px;
+            animation: filmFlicker 1s ease-in-out infinite;
+        }
+
+        .film-strip span:nth-child(even) { animation-delay: 0.3s; height: 15px; }
+        .film-strip span:nth-child(3n) { animation-delay: 0.6s; height: 25px; }
+
+        @keyframes filmFlicker {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Main content - initially hidden */
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+        }
+
+        /* Rest of your styles */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            background: rgba(5, 5, 5, 0.6);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            color: #e5e5e5;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #fff; }
+        .mobile-menu { display: none; font-size: 1.5rem; cursor: pointer; }
+
+        section { padding: 6rem 5%; }
+        .container { max-width: 1600px; margin: 0 auto; }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        .hero-video-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1);
+            transition: transform 8s ease;
+        }
+        .hero:hover .hero-video { transform: scale(1.05); }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .hero-title-card {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .title-line {
+            width: 60px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.7);
+            margin: 0 auto;
+        }
+        .top-line { margin-bottom: 2rem; animation: expandWidth 0.8s ease-out 0.3s both; }
+        .bottom-line { margin-top: 1.5rem; animation: expandWidth 0.8s ease-out 1.8s both; }
+        @keyframes expandWidth {
+            from { width: 0; opacity: 0; }
+            to { width: 60px; opacity: 1; }
+        }
+        .hero-name-cinematic {
+            margin: 0;
+            font-size: clamp(2.5rem, 10vw, 6rem);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            line-height: 1.2;
+        }
+        .name-first, .name-last {
+            display: inline-block;
+            animation: fadeInLetter 0.6s ease-out both;
+        }
+        .name-first { animation-delay: 0.4s; }
+        .name-last { animation-delay: 0.6s; }
+        @keyframes fadeInLetter {
+            from { opacity: 0; transform: translateY(20px); filter: blur(8px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        .hero-typed-wrapper {
+            margin-top: 1rem;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            letter-spacing: 3px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        .typed-text { display: inline-block; min-width: 180px; }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 2.5rem;
+            padding: 0.8rem 2rem;
+            color: white;
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 40px;
+            background: transparent;
+            transition: all 0.4s ease;
+        }
+        .hero-cta:hover { background: white; color: black; border-color: white; gap: 1rem; }
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.6;
+            animation: fadeInScroll 1s ease-out 2s both;
+        }
+        @keyframes fadeInScroll {
+            from { opacity: 0; }
+            to { opacity: 0.6; }
+        }
+        .scroll-hint span { font-size: 0.7rem; letter-spacing: 2px; color: white; }
+        .scroll-mouse {
+            width: 26px;
+            height: 40px;
+            border: 1.5px solid white;
+            border-radius: 20px;
+            position: relative;
+        }
+        .scroll-mouse::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 8px;
+            background: white;
+            border-radius: 2px;
+            animation: scrollWheel 1.5s infinite;
+        }
+        @keyframes scrollWheel {
+            0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            80% { opacity: 0; transform: translateX(-50%) translateY(12px); }
+            100% { opacity: 0; }
+        }
+
+        /* Marquee Gallery */
+        .marquee-section { padding: 4rem 0 6rem 0; background: #050505; overflow: hidden; }
+        .section-label { text-align: center; margin-bottom: 3rem; }
+        .section-label h2 { font-size: 2rem; font-weight: 500; letter-spacing: -0.02em; }
+        .section-label p { color: #666; margin-top: 0.5rem; font-size: 0.9rem; }
+        .marquee { width: 100%; overflow: hidden; margin: 1rem 0; }
+        .marquee-track { display: flex; gap: 1.5rem; width: max-content; padding: 0 1rem; }
+        .marquee.left .marquee-track { animation: scrollLeft 45s linear infinite; }
+        .marquee.right .marquee-track { animation: scrollRight 50s linear infinite; }
+        .marquee:hover .marquee-track { animation-play-state: paused; }
+        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+        .marquee-item {
+            flex-shrink: 0;
+            background: #0a0a0a;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.92);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .marquee-item.revealed { opacity: 1; transform: scale(1); }
+        .marquee-item:hover { transform: scale(1.03) !important; filter: brightness(1.05); z-index: 10; }
+        .marquee-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .item-tall { width: 280px; height: 420px; }
+        .item-wide { width: 400px; height: 280px; }
+        .item-square { width: 320px; height: 320px; }
+        .item-portrait { width: 260px; height: 380px; }
+        .item-landscape { width: 380px; height: 260px; }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        .service-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .service-card.revealed { opacity: 1; transform: translateY(0); }
+        .service-card:hover { background: rgba(255,255,255,0.05); transform: translateY(-8px); }
+        .service-card i { font-size: 2.5rem; margin-bottom: 1rem; color: #ccc; }
+        .service-card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .service-card p { color: #888; font-size: 0.9rem; }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .about-text p { margin-bottom: 1rem; color: #bbb; }
+        .about-image {
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            border-radius: 24px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: #555;
+        }
+
+        .contact-form { max-width: 600px; margin: 0 auto; }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: white;
+            font-family: inherit;
+        }
+        .contact-form button {
+            width: 100%;
+            padding: 1rem;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .contact-form button:hover { opacity: 0.9; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu { display: block; }
+            .about-content { grid-template-columns: 1fr; }
+            .hero-overlay { background: rgba(0, 0, 0, 0.65); }
+            .item-tall, .item-wide, .item-square, .item-portrait, .item-landscape {
+                width: 220px;
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- CREATIVE PRELOADER -->
+<div class="preloader" id="preloader">
+    <div class="preloader-content">
+        <div class="aperture">
+            <div class="aperture-ring"></div>
+            <div class="aperture-ring"></div>
+            <div class="aperture-ring"></div>
+            <div class="shutter-blades">
+                <div class="blade"></div>
+                <div class="blade"></div>
+                <div class="blade"></div>
+                <div class="blade"></div>
+                <div class="blade"></div>
+                <div class="blade"></div>
+                <div class="blade"></div>
+                <div class="blade"></div>
+            </div>
+        </div>
+        <div class="preloader-name">ALEX MORGAN</div>
+        <div class="preloader-tagline">VISUAL ARTIST</div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">0%</div>
+        <div class="loading-status" id="loadingStatus">Loading creative assets...</div>
+        <div class="film-strip">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content" id="mainContent">
+    <nav>
+        <div class="logo">AM</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#gallery">Work</a>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="mobile-menu"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-video-wrapper">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-woods-1260-large.mp4" type="video/mp4">
+                <img src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Background">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-title-card">
+            <div class="title-line top-line"></div>
+            <h1 class="hero-name-cinematic">
+                <span class="name-first">ALEX</span>
+                <span class="name-last">MORGAN</span>
+            </h1>
+            <div class="hero-typed-wrapper">
+                <span class="typed-prefix">—</span>
+                <span id="typed-text" class="typed-text"></span>
+            </div>
+            <div class="title-line bottom-line"></div>
+            <a href="#gallery" class="hero-cta">
+                <span>ENTER PORTFOLIO</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+        <div class="scroll-hint">
+            <div class="scroll-mouse"></div>
+            <span>SCROLL</span>
+        </div>
+    </section>
+
+    <section id="gallery" class="marquee-section">
+        <div class="section-label">
+            <h2>Selected Work</h2>
+            <p>Photography · Video Editing · Graphic Design</p>
+        </div>
+        <div class="marquee left">
+            <div class="marquee-track" id="marqueeTrack1"></div>
+        </div>
+        <div class="marquee right">
+            <div class="marquee-track" id="marqueeTrack2"></div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="section-label">
+                <h2>What I Do</h2>
+                <p>Creative services across all visual mediums</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-camera"></i>
+                    <h3>Photography</h3>
+                    <p>Portrait, fashion, editorial, and fine art photography. Natural light & studio.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Video Editing</h3>
+                    <p>Cinematic editing, color grading, motion graphics. DaVinci & Premiere Pro.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-pen-fancy"></i>
+                    <h3>Graphic Design</h3>
+                    <p>Brand identity, posters, album art, and social media visuals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="section-label">
+                <h2>About</h2>
+                <p>Behind the lens & the screen</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm Alex — a visual artist based between NYC and LA. With over 8 years of experience across photography, post-production, and design, I help brands and individuals tell their stories with intention and edge.</p>
+                    <p>My work blends documentary honesty with cinematic polish. Whether it's a campaign, a music video, or a brand identity, I bring the same level of care and obsession to every frame and pixel.</p>
+                    <p><strong>Clients include:</strong> Nike, Vogue, Adidas, and independent musicians worldwide.</p>
+                </div>
+                <div class="about-image">
+                    <i class="fas fa-user-astronaut" style="font-size: 6rem; opacity: 0.3;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="section-label">
+                <h2>Let's Work Together</h2>
+                <p>Inquiries, commissions, or just to say hello</p>
+            </div>
+            <form class="contact-form" action="#" method="post">
+                <input type="text" placeholder="Your name" required>
+                <input type="email" placeholder="Email address" required>
+                <textarea rows="4" placeholder="Tell me about your project..."></textarea>
+                <button type="submit">Send Message →</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Alex Morgan — Visual Artist. All work is original.</p>
+    </footer>
+</div>
+
+<script>
+    // ========== PRELOADER WITH PROGRESS TRACKING ==========
+    const preloader = document.getElementById('preloader');
+    const mainContent = document.getElementById('mainContent');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const loadingStatus = document.getElementById('loadingStatus');
+
+    // List of all images to preload (all gallery images + background)
+    const imageUrls = [
+        // Gallery images
+        "https://images.pexels.com/photos/2253879/pexels-photo-2253879.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+        "https://images.pexels.com/photos/3785706/pexels-photo-3785706.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+        "https://images.pexels.com/photos/2853629/pexels-photo-2853629.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+        "https://images.pexels.com/photos/3611546/pexels-photo-3611546.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+        "https://images.pexels.com/photos/3205494/pexels-photo-3205494.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+        "https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+        "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+        "https://images.pexels.com/photos/2082947/pexels-photo-2082947.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+        "https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/1590549/pexels-photo-1590549.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop",
+        "https://images.pexels.com/photos/2897897/pexels-photo-2897897.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop",
+        "https://images.pexels.com/photos/3823086/pexels-photo-3823086.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop",
+        "https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop",
+        "https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop",
+        "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop",
+        // Video poster / background
+        "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    ];
+
+    let loadedCount = 0;
+    const totalImages = imageUrls.length;
+    let progress = 0;
+
+    function updateProgress() {
+        progress = (loadedCount / totalImages) * 100;
+        progressBar.style.width = progress + '%';
+        progressText.textContent = Math.floor(progress) + '%';
+        
+        // Update status message based on progress
+        if (progress < 30) {
+            loadingStatus.textContent = 'Loading creative assets... 📷';
+        } else if (progress < 60) {
+            loadingStatus.textContent = 'Processing visual stories... 🎬';
+        } else if (progress < 90) {
+            loadingStatus.textContent = 'Almost ready... 🎨';
+        } else {
+            loadingStatus.textContent = 'Ready to inspire! ✨';
+        }
+    }
+
+    function preloadImages() {
+        imageUrls.forEach((url, index) => {
+            const img = new Image();
+            img.onload = () => {
+                loadedCount++;
+                updateProgress();
+                if (loadedCount === totalImages) {
+                    finishLoading();
+                }
+            };
+            img.onerror = () => {
+                // Still count errors as "loaded" to prevent hanging
+                loadedCount++;
+                updateProgress();
+                if (loadedCount === totalImages) {
+                    finishLoading();
+                }
+            };
+            img.src = url;
+        });
+    }
+
+    function finishLoading() {
+        // Small delay for smooth transition
+        setTimeout(() => {
+            preloader.classList.add('hide');
+            mainContent.classList.add('visible');
+            
+            // Remove preloader from DOM after transition
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 800);
+        }, 500);
+    }
+
+    // Start preloading
+    preloadImages();
+
+    // ========== TYPED TEXT EFFECT ==========
+    const words = ["Photographer", "Video Editor", "Graphic Designer"];
+    let wordIndex = 0, charIndex = 0, isDeleting = false;
+    const typedElement = document.getElementById("typed-text");
+
+    function typeEffect() {
+        if (!typedElement) return;
+        const currentWord = words[wordIndex];
+        if (isDeleting) {
+            typedElement.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typedElement.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+        }
+        if (!isDeleting && charIndex === currentWord.length) {
+            isDeleting = true;
+            setTimeout(typeEffect, 2000);
+            return;
+        }
+        if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+        }
+        setTimeout(typeEffect, isDeleting ? 60 : 120);
+    }
+    typeEffect();
+
+    // ========== GALLERY DATA ==========
+    const imageSet = [
+        { url: "https://images.pexels.com/photos/2253879/pexels-photo-2253879.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop", size: "tall", alt: "Portrait study" },
+        { url: "https://images.pexels.com/photos/3785706/pexels-photo-3785706.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop", size: "tall", alt: "Urban fashion" },
+        { url: "https://images.pexels.com/photos/2853629/pexels-photo-2853629.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop", size: "tall", alt: "Editorial portrait" },
+        { url: "https://images.pexels.com/photos/3611546/pexels-photo-3611546.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop", size: "tall", alt: "Artistic portrait" },
+        { url: "https://images.pexels.com/photos/3205494/pexels-photo-3205494.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop", size: "tall", alt: "Editorial fashion" },
+        { url: "https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop", size: "wide", alt: "Landscape view" },
+        { url: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop", size: "wide", alt: "Mountain range" },
+        { url: "https://images.pexels.com/photos/2082947/pexels-photo-2082947.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop", size: "wide", alt: "Cinematic wide shot" },
+        { url: "https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop", size: "square", alt: "Creative composition" },
+        { url: "https://images.pexels.com/photos/1590549/pexels-photo-1590549.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop", size: "square", alt: "Art direction" },
+        { url: "https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop", size: "square", alt: "Design composition" },
+        { url: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop", size: "portrait", alt: "Portrait photography" },
+        { url: "https://images.pexels.com/photos/2897897/pexels-photo-2897897.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop", size: "portrait", alt: "Fashion portrait" },
+        { url: "https://images.pexels.com/photos/3823086/pexels-photo-3823086.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop", size: "portrait", alt: "Studio portrait" },
+        { url: "https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop", size: "landscape", alt: "Cityscape" },
+        { url: "https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop", size: "landscape", alt: "Architecture" },
+        { url: "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop", size: "landscape", alt: "Street photography" }
+    ];
+
+    function buildMarqueeItems(images) {
+        let items = '';
+        for (let i = 0; i < 3; i++) {
+            images.forEach(img => {
+                items += `
+                    <div class="marquee-item item-${img.size}">
+                        <img src="${img.url}" alt="${img.alt}" loading="lazy">
+                    </div>
+                `;
+            });
+        }
+        return items;
+    }
+
+    const half = Math.ceil(imageSet.length / 2);
+    const row1Images = imageSet.slice(0, half);
+    const row2Images = imageSet.slice(half);
+
+    const track1 = document.getElementById('marqueeTrack1');
+    const track2 = document.getElementById('marqueeTrack2');
+    
+    if (track1) track1.innerHTML = buildMarqueeItems(row1Images);
+    if (track2) track2.innerHTML = buildMarqueeItems(row2Images);
+
+    // Scroll reveal
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        return rect.top <= windowHeight - 80 && rect.bottom >= 80;
+    }
+
+    function revealOnScroll() {
+        const marqueeItems = document.querySelectorAll('.marquee-item');
+        marqueeItems.forEach((item, idx) => {
+            if (!item.classList.contains('revealed') && isElementInViewport(item)) {
+                item.classList.add('revealed');
+                item.style.transitionDelay = `${Math.min(idx * 0.02, 0.3)}s`;
+            }
+        });
+
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach((card, idx) => {
+            if (!card.classList.contains('revealed') && isElementInViewport(card)) {
+                card.classList.add('revealed');
+                card.style.transitionDelay = `${idx * 0.1}s`;
+            }
+        });
+    }
+
+    document.querySelectorAll('.marquee-item').forEach(el => {
+        el.style.transition = 'opacity 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+    });
+
+    document.querySelectorAll('.service-card').forEach(el => {
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    });
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', () => {
+        setTimeout(revealOnScroll, 200);
+        setTimeout(revealOnScroll, 1000);
+    });
+
+    // Mobile menu
+    document.querySelector('.mobile-menu')?.addEventListener('click', () => {
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks.style.display === 'flex') {
+            navLinks.style.display = 'none';
+        } else {
+            navLinks.style.display = 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '70px';
+            navLinks.style.right = '5%';
+            navLinks.style.backgroundColor = '#0a0a0a';
+            navLinks.style.padding = '1rem';
+            navLinks.style.borderRadius = '16px';
+            navLinks.style.border = '1px solid #333';
+        }
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
