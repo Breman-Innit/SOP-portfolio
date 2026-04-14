@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>What I Do + Tech Stack — Modern Portfolio Sections</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #050505;
+            color: #e5e5e5;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* ========== SECTION HEADER ========== */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff, #a0a0a0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* ========== WHAT I DO SECTION ========== */
+        .what-i-do {
+            padding: 6rem 0;
+            background: #050505;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 28px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: left 0.6s ease;
+            pointer-events: none;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+        }
+
+        .service-icon i {
+            font-size: 2.2rem;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .service-icon i {
+            transform: scale(1.1);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-card p {
+            color: #888;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ========== TECH STACK SECTION WITH ACTUAL IMAGES ========== */
+        .tech-stack {
+            padding: 6rem 0;
+            background: linear-gradient(180deg, #050505 0%, #0a0a0a 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* App-style icon image wrapper */
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .tool-card:hover .tool-icon {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-icon img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover .tool-icon img {
+            transform: scale(1.08);
+        }
+
+        .tool-card h4 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #ccc;
+            margin-top: 0.5rem;
+            letter-spacing: 0.3px;
+        }
+
+        /* Fallback for missing images - show colored dot */
+        .tool-icon .fallback {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+        }
+
+        /* Scroll animation */
+        .service-card, .tool-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .service-card.revealed, .tool-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            .services-grid {
+                gap: 1.5rem;
+            }
+            .tools-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 1rem;
+            }
+            .tool-icon {
+                width: 55px;
+                height: 55px;
+            }
+            .tool-icon img {
+                width: 32px;
+                height: 32px;
+            }
+            .tool-card h4 {
+                font-size: 0.7rem;
+            }
+        }
+
+        .separator {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #fff, transparent);
+            margin: 2rem auto 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- WHAT I DO SECTION -->
+    <section class="what-i-do">
+        <div class="container">
+            <div class="section-header">
+                <h2>What I Do</h2>
+                <p>Creative services crafted with precision and passion</p>
+            </div>
+            <div class="services-grid">
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Photography</h3>
+                    <p>Capturing authentic moments with a cinematic eye — portrait, fashion, editorial, and fine art photography.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <h3>Graphic Design</h3>
+                    <p>Visual identities, branding, posters, and digital assets that tell compelling stories.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Branding</h3>
+                    <p>Complete brand strategy — from logo design to visual identity systems that resonate.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hashtag"></i>
+                    </div>
+                    <h3>Social Media Design</h3>
+                    <p>Scroll-stopping visuals, templates, and content systems for consistent brand presence.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <h3>Photo Editing</h3>
+                    <p>Professional retouching, color grading, and image manipulation with pixel-perfect precision.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chalkboard-user"></i>
+                    </div>
+                    <h3>Creative Direction</h3>
+                    <p>Leading visual projects from concept to completion — art direction, mood boards, and creative strategy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH STACK / TOOLS SECTION WITH ACTUAL IMAGES -->
+    <section class="tech-stack">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tools I Use</h2>
+                <p>Industry-standard software for professional creative work</p>
+            </div>
+            <div class="tools-grid">
+                
+                <!-- Adobe Photoshop -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <img src="https://images.unsplash.com/photo-1740174459699-487aec1f7bc5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGhvdG9zaG9wJTIwbG9nb3xlbnwwfHwwfHx8MA%3D%3D" alt="Photoshop">
+                    </div>
+                    <h4>Photoshop</h4>
+                </div>
+
+                <!-- Adobe Illustrator -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Illustrator">
+                    </div>
+                    <h4>Illustrator</h4>
+                </div>
+
+                <!-- Adobe Lightroom (using custom CDN) -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/732/732222.png" alt="Lightroom">
+                    </div>
+                    <h4>Lightroom</h4>
+                </div>
+
+                <!-- Premiere Pro -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-plain.svg" alt="Premiere Pro">
+                    </div>
+                    <h4>Premiere Pro</h4>
+                </div>
+
+                <!-- Figma -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma">
+                    </div>
+                    <h4>Figma</h4>
+                </div>
+
+                <!-- Canva -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968709.png" alt="Canva">
+                    </div>
+                    <h4>Canva</h4>
+                </div>
+
+                <!-- DaVinci Resolve -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/davinci_resolve_logo_icon_168707.png" alt="DaVinci Resolve">
+                    </div>
+                    <h4>DaVinci Resolve</h4>
+                </div>
+
+                <!-- After Effects -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-plain.svg" alt="After Effects">
+                    </div>
+                    <h4>After Effects</h4>
+                </div>
+
+                <!-- Capture One -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <img src="https://cdn.icon-icons.com/icons2/2107/PNG/512/capture_one_icon_130654.png" alt="Capture One">
+                    </div>
+                    <h4>Capture One</h4>
+                </div>
+
+                <!-- InDesign -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/indesign/indesign-plain.svg" alt="InDesign">
+                    </div>
+                    <h4>InDesign</h4>
+                </div>
+            </div>
+            <div class="separator"></div>
+        </div>
+    </section>
+
+    <script>
+        // ========== SCROLL REVEAL ANIMATION ==========
+        function isElementInViewport(el, offset = 100) {
+            const rect = el.getBoundingClientRect();
+            const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+            return rect.top <= windowHeight - offset && rect.bottom >= offset;
+        }
+
+        function revealOnScroll() {
+            document.querySelectorAll('.service-card').forEach((card, idx) => {
+                if (!card.classList.contains('revealed') && isElementInViewport(card)) {
+                    card.classList.add('revealed');
+                    card.style.transitionDelay = `${idx * 0.05}s`;
+                }
+            });
+
+            document.querySelectorAll('.tool-card').forEach((card, idx) => {
+                if (!card.classList.contains('revealed') && isElementInViewport(card)) {
+                    card.classList.add('revealed');
+                    card.style.transitionDelay = `${idx * 0.03}s`;
+                }
+            });
+        }
+
+        document.querySelectorAll('.service-card, .tool-card').forEach(el => {
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease, all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+        });
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', () => {
+            setTimeout(revealOnScroll, 200);
+            setTimeout(revealOnScroll, 500);
+        });
+    </script>
+
+</body>
+</html>

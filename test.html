@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Navbar Test — Cool Animated Navigation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #050505;
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+
+        /* Scrollable content to test scroll effects */
+        .test-content {
+            min-height: 200vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .test-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #888);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .test-content p {
+            color: #888;
+            max-width: 500px;
+            margin-top: 2rem;
+            line-height: 1.6;
+        }
+
+        .spacer {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .section-marker {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        /* ========== COOL NAVBAR STYLES ========== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            background: rgba(5, 5, 5, 0.5);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.8rem 5%;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Animated Logo */
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff, #aaa, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .logo:hover {
+            background-position: 100% 0;
+            transform: scale(1.05);
+            letter-spacing: 0;
+        }
+
+        /* Logo dot accent */
+        .logo::after {
+            content: '.';
+            color: white;
+            font-size: 2rem;
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        /* Nav Links Container */
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            position: relative;
+        }
+
+        /* Individual Nav Items */
+        .nav-links a {
+            color: #e5e5e5;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        /* Hover Effect - Glow and Scale */
+        .nav-links a:hover {
+            color: white;
+            transform: translateY(-2px);
+            text-shadow: 0 0 8px rgba(255,255,255,0.5);
+        }
+
+        /* Animated Underline that grows from center */
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, white, transparent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        /* Active link indicator */
+        .nav-links a.active {
+            color: white;
+        }
+
+        .nav-links a.active::before {
+            width: 80%;
+            background: white;
+        }
+
+        /* Mobile menu button */
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: rgba(255,255,255,0.05);
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.05);
+        }
+
+        /* Desktop nav links */
+        @media (min-width: 769px) {
+            .nav-links {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                right: 5%;
+                background: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(20px);
+                padding: 1.5rem;
+                border-radius: 20px;
+                flex-direction: column;
+                gap: 1rem;
+                min-width: 180px;
+                border: 1px solid rgba(255,255,255,0.1);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            }
+            
+            .nav-links a {
+                padding: 0.5rem 0;
+                text-align: center;
+            }
+            
+            .mobile-menu {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- COOL NAVBAR -->
+<nav>
+    <div class="logo">AM</div>
+    <div class="nav-links">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <div class="mobile-menu"><i class="fas fa-bars"></i></div>
+</nav>
+
+<!-- TEST CONTENT TO SCROLL -->
+<div class="test-content">
+    <section id="home" class="spacer">
+        <div class="section-marker">🏠</div>
+        <h1>Home Section</h1>
+        <p>Scroll down to see the navbar change — it becomes more solid and the blur deepens</p>
+    </section>
+    
+    <section id="work" class="spacer">
+        <div class="section-marker">📷</div>
+        <h1>Work Section</h1>
+        <p>Notice the active link highlight changes as you scroll</p>
+    </section>
+    
+    <section id="services" class="spacer">
+        <div class="section-marker">🎨</div>
+        <h1>Services Section</h1>
+        <p>Hover over nav links — they glow, lift, and show an animated underline</p>
+    </section>
+    
+    <section id="about" class="spacer">
+        <div class="section-marker">👤</div>
+        <h1>About Section</h1>
+        <p>The logo has a shimmering gradient and a dot that appears on hover</p>
+    </section>
+    
+    <section id="contact" class="spacer">
+        <div class="section-marker">✉️</div>
+        <h1>Contact Section</h1>
+        <p>Resize your browser to see the mobile menu (below 768px)</p>
+    </section>
+</div>
+
+<script>
+    // ========== NAVBAR SCROLL EFFECTS ==========
+    const navbar = document.querySelector('nav');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Change navbar style on scroll
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+        
+        // Highlight active section in navbar
+        let current = '';
+        const sections = document.querySelectorAll('section');
+        const scrollPosition = window.scrollY + 100;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href').substring(1);
+            if (href === current) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // ========== MOBILE MENU TOGGLE ==========
+    const mobileMenuBtn = document.querySelector('.mobile-menu');
+    const navLinksContainer = document.querySelector('.nav-links');
+
+    mobileMenuBtn?.addEventListener('click', () => {
+        if (navLinksContainer.style.display === 'flex') {
+            navLinksContainer.style.display = 'none';
+        } else {
+            navLinksContainer.style.display = 'flex';
+        }
+    });
+
+    // Close mobile menu when a link is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                navLinksContainer.style.display = 'none';
+            }
+        });
+    });
+
+    // ========== SMOOTH SCROLL ==========
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Trigger active highlight on load
+    setTimeout(() => {
+        window.dispatchEvent(new Event('scroll'));
+    }, 100);
+</script>
+
+</body>
+</html>

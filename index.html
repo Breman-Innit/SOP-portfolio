@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Alex Morgan | Visual Artist — Photography, Video, Design</title>
-    <meta name="description" content="Portfolio of Alex Morgan — photographer, video editor, and graphic designer. Visual storytelling across all mediums.">
+    <title>BrightFocus Media | Visual Artist — Photography, Video, Design</title>
+    <meta name="description" content="Portfolio of BrightFocus Media — photographer, video editor, and graphic designer. Visual storytelling across all mediums.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -157,15 +157,9 @@
         }
 
         @keyframes gentleZoom {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.08);
-            }
-            100% {
-                transform: scale(1);
-            }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
         }
 
         .hero-overlay {
@@ -303,7 +297,12 @@
 
         /* Marquee Gallery */
         .marquee-section { padding: 4rem 0 6rem 0; background: #050505; overflow: hidden; }
-        .section-label { text-align: center; margin-bottom: 3rem; }
+        .section-label { 
+            text-align: center; 
+            margin-bottom: 3rem; 
+            opacity: 1;
+            transform: translateY(0);
+        }
         .section-label h2 { font-size: 2rem; font-weight: 500; letter-spacing: -0.02em; }
         .section-label p { color: #666; margin-top: 0.5rem; font-size: 0.9rem; }
         .marquee { width: 100%; overflow: hidden; margin: 1rem 0; }
@@ -332,35 +331,187 @@
         .item-portrait { width: 260px; height: 380px; }
         .item-landscape { width: 380px; height: 260px; }
 
+        /* ========== STYLISH 3D HOVER EFFECTS FOR SERVICE CARDS ========== */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin-top: 4rem;
+            margin-top: 2rem;
         }
+        
         .service-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
             border-radius: 24px;
-            padding: 2rem;
-            text-align: center;
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+            cursor: pointer;
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.6s ease, transform 0.6s ease;
+            perspective: 1000px;
         }
-        .service-card.revealed { opacity: 1; transform: translateY(0); }
-        .service-card:hover { background: rgba(255,255,255,0.05); transform: translateY(-8px); }
-        .service-card i { font-size: 2.5rem; margin-bottom: 1rem; color: #ccc; }
-        .service-card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
-        .service-card p { color: #888; font-size: 0.9rem; }
+        
+        .service-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 3D Tilt Effect Container */
+        .service-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transform-style: preserve-3d;
+        }
+        
+        .service-card:hover .service-inner {
+            transform: rotateX(5deg) rotateY(5deg) translateY(-8px);
+        }
+        
+        .service-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        
+        .service-card:hover .service-image {
+            transform: scale(1.12);
+        }
+        
+        /* Glow effect on hover */
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 24px;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        
+        /* Animated overlay that slides up from bottom */
+        .service-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 40%, transparent 100%);
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            z-index: 3;
+        }
+        
+        .service-card:hover .service-overlay {
+            transform: translateY(0);
+        }
+        
+        /* Icon that slides and rotates */
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            transform: translateY(30px) scale(0.8);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) 0.05s, opacity 0.4s ease 0.05s;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        
+        /* Title with underline animation */
+        .service-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) 0.1s, opacity 0.4s ease 0.1s;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .service-card:hover .service-title {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .service-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #fff, #aaa);
+            transition: width 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) 0.2s;
+        }
+        
+        .service-card:hover .service-title::after {
+            width: 100%;
+        }
+        
+        /* Standout description text */
+        .service-standout {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #ddd;
+            margin-top: 0.5rem;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) 0.15s, opacity 0.4s ease 0.15s;
+        }
+        
+        .service-card:hover .service-standout {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Highlight text (what makes them stand out) */
+        .service-highlight {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            margin-top: 0.8rem;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1) 0.2s, opacity 0.4s ease 0.2s;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .service-card:hover .service-highlight {
+            transform: translateY(0);
+            opacity: 1;
+        }
 
+        /* About Section */
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             align-items: center;
         }
-        .about-text p { margin-bottom: 1rem; color: #bbb; }
+        .about-text p { margin-bottom: 1rem; color: #bbb; line-height: 1.6; }
         .about-image {
             background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
             border-radius: 24px;
@@ -372,6 +523,7 @@
             color: #555;
         }
 
+        /* Contact Form */
         .contact-form { max-width: 600px; margin: 0 auto; }
         .contact-form input, .contact-form textarea {
             width: 100%;
@@ -382,6 +534,11 @@
             border-radius: 12px;
             color: white;
             font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: #fff;
         }
         .contact-form button {
             width: 100%;
@@ -392,9 +549,12 @@
             border-radius: 40px;
             font-weight: 700;
             cursor: pointer;
-            transition: opacity 0.3s;
+            transition: all 0.3s ease;
         }
-        .contact-form button:hover { opacity: 0.9; }
+        .contact-form button:hover { 
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
 
         footer {
             text-align: center;
@@ -413,6 +573,12 @@
                 width: 220px;
                 height: 280px;
             }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .service-title {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
@@ -430,7 +596,7 @@
                 <div class="blade"></div><div class="blade"></div><div class="blade"></div><div class="blade"></div>
             </div>
         </div>
-        <div class="preloader-name">ALEX MORGAN</div>
+        <div class="preloader-name">BrightFocus Media</div>
         <div class="preloader-tagline">VISUAL ARTIST</div>
         <div class="progress-container">
             <div class="progress-bar" id="progressBar"></div>
@@ -458,18 +624,17 @@
         <div class="mobile-menu"><i class="fas fa-bars"></i></div>
     </nav>
 
-    <!-- HERO SECTION WITH GENTLE ZOOM ANIMATION -->
+    <!-- HERO SECTION -->
     <section id="home" class="hero">
         <div class="hero-image-wrapper">
-            <!-- REPLACE THIS URL WITH YOUR IMAGE LINK -->
-            <img class="hero-image" src="https://images.pexels.com/photos/12901409/pexels-photo-12901409.jpeg" alt="Photographer with camera" loading="eager">
+            <img class="hero-image" src="https://images.pexels.com/photos/6941204/pexels-photo-6941204.jpeg" alt="Photographer with camera" loading="eager">
             <div class="hero-overlay"></div>
         </div>
         <div class="hero-title-card">
             <div class="title-line top-line"></div>
             <h1 class="hero-name-cinematic">
-                <span class="name-first">ALEX</span>
-                <span class="name-last">MORGAN</span>
+                <span class="name-first">BrightFocus</span>
+                <span class="name-last">Media</span>
             </h1>
             <div class="hero-typed-wrapper">
                 <span class="typed-prefix">—</span>
@@ -489,6 +654,7 @@
         </div>
     </section>
 
+    <!-- SELECTED WORK SECTION (Marquee Gallery) -->
     <section id="gallery" class="marquee-section">
         <div class="section-label">
             <h2>Selected Work</h2>
@@ -502,32 +668,7 @@
         </div>
     </section>
 
-    <section id="services">
-        <div class="container">
-            <div class="section-label">
-                <h2>What I Do</h2>
-                <p>Creative services across all visual mediums</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-camera"></i>
-                    <h3>Photography</h3>
-                    <p>Portrait, fashion, editorial, and fine art photography. Natural light & studio.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-video"></i>
-                    <h3>Video Editing</h3>
-                    <p>Cinematic editing, color grading, motion graphics. DaVinci & Premiere Pro.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-pen-fancy"></i>
-                    <h3>Graphic Design</h3>
-                    <p>Brand identity, posters, album art, and social media visuals.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- ABOUT SECTION -->
     <section id="about">
         <div class="container">
             <div class="section-label">
@@ -536,7 +677,7 @@
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p>I'm Alex — a visual artist based between NYC and LA. With over 8 years of experience across photography, post-production, and design, I help brands and individuals tell their stories with intention and edge.</p>
+                    <p>I'm Bright — a visual artist based between NYC and LA. With over 8 years of experience across photography, post-production, and design, I help brands and individuals tell their stories with intention and edge.</p>
                     <p>My work blends documentary honesty with cinematic polish. Whether it's a campaign, a music video, or a brand identity, I bring the same level of care and obsession to every frame and pixel.</p>
                     <p><strong>Clients include:</strong> Nike, Vogue, Adidas, and independent musicians worldwide.</p>
                 </div>
@@ -547,6 +688,57 @@
         </div>
     </section>
 
+    <!-- WHAT I DO SECTION (IMAGE-BASED WITH STYLISH HOVER) -->
+    <section id="services">
+        <div class="container">
+            <div class="section-label">
+                <h2>What I Do</h2>
+                <p>Creative services across all visual mediums</p>
+            </div>
+            <div class="services-grid">
+                <!-- Photography Card -->
+                <div class="service-card">
+                    <div class="service-inner">
+                        <img class="service-image" src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop" alt="Photography">
+                        <div class="service-overlay">
+                            <div class="service-icon"><i class="fas fa-camera"></i></div>
+                            <div class="service-title">Photography</div>
+                            <div class="service-standout">I don't just take pictures — I capture emotions. My approach blends documentary honesty with fine art composition, creating images that feel both raw and timeless.</div>
+                            <div class="service-highlight">✨ Natural light mastery + authentic storytelling</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Editing Card -->
+                <div class="service-card">
+                    <div class="service-inner">
+                        <img class="service-image" src="https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop" alt="Video Editing">
+                        <div class="service-overlay">
+                            <div class="service-icon"><i class="fas fa-video"></i></div>
+                            <div class="service-title">Video Editing</div>
+                            <div class="service-standout">Every frame tells a story. I bring footage to life with cinematic pacing, precise color grading, and sound design that hits the soul — not just the ears.</div>
+                            <div class="service-highlight">🎬 Narrative-driven editing + cinematic color grading</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphic Design Card -->
+                <div class="service-card">
+                    <div class="service-inner">
+                        <img class="service-image" src="https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop" alt="Graphic Design">
+                        <div class="service-overlay">
+                            <div class="service-icon"><i class="fas fa-pen-fancy"></i></div>
+                            <div class="service-title">Graphic Design</div>
+                            <div class="service-standout">Brands aren't just logos — they're feelings. I create visual identities that resonate, from typography to color psychology, making sure your message is unforgettable.</div>
+                            <div class="service-highlight">🎨 Strategic branding + emotionally-driven design</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
     <section id="contact">
         <div class="container">
             <div class="section-label">
@@ -563,12 +755,12 @@
     </section>
 
     <footer>
-        <p>© 2025 Alex Morgan — Visual Artist. All work is original.</p>
+        <p>© 2025 BrightFocus Media — Visual Artist. All work is original.</p>
     </footer>
 </div>
 
 <script>
-    // ========== PRELOADER WITH PROGRESS TRACKING ==========
+    // ========== PRELOADER ==========
     const preloader = document.getElementById('preloader');
     const mainContent = document.getElementById('mainContent');
     const progressBar = document.getElementById('progressBar');
@@ -593,7 +785,7 @@
         "https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop",
         "https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop",
         "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop",
-        "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&fit=crop"
+        "https://images.pexels.com/photos/12901409/pexels-photo-12901409.jpeg"
     ];
 
     let loadedCount = 0;
@@ -659,13 +851,13 @@
 
     // ========== GALLERY DATA ==========
     const imageSet = [
-        { url: "https://images.pexels.com/photos/2253879/pexels-photo-2253879.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop", size: "tall", alt: "Portrait study" },
-        { url: "https://images.pexels.com/photos/3785706/pexels-photo-3785706.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop", size: "tall", alt: "Urban fashion" },
-        { url: "https://images.pexels.com/photos/2853629/pexels-photo-2853629.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop", size: "tall", alt: "Editorial portrait" },
-        { url: "https://images.pexels.com/photos/3611546/pexels-photo-3611546.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop", size: "tall", alt: "Artistic portrait" },
-        { url: "https://images.pexels.com/photos/3205494/pexels-photo-3205494.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop", size: "tall", alt: "Editorial fashion" },
-        { url: "https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop", size: "wide", alt: "Landscape view" },
-        { url: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop", size: "wide", alt: "Mountain range" },
+        { url: "images/pic1.jpg", size: "tall", alt: "Portrait study" },
+        { url: "images/pic2.jpg", size: "tall", alt: "Urban fashion" },
+        { url: "images/pic3.jpg", size: "tall", alt: "Editorial portrait" },
+        { url: "images/pic4.jpg", size: "tall", alt: "Artistic portrait" },
+        { url: "images/flyer1.jpg", size: "tall", alt: "Editorial fashion" },
+        { url: "images/flyer2.jpg", size: "wide", alt: "Landscape view" },
+        { url: "images/flyer3.jpg", size: "wide", alt: "Mountain range" },
         { url: "https://images.pexels.com/photos/2082947/pexels-photo-2082947.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop", size: "wide", alt: "Cinematic wide shot" },
         { url: "https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop", size: "square", alt: "Creative composition" },
         { url: "https://images.pexels.com/photos/1590549/pexels-photo-1590549.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop", size: "square", alt: "Art direction" },
@@ -695,15 +887,15 @@
     if (track2) track2.innerHTML = buildMarqueeItems(imageSet.slice(half));
 
     // Scroll reveal
-    function isElementInViewport(el) {
+    function isElementInViewport(el, offset = 100) {
         const rect = el.getBoundingClientRect();
         const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-        return rect.top <= windowHeight - 80 && rect.bottom >= 80;
+        return rect.top <= windowHeight - offset && rect.bottom >= offset;
     }
 
     function revealOnScroll() {
         document.querySelectorAll('.marquee-item').forEach((item, idx) => {
-            if (!item.classList.contains('revealed') && isElementInViewport(item)) {
+            if (!item.classList.contains('revealed') && isElementInViewport(item, 150)) {
                 item.classList.add('revealed');
                 item.style.transitionDelay = `${Math.min(idx * 0.02, 0.3)}s`;
             }
@@ -711,16 +903,13 @@
         document.querySelectorAll('.service-card').forEach((card, idx) => {
             if (!card.classList.contains('revealed') && isElementInViewport(card)) {
                 card.classList.add('revealed');
-                card.style.transitionDelay = `${idx * 0.1}s`;
+                card.style.transitionDelay = `${idx * 0.15}s`;
             }
         });
     }
 
     document.querySelectorAll('.marquee-item').forEach(el => {
         el.style.transition = 'opacity 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
-    });
-    document.querySelectorAll('.service-card').forEach(el => {
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     });
 
     window.addEventListener('scroll', revealOnScroll);

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Exploding Gallery — Images Spread to All Corners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #050505;
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+
+        /* Spacer sections */
+        .spacer {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spacer h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .spacer p {
+            color: #444;
+            margin-top: 1rem;
+        }
+
+        /* ========== GALLERY SECTION ========== */
+        .gallery-section {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #050505;
+        }
+
+        /* Master image */
+        .master-image {
+            width: 280px;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            position: relative;
+            z-index: 20;
+            transition: all 0.5s ease;
+        }
+
+        /* Container for floating images */
+        .floating-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Each floating image - starts at center, hidden */
+        .float-img {
+            position: fixed;
+            width: 180px;
+            height: 240px;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            pointer-events: auto;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            /* Start centered */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .float-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .float-img:hover {
+            transform: scale(1.05) !important;
+            z-index: 100;
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .float-img:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Different sizes */
+        .float-img.large { width: 220px; height: 300px; }
+        .float-img.small { width: 140px; height: 180px; }
+        .float-img.wide { width: 260px; height: 180px; }
+        .float-img.tall { width: 160px; height: 260px; }
+        .float-img.extra-large { width: 250px; height: 200px; }
+
+        /* EXPANDED STATE - images become visible and move to positions */
+        body.expanded .float-img {
+            opacity: 1;
+        }
+
+        /* Individual final positions */
+        body.expanded .float-img.pos-1 { top: 5%; left: 5%; transform: translate(0, 0); }
+        body.expanded .float-img.pos-2 { top: 5%; right: 5%; left: auto; transform: translate(0, 0); }
+        body.expanded .float-img.pos-3 { top: 25%; left: 2%; transform: translate(0, 0); }
+        body.expanded .float-img.pos-4 { top: 25%; right: 2%; left: auto; transform: translate(0, 0); }
+        body.expanded .float-img.pos-5 { bottom: 15%; left: 5%; top: auto; transform: translate(0, 0); }
+        body.expanded .float-img.pos-6 { bottom: 15%; right: 5%; top: auto; left: auto; transform: translate(0, 0); }
+        body.expanded .float-img.pos-7 { top: 15%; left: 20%; transform: translate(0, 0); }
+        body.expanded .float-img.pos-8 { bottom: 15%; right: 20%; top: auto; left: auto; transform: translate(0, 0); }
+        body.expanded .float-img.pos-9 { top: 50%; left: 1%; transform: translate(0, -50%); }
+        body.expanded .float-img.pos-10 { top: 50%; right: 1%; left: auto; transform: translate(0, -50%); }
+        body.expanded .float-img.pos-11 { top: 2%; left: 40%; transform: translate(0, 0); }
+        body.expanded .float-img.pos-12 { bottom: 2%; right: 40%; top: auto; left: auto; transform: translate(0, 0); }
+        body.expanded .float-img.pos-13 { top: 20%; left: 75%; transform: translate(0, 0); }
+        body.expanded .float-img.pos-14 { bottom: 20%; left: 75%; top: auto; transform: translate(0, 0); }
+        body.expanded .float-img.pos-15 { top: 65%; left: 20%; transform: translate(0, 0); }
+        body.expanded .float-img.pos-16 { top: 65%; right: 20%; left: auto; transform: translate(0, 0); }
+
+        /* Staggered delays */
+        body.expanded .float-img:nth-child(1) { transition-delay: 0.02s; }
+        body.expanded .float-img:nth-child(2) { transition-delay: 0.05s; }
+        body.expanded .float-img:nth-child(3) { transition-delay: 0.08s; }
+        body.expanded .float-img:nth-child(4) { transition-delay: 0.11s; }
+        body.expanded .float-img:nth-child(5) { transition-delay: 0.14s; }
+        body.expanded .float-img:nth-child(6) { transition-delay: 0.17s; }
+        body.expanded .float-img:nth-child(7) { transition-delay: 0.20s; }
+        body.expanded .float-img:nth-child(8) { transition-delay: 0.23s; }
+        body.expanded .float-img:nth-child(9) { transition-delay: 0.26s; }
+        body.expanded .float-img:nth-child(10) { transition-delay: 0.29s; }
+        body.expanded .float-img:nth-child(11) { transition-delay: 0.32s; }
+        body.expanded .float-img:nth-child(12) { transition-delay: 0.35s; }
+        body.expanded .float-img:nth-child(13) { transition-delay: 0.38s; }
+        body.expanded .float-img:nth-child(14) { transition-delay: 0.41s; }
+        body.expanded .float-img:nth-child(15) { transition-delay: 0.44s; }
+        body.expanded .float-img:nth-child(16) { transition-delay: 0.47s; }
+
+        /* Master image shrink on expand */
+        body.expanded .master-image {
+            width: 200px;
+            height: 270px;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #666;
+            position: absolute;
+            bottom: 2rem;
+            left: 0;
+            right: 0;
+            z-index: 15;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .float-img { width: 100px; height: 140px; }
+            .float-img.large { width: 130px; height: 180px; }
+            .float-img.small { width: 80px; height: 110px; }
+            .float-img.wide { width: 140px; height: 100px; }
+            .float-img.tall { width: 90px; height: 150px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP SPACER -->
+    <div class="spacer">
+        <div>
+            <h2>↓ Scroll Down ↓</h2>
+            <p>Watch the images explode to all corners of the screen</p>
+        </div>
+    </div>
+
+    <!-- GALLERY SECTION -->
+    <section class="gallery-section" id="gallerySection">
+        <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
+            <!-- Master Image -->
+            <img class="master-image" src="https://images.pexels.com/photos/2253879/pexels-photo-2253879.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop" alt="Master Image">
+            
+            <div class="scroll-indicator" id="scrollHint">
+                ↓ Scroll down to explode images ↓
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING IMAGES -->
+    <div class="floating-container" id="floatingContainer">
+        <div class="float-img pos-1"><img src="https://images.pexels.com/photos/3785706/pexels-photo-3785706.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop" alt="Image 1"></div>
+        <div class="float-img pos-2 large"><img src="https://images.pexels.com/photos/2853629/pexels-photo-2853629.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop" alt="Image 2"></div>
+        <div class="float-img pos-3 tall"><img src="https://images.pexels.com/photos/3611546/pexels-photo-3611546.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&fit=crop" alt="Image 3"></div>
+        <div class="float-img pos-4"><img src="https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=500&h=400&fit=crop" alt="Image 4"></div>
+        <div class="float-img pos-5 wide"><img src="https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Image 5"></div>
+        <div class="float-img pos-6"><img src="https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop" alt="Image 6"></div>
+        <div class="float-img pos-7 small"><img src="https://images.pexels.com/photos/1590549/pexels-photo-1590549.jpeg?auto=compress&cs=tinysrgb&w=300&h=400&fit=crop" alt="Image 7"></div>
+        <div class="float-img pos-8 extra-large"><img src="https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=600&h=500&fit=crop" alt="Image 8"></div>
+        <div class="float-img pos-9"><img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop" alt="Image 9"></div>
+        <div class="float-img pos-10 tall"><img src="https://images.pexels.com/photos/2897897/pexels-photo-2897897.jpeg?auto=compress&cs=tinysrgb&w=400&h=600&fit=crop" alt="Image 10"></div>
+        <div class="float-img pos-11 wide"><img src="https://images.pexels.com/photos/3823086/pexels-photo-3823086.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Image 11"></div>
+        <div class="float-img pos-12"><img src="https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?auto=compress&cs=tinysrgb&w=500&h=400&fit=crop" alt="Image 12"></div>
+        <div class="float-img pos-13 large"><img src="https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?auto=compress&cs=tinysrgb&w=500&h=600&fit=crop" alt="Image 13"></div>
+        <div class="float-img pos-14 small"><img src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=300&h=400&fit=crop" alt="Image 14"></div>
+        <div class="float-img pos-15"><img src="https://images.pexels.com/photos/12901409/pexels-photo-12901409.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop" alt="Image 15"></div>
+        <div class="float-img pos-16 wide"><img src="https://images.pexels.com/photos/2082947/pexels-photo-2082947.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Image 16"></div>
+    </div>
+
+    <!-- BOTTOM SPACER -->
+    <div class="spacer">
+        <div>
+            <h2>↑ Scroll Up ↑</h2>
+            <p>Images fly back into the center</p>
+        </div>
+    </div>
+
+    <script>
+        const gallerySection = document.getElementById('gallerySection');
+        const scrollHint = document.getElementById('scrollHint');
+        
+        function checkScroll() {
+            const rect = gallerySection.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            // Check if gallery section is in view
+            const isInView = rect.top < windowHeight - 100 && rect.bottom > 100;
+            
+            if (isInView) {
+                document.body.classList.add('expanded');
+                if (scrollHint) {
+                    scrollHint.innerHTML = '✨ Images exploded! Scroll up to collapse ✨';
+                }
+            } else {
+                document.body.classList.remove('expanded');
+                if (scrollHint) {
+                    scrollHint.innerHTML = '↓ Scroll down to explode images ↓';
+                }
+            }
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+        
+        // Also check on resize
+        window.addEventListener('resize', checkScroll);
+    </script>
+
+</body>
+</html>
