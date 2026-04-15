@@ -613,17 +613,23 @@
             background: #050505;
         }
 
-        .spread-label {
-            font-weight: 200;
-            font-size: 11px;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            color: #c9a84c;
-            margin-bottom: 4rem;
-            position: relative;
-            z-index: 10;
-        }
+                .spread-label {
+              font-weight: 200;
+              font-size: 11px;
+              letter-spacing: 0.4em;
+              text-transform: uppercase;
+              color: #c9a84c;
+              margin-bottom: 4rem;
+              position: relative;
+              z-index: 10;
+              text-align: center;
+              animation: pulse 2s ease-in-out infinite;
+          }
 
+          @keyframes pulse {
+              0%, 100% { opacity: 0.6; }
+              50% { opacity: 1; letter-spacing: 0.45em; }
+          }
         .stage {
             position: relative;
             width: min(560px,90vw);
@@ -807,6 +813,42 @@
             transition: opacity 0.25s;
             pointer-events: none;
         }
+
+        /* Click hint that appears on hover */
+.click-hint {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    color: #c9a84c;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 0.5px solid rgba(201,168,76,0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 25;
+    white-space: nowrap;
+    font-family: 'Inter', sans-serif;
+}
+
+.card:hover .click-hint {
+    opacity: 1;
+}
+
+/* For mobile, make the hint slightly more visible */
+@media (max-width: 768px) {
+    .click-hint {
+        font-size: 7px;
+        padding: 3px 8px;
+        bottom: 6px;
+    }
+}
         .card:hover .pos-label { opacity: 1; }
 
         /* Looping Video Section */
@@ -887,7 +929,97 @@
               position: relative;
           }
 
-                      .services-list {
+    /* Brand Section with Heading */
+.brand-section-wrapper {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-heading {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #c9a84c;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.brand-inline {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.brand-logo {
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.brand-logo:hover {
+    transform: scale(1.05);
+}
+
+.brand-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.brand-info {
+    flex: 1;
+}
+
+.brand-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #fff, #c9a84c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.brand-tagline {
+    font-size: 1rem;
+    color: #aaa;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .brand-section-wrapper {
+        margin-top: 1.2rem;
+    }
+    .brand-inline {
+        gap: 1rem;
+        flex-direction: column;
+        text-align: center;
+    }
+    .brand-logo {
+        width: 100px;
+        height: 100px;
+        border-radius: 20px;
+    }
+    .brand-name {
+        font-size: 1.4rem;
+    }
+    .brand-tagline {
+        font-size: 0.85rem;
+    }
+}
+
+              .services-list {
                 list-style: none;
                 margin: 1rem 0 1rem 0;
                 padding-left: 0;
