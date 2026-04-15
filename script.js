@@ -258,7 +258,7 @@
     window.addEventListener('resize', () => { if (isSpread) { isSpread = false; applySpread(); } });
     checkSpreadScroll();
 
-    // ========== CARD CLICK EXPANSION ==========
+
     const overlay = document.getElementById('card-overlay');
     const expImg = document.getElementById('exp-img');
     const expTag = document.getElementById('exp-tag');
