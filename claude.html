@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #f5f0e8;
+    --ink: #1a1610;
+    --gold: #c9a84c;
+    --gold-light: #e8d49a;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--ink); color: var(--cream); font-family: 'Jost', sans-serif; overflow-x: hidden; }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 0 2.5rem;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(26,22,16,0.55);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 0.5px solid rgba(201,168,76,0.15);
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(26,22,16,0.92);
+    border-bottom-color: rgba(201,168,76,0.3);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 300;
+    color: var(--cream);
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); font-style: italic; }
+  .nav-logo::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 0.5px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .nav-logo:hover::after { transform: scaleX(1); }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 2.2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.55);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.3s ease;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 0.5px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .nav-links a:hover { color: var(--cream); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 0.5px solid rgba(201,168,76,0.5);
+    padding: 8px 20px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+  }
+  .nav-cta:hover {
+    background: var(--gold);
+    color: var(--ink);
+    border-color: var(--gold);
+  }
+
+  /* animated indicator line under nav */
+  .nav-indicator {
+    position: fixed; top: 64px; left: 0; right: 0; z-index: 999;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    position: relative;
+    padding-top: 64px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(201,168,76,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-weight: 200; font-size: clamp(10px,1.5vw,13px);
+    letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-size: clamp(3rem,8vw,7rem);
+    line-height: 0.95; letter-spacing: -0.01em;
+    color: var(--cream); margin-bottom: 1.8rem;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+  .hero-title em { font-style: italic; color: var(--gold-light); }
+  .hero-sub {
+    font-size: clamp(13px,1.5vw,15px); font-weight: 200;
+    color: rgba(245,240,232,0.5); letter-spacing: 0.08em;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+  .scroll-hint {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(245,240,232,0.3); font-size: 11px;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    animation: nudge 2.4s ease-in-out infinite, fadeUp 0.8s ease 0.8s both;
+  }
+  .scroll-hint svg { width: 18px; height: 18px; stroke: var(--gold); stroke-width: 1.5; fill: none; }
+  @keyframes nudge { 0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(8px);opacity:1} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)} }
+
+  /* ── SPREAD SECTION ── */
+  .spread-section {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; padding: 6rem 2rem;
+  }
+  .spread-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .spread-label {
+    font-weight: 200; font-size: 11px; letter-spacing: 0.4em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 4rem; position: relative; z-index: 10;
+  }
+
+  /* ── STAGE ── */
+  .stage {
+    position: relative;
+    width: min(560px,90vw); height: min(560px,90vw);
+    z-index: 10;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    position: absolute; top: 50%; left: 50%;
+    width: clamp(100px,22%,130px); aspect-ratio: 3/4;
+    transform: translate(-50%,-50%) rotate(var(--init-rot,0deg));
+    border-radius: 10px; overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: transform 0.9s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.5s ease;
+    will-change: transform;
+    border: 1.5px solid rgba(201,168,76,0.2);
+  }
+  .card img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.5s ease;
+    pointer-events: none; user-select: none;
+  }
+  .card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%, rgba(0,0,0,0.15) 100%);
+    pointer-events: none;
+  }
+  .card.stacked { transform: translate(-50%,-50%) rotate(var(--init-rot)) !important; }
+  .card.spread {
+    transform: translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) rotate(var(--tr)) !important;
+  }
+  .card.spread:not(.expanded):hover {
+    filter: brightness(1.08);
+    box-shadow: 0 16px 60px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.25);
+    z-index: 20;
+  }
+
+  /* ── CARD EXPANDED STATE ── */
+  .card-overlay {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(10,8,5,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.45s ease;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-overlay.active { opacity: 1; pointer-events: all; }
+
+  .card-expanded {
+    position: relative;
+    width: min(460px, 88vw);
+    background: rgba(26,22,16,0.95);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 16px;
+    overflow: hidden;
+    transform: scale(0.88) translateY(24px);
+    opacity: 0;
+    transition: transform 0.55s cubic-bezier(0.34,1.4,0.64,1), opacity 0.45s ease;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 8px 30px rgba(0,0,0,0.4);
+  }
+  .card-overlay.active .card-expanded {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+
+  .card-expanded-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-expanded-body {
+    padding: 1.5rem 1.75rem 1.75rem;
+    background: linear-gradient(180deg, rgba(26,22,16,0) 0%, rgba(26,22,16,1) 30%);
+    margin-top: -60px; position: relative;
+  }
+
+  .card-expanded-tag {
+    font-size: 10px; font-weight: 400;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem;
+    display: block;
+  }
+  .card-expanded-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem; font-weight: 300;
+    color: var(--cream); line-height: 1.1;
+    margin-bottom: 0.6rem;
+  }
+  .card-expanded-desc {
+    font-size: 13px; font-weight: 200;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.75; letter-spacing: 0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .card-expanded-meta {
+    display: flex; gap: 1rem;
+    border-top: 0.5px solid rgba(201,168,76,0.18);
+    padding-top: 1rem;
+    margin-top: 0.25rem;
+  }
+  .card-meta-item { flex: 1; }
+  .card-meta-label {
+    font-size: 9px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: rgba(245,240,232,0.3);
+    margin-bottom: 3px; display: block;
+  }
+  .card-meta-value {
+    font-size: 13px; font-weight: 400;
+    color: var(--gold-light);
+  }
+
+  .card-close {
+    position: absolute; top: 14px; right: 14px;
+    width: 32px; height: 32px;
+    background: rgba(26,22,16,0.7);
+    border: 0.5px solid rgba(201,168,76,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.3s ease;
+    z-index: 10;
+  }
+  .card-close:hover { background: rgba(201,168,76,0.2); transform: rotate(90deg); }
+  .card-close svg { width: 14px; height: 14px; stroke: var(--cream); stroke-width: 1.5; fill: none; }
+
+  .pos-label {
+    position: absolute; top: -26px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink); color: var(--gold-light);
+    font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 4px;
+    border: 0.5px solid rgba(201,168,76,0.3);
+    white-space: nowrap; opacity: 0;
+    transition: opacity 0.25s; pointer-events: none;
+  }
+  .card:hover .pos-label { opacity: 1; }
+
+  /* ── BELOW ── */
+  .below {
+    min-height: 60vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 4rem 2rem; text-align: center;
+  }
+  .below-inner { max-width: 480px; }
+  .below-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-size: clamp(2.2rem,5vw,3.5rem);
+    color: var(--cream); margin-bottom: 1rem;
+  }
+  .below-body {
+    font-size: 14px; font-weight: 200;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.8; letter-spacing: 0.03em;
+  }
+  .divider { width: 48px; height: 1px; background: var(--gold); margin: 1.5rem auto; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a class="nav-logo" href="#">Anika<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">Studio</a></li>
+    <li><a href="#">Process</a></li>
+    <li><a href="#">Journal</a></li>
+  </ul>
+  <a class="nav-cta">Hire me</a>
+</nav>
+<div class="nav-indicator" id="nav-indicator"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Graphic Design Portfolio</p>
+  <h1 class="hero-title">The <em>Gallery</em><br>Unfolds</h1>
+  <p class="hero-sub">Scroll down to reveal the collection</p>
+  <div class="scroll-hint">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    Scroll
+  </div>
+</section>
+
+<!-- SPREAD SECTION -->
+<section class="spread-section" id="spread-section">
+  <p class="spread-label">Selected Works · 2024</p>
+  <div class="stage" id="stage">
+
+    <div class="card stacked" id="card-0" style="--init-rot:-6deg;z-index:12;"
+      data-title="Solstice Branding" data-tag="Brand Identity"
+      data-desc="A complete visual identity for a seasonal wellness studio — mark, palette, and packaging designed around light and shadow."
+      data-year="2024" data-medium="Brand / Print">
+      <span class="pos-label">Branding</span>
+      <img src="https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=600&q=90" alt="Branding"/>
+    </div>
+
+    <div class="card stacked" id="card-1" style="--init-rot:3deg;z-index:11;"
+      data-title="Monolith Poster" data-tag="Poster Design"
+      data-desc="A limited-edition typographic poster series exploring brutalist geometry and negative space."
+      data-year="2023" data-medium="Print / Digital">
+      <span class="pos-label">Poster</span>
+      <img src="https://images.unsplash.com/photo-1706048828522-7960d85b0eae?w=600&q=90" alt="Poster"/>
+    </div>
+
+    <div class="card stacked" id="card-2" style="--init-rot:-2deg;z-index:13;"
+      data-title="Fauna Editorial" data-tag="Editorial"
+      data-desc="Art direction and layout design for a nature quarterly — striking full-bleed photography with editorial type systems."
+      data-year="2024" data-medium="Editorial / Layout">
+      <span class="pos-label">Editorial</span>
+      <img src="https://images.unsplash.com/photo-1707343843437-caacff5cfa74?w=600&q=90" alt="Editorial"/>
+    </div>
+
+    <div class="card stacked" id="card-3" style="--init-rot:7deg;z-index:10;"
+      data-title="Dusk Packaging" data-tag="Packaging"
+      data-desc="Premium candle packaging for an artisan line — hand-lettered labels with embossed textures and matte finishes."
+      data-year="2024" data-medium="Packaging / Print">
+      <span class="pos-label">Packaging</span>
+      <img src="https://images.unsplash.com/photo-1682695796954-bad0d0f59ff1?w=600&q=90" alt="Packaging"/>
+    </div>
+
+    <div class="card stacked" id="card-4" style="--init-rot:-4deg;z-index:14;"
+      data-title="Reverie UI" data-tag="UI / Digital"
+      data-desc="Interface design for a mindfulness app — soft grids, considered motion, and a neutral palette built for calm focus."
+      data-year="2024" data-medium="UI / Motion">
+      <span class="pos-label">UI Design</span>
+      <img src="https://images.unsplash.com/photo-1709825573898-83b23e01e83e?w=600&q=90" alt="UI Design"/>
+    </div>
+
+    <div class="card stacked" id="card-5" style="--init-rot:5deg;z-index:9;"
+      data-title="Verd Lookbook" data-tag="Fashion / Print"
+      data-desc="Full lookbook design for an independent fashion label — grid-breaking layouts and hand-drawn accents."
+      data-year="2023" data-medium="Print / Fashion">
+      <span class="pos-label">Lookbook</span>
+      <img src="https://images.unsplash.com/photo-1708880353378-0d3bbd2c6c87?w=600&q=90" alt="Lookbook"/>
+    </div>
+
+    <div class="card stacked" id="card-6" style="--init-rot:-8deg;z-index:15;"
+      data-title="Ether Mark" data-tag="Logomark"
+      data-desc="Custom wordmark and icon system for a fintech startup — built for legibility at every scale, from app icon to billboard."
+      data-year="2024" data-medium="Brand / Logo">
+      <span class="pos-label">Logomark</span>
+      <img src="https://images.unsplash.com/photo-1706048828086-a2e5b6296e20?w=600&q=90" alt="Logomark"/>
+    </div>
+
+    <div class="card stacked" id="card-7" style="--init-rot:2deg;z-index:8;"
+      data-title="Nocturne Zine" data-tag="Zine / Illustration"
+      data-desc="Self-published illustrated zine — hand-inked drawings with risograph-inspired two-color printing."
+      data-year="2023" data-medium="Illustration / Print">
+      <span class="pos-label">Illustration</span>
+      <img src="https://images.unsplash.com/photo-1682695674899-34ba4c730068?w=600&q=90" alt="Illustration"/>
+    </div>
+
+  </div>
+</section>
+
+<!-- BELOW -->
+<section class="below">
+  <div class="below-inner">
+    <h2 class="below-title">Every image<br>tells a story</h2>
+    <div class="divider"></div>
+    <p class="below-body">Eight perspectives, eight briefs — each finding its own place in the world. Click any card to explore the work up close.</p>
+  </div>
+</section>
+
+<!-- EXPANDED CARD OVERLAY -->
+<div class="card-overlay" id="card-overlay">
+  <div class="card-expanded" id="card-expanded">
+    <button class="card-close" id="card-close">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <img class="card-expanded-img" id="exp-img" src="" alt=""/>
+    <div class="card-expanded-body">
+      <span class="card-expanded-tag" id="exp-tag"></span>
+      <h2 class="card-expanded-title" id="exp-title"></h2>
+      <p class="card-expanded-desc" id="exp-desc"></p>
+      <div class="card-expanded-meta">
+        <div class="card-meta-item">
+          <span class="card-meta-label">Year</span>
+          <span class="card-meta-value" id="exp-year"></span>
+        </div>
+        <div class="card-meta-item">
+          <span class="card-meta-label">Medium</span>
+          <span class="card-meta-value" id="exp-medium"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── Navbar scroll behaviour ── */
+  const navbar = document.getElementById('navbar');
+  const navInd = document.getElementById('nav-indicator');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      navbar.classList.add('scrolled');
+      navInd.style.transform = 'scaleX(1)';
+      navInd.style.transition = 'transform 0.6s cubic-bezier(0.4,0,0.2,1)';
+    } else {
+      navbar.classList.remove('scrolled');
+      navInd.style.transform = 'scaleX(0)';
+    }
+  }, { passive: true });
+
+  /* ── Spread positions ── */
+  const POSITIONS = [
+    { id:'card-0', tx:-0.36, ty:-0.36, rot:-8  },
+    { id:'card-1', tx: 0,   ty:-0.44, rot: 2  },
+    { id:'card-2', tx: 0.36, ty:-0.36, rot: 7  },
+    { id:'card-3', tx:-0.44, ty: 0,   rot:-5  },
+    { id:'card-4', tx: 0.44, ty: 0,   rot: 4  },
+    { id:'card-5', tx:-0.36, ty: 0.36, rot: 6  },
+    { id:'card-6', tx: 0,   ty: 0.44, rot:-3  },
+    { id:'card-7', tx: 0.36, ty: 0.36, rot:-9  },
+  ];
+
+  let isSpread = false;
+  let ticking = false;
+
+  function applySpread() {
+    if (isSpread) return;
+    isSpread = true;
+    const size = document.getElementById('stage').getBoundingClientRect().width;
+    POSITIONS.forEach((pos, i) => {
+      const el = document.getElementById(pos.id);
+      el.style.setProperty('--tx', (pos.tx * size) + 'px');
+      el.style.setProperty('--ty', (pos.ty * size) + 'px');
+      el.style.setProperty('--tr', pos.rot + 'deg');
+      el.style.transitionDelay = (i * 0.06) + 's';
+      el.classList.remove('stacked');
+      el.classList.add('spread');
+    });
+  }
+
+  function applyStack() {
+    if (!isSpread) return;
+    isSpread = false;
+    POSITIONS.forEach((pos, i) => {
+      const el = document.getElementById(pos.id);
+      el.style.transitionDelay = (i * 0.04) + 's';
+      el.classList.remove('spread');
+      el.classList.add('stacked');
+    });
+  }
+
+  function checkScroll() {
+    const section = document.getElementById('spread-section');
+    const rect = section.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const center = rect.top + rect.height / 2;
+    const inZone = center > vh * 0.15 && center < vh * 0.85;
+    inZone ? applySpread() : applyStack();
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => { checkScroll(); ticking = false; });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    if (isSpread) { isSpread = false; applySpread(); }
+  });
+
+  checkScroll();
+
+  /* ── Card expansion on click ── */
+  const overlay = document.getElementById('card-overlay');
+  const expImg = document.getElementById('exp-img');
+  const expTag = document.getElementById('exp-tag');
+  const expTitle = document.getElementById('exp-title');
+  const expDesc = document.getElementById('exp-desc');
+  const expYear = document.getElementById('exp-year');
+  const expMedium = document.getElementById('exp-medium');
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      if (!card.classList.contains('spread')) return;
+      const img = card.querySelector('img');
+      expImg.src = img.src.replace('w=600', 'w=900');
+      expImg.alt = img.alt;
+      expTag.textContent = card.dataset.tag;
+      expTitle.textContent = card.dataset.title;
+      expDesc.textContent = card.dataset.desc;
+      expYear.textContent = card.dataset.year;
+      expMedium.textContent = card.dataset.medium;
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeOverlay() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('card-close').addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeOverlay(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
+</script>
+</body>
+</html>
