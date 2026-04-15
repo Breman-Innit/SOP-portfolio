@@ -5,16 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>BrightFocus Media | Visual Artist — Photography, Video, Design</title>
     <meta name="description" content="Portfolio of BrightFocus Media — photographer, video editor, and graphic designer. Visual storytelling across all mediums.">
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Fonts & Styles -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- CREATIVE PRELOADER -->
+<!-- Custom Cursor -->
+<div class="custom-cursor" id="customCursor"></div>
+<div class="custom-cursor-ring" id="customCursorRing"></div>
+
+<!-- Creative Preloader -->
 <div class="preloader" id="preloader">
     <div class="preloader-content">
         <div class="aperture">
@@ -28,35 +34,31 @@
         </div>
         <div class="preloader-name">BrightFocus Media</div>
         <div class="preloader-tagline">VISUAL ARTIST</div>
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
+        <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
         <div class="progress-text" id="progressText">0%</div>
         <div class="loading-status" id="loadingStatus">Loading creative assets...</div>
-        <div class="film-strip">
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span>
-        </div>
+        <div class="film-strip"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
     </div>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- Main Content -->
 <div class="main-content" id="mainContent">
-    <!-- COOL ANIMATED NAVBAR -->
+    
+    <!-- Navigation -->
     <nav class="main-nav" id="mainNavbar">
         <a class="nav-logo-custom" href="#">BrightFocus<span>.</span></a>
         <ul class="nav-links-custom">
             <li><a href="#home" class="nav-link-custom">Home</a></li>
             <li><a href="#gallery" class="nav-link-custom">Work</a></li>
             <li><a href="#about" class="nav-link-custom">About</a></li>
-            <li><a href="#spread-section" class="nav-link-custom">Gallery</a></li>
-               <li><a href="#services-custom" class="nav-link-custom">Services</a></li>
+            <li><a href="#photo-gallery" class="nav-link-custom">Portfolio</a></li>
+            <li><a href="#services-custom" class="nav-link-custom">Services</a></li>
             <li><a href="#contact" class="nav-link-custom">Contact</a></li>
         </ul>
         <div class="mobile-menu-custom"><i class="fas fa-bars"></i></div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-image-wrapper">
             <img class="hero-image" src="https://images.pexels.com/photos/6941204/pexels-photo-6941204.jpeg" alt="Photographer with camera" loading="eager">
@@ -64,237 +66,149 @@
         </div>
         <div class="hero-title-card">
             <div class="title-line top-line"></div>
-            <h1 class="hero-name-cinematic">
-                <span class="name-first">BrightFocus</span>
-                <span class="name-last">Media</span>
-            </h1>
-            <div class="hero-typed-wrapper">
-                <span class="typed-prefix">—</span>
-                <span id="typed-text" class="typed-text"></span>
-            </div>
+            <h1 class="hero-name-cinematic"><span class="name-first">BrightFocus</span><span class="name-last">Media</span></h1>
+            <div class="hero-typed-wrapper"><span class="typed-prefix">—</span><span id="typed-text" class="typed-text"></span></div>
             <div class="title-line bottom-line"></div>
-            <a href="#gallery" class="hero-cta">
-                <span>ENTER PORTFOLIO</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </a>
+            <a href="#gallery" class="hero-cta"><span>ENTER PORTFOLIO</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
-        <div class="scroll-hint">
-            <div class="scroll-mouse"></div>
-            <span>SCROLL</span>
-        </div>
+        <div class="scroll-hint"><div class="scroll-mouse"></div><span>SCROLL</span></div>
     </section>
 
-    <!-- SELECTED WORK SECTION (Marquee Gallery) -->
+    <!-- Marquee Gallery (Selected Work) -->
     <section id="gallery" class="marquee-section">
-        <div class="section-label">
-            <h2>Selected Work</h2>
-            <p>Photography · Video Editing · Graphic Design</p>
-        </div>
-        <div class="marquee left">
-            <div class="marquee-track" id="marqueeTrack1"></div>
-        </div>
-        <div class="marquee right">
-            <div class="marquee-track" id="marqueeTrack2"></div>
-        </div>
+        <div class="section-label"><h2>Selected Work</h2><p>Photography · Video Editing · Graphic Design</p></div>
+        <div class="marquee left"><div class="marquee-track" id="marqueeTrack1"></div></div>
+        <div class="marquee right"><div class="marquee-track" id="marqueeTrack2"></div></div>
     </section>
 
-        <!-- LOOPING VIDEO SECTION -->
+    <!-- Video Section -->
     <section class="video-section">
         <div class="container">
-            <div class="section-label">
-                <h2>In the Field</h2>
-                <p>A glimpse into my creative process</p>
+            <div class="section-label"><h2>In the Field</h2><p>A glimpse into my creative process</p></div>
+            <div class="video-wrapper"><video class="looping-video" autoplay muted loop playsinline><source src="video/vid.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+        </div>
+    </section>
+
+       <!-- ABOUT SECTION with Large Image Slider on Right -->
+    <section id="about" class="about-premium">
+        <div class="deco-lines" aria-hidden="true">
+            <span></span><span></span><span></span>
+        </div>
+        
+        <!-- Left Column - Text Content -->
+        <div class="about-left">
+            <p class="about-eyebrow">Visual Storyteller &amp; Multimedia Artist</p>
+            <h1 class="about-name">BrightFocus<br><em>Media.</em></h1>
+            <p class="about-role">Photographer — Video Editor — Graphic Designer</p>
+            <p class="about-bio">I am a photographer, graphic designer — a multimedia personnel dedicated to capturing moments and creating visual stories that resonate. With years of experience shaping visual narratives, I believe great design is the bridge between a story and the soul it's meant to reach.</p>
+            <div class="about-cta">
+                <a href="#services-custom" class="btn-premium-primary"><span>View My Work</span></a>
+                <a href="#contact" class="btn-premium-ghost">Let's Collaborate</a>
             </div>
-            <div class="video-wrapper">
-                <video class="looping-video" autoplay muted loop playsinline>
-                    <source src="video/vid.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+        </div>
+        
+        <!-- Right Column - Large Image Slider -->
+        <div class="about-right">
+            <div class="about-image-slider">
+                <div class="slider-container">
+                    <img class="slide-img active" src="images/me4.jpg" alt="Portrait 1">
+                    <img class="slide-img" src="images/me3.jpg" alt="Portrait 2">
+                    <img class="slide-img" src="images/me1.jpg" alt="Portrait 3">
+                    <img class="slide-img" src="images/me2.jpg" alt="Portrait 4">
+                </div>
+                <div class="slider-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
             </div>
         </div>
     </section>
 
-        <!-- ABOUT SECTION -->
-    <section id="about">
+    <!-- Photography Gallery Section -->
+    <section id="photo-gallery" class="photography-gallery-section">
         <div class="container">
-            <div class="section-label">
-                <h2>About</h2>
-                <p>Behind the lens & the screen</p>
+            <div class="gallery-header">
+                <div class="gallery-logo">
+                    <div class="logo-name">More of my works</div>
+                    <div class="logo-title">Photography &amp; Visual Design</div>
+                </div>
             </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>I am a photographer, graphic designer — a multimedia personnel dedicated to capturing moments and creating visual stories that resonate.</p>
-                    <p><strong>Services I offer:</strong></p>
-                    <ul class="services-list">
-                        <li>Birthday and pre-wedding shoots</li>
-                        <li>Street Photographer (Content creation)</li>
-                        <li>Event coverage — Weddings, Birthdays, Parties, Funerals, Church production and more</li>
-                    </ul>
-                    <p>Every event tells a unique story, and I'm here to make sure yours is told beautifully. Whether it's a celebration, a solemn moment, or creative content for your brand, I bring professionalism, artistry, and attention to detail to every project.</p>
-                    
-                    <!-- Brand Section - inline with slider -->
-                    <div class="brand-section-wrapper">
-                        <h4 class="brand-heading">THE BRAND</h4>
-                        <div class="brand-inline">
-                            <div class="brand-logo">
-                                <img src="images/logo.jpg" alt="Brand Logo">
-                            </div>
-                            <div class="brand-info">
-                                <h3 class="brand-name">BrightFocus Media</h3>
-                                <p class="brand-tagline">Visual storytelling that resonates — capturing moments, creating legacies.</p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">All Works</button>
+                <button class="filter-btn" data-filter="portrait">Portrait</button>
+                <button class="filter-btn" data-filter="landscape">Landscape</button>
+                <button class="filter-btn" data-filter="editorial">Editorial</button>
+                <button class="filter-btn" data-filter="branding">Branding</button>
+                <button class="filter-btn" data-filter="abstract">Abstract</button>
+                <div class="layout-toggle">
+                    <button class="layout-btn active" data-layout="masonry" title="Masonry">⊞</button>
+                    <button class="layout-btn" data-layout="uniform" title="Grid">⊟</button>
+                    <button class="layout-btn" data-layout="editorial" title="Editorial">⊠</button>
                 </div>
-                <div class="about-image-slider">
-                    <div class="slider-container">
-                        <img class="slide-img active" src="images/me4.jpg" alt="Portrait 1">
-                        <img class="slide-img" src="images/me3.jpg" alt="Portrait 2">
-                        <img class="slide-img" src="images/me1.jpg" alt="Portrait 3">
-                        <img class="slide-img" src="images/me2.jpg" alt="Portrait 4">
-                    </div>
-                    <div class="slider-dots">
-                        <span class="dot active"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
-                </div>
+            </div>
+            <div class="gallery-container" id="galleryContainer">
+                <div class="grid-masonry" id="photoGrid"></div>
             </div>
         </div>
     </section>
 
-    <!-- WHAT I DO SECTION ( -->
+    <!-- What I Do Section -->
     <section id="services-custom" class="what-i-do-section">
         <div class="container">
-            <div class="section-label">
-                <h2>What I Do</h2>
-                <p>Creative services crafted with precision and passion</p>
-            </div>
+            <div class="section-label"><h2>What I Do</h2><p>Creative services crafted with precision and passion</p></div>
             <div class="services-grid-custom">
-                <div class="service-card-custom">
-                    <div class="service-icon-custom">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <h3>Photography</h3>
-                    <p>Capturing authentic moments with a cinematic eye — portrait, fashion, editorial, and fine art photography.</p>
-                </div>
-                <div class="service-card-custom">
-                    <div class="service-icon-custom">
-                        <i class="fas fa-pen-fancy"></i>
-                    </div>
-                    <h3>Graphic Design</h3>
-                    <p>Visual identities, branding, posters, and digital assets that tell compelling stories.</p>
-                </div>
-                <div class="service-card-custom">
-                    <div class="service-icon-custom">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>Branding</h3>
-                    <p>Complete brand strategy — from logo design to visual identity systems that resonate.</p>
-                </div>
-                <div class="service-card-custom">
-                    <div class="service-icon-custom">
-                        <i class="fas fa-hashtag"></i>
-                    </div>
-                    <h3>Social Media Design</h3>
-                    <p>Scroll-stopping visuals, templates, and content systems for consistent brand presence.</p>
-                </div>
+                <div class="service-card-custom"><div class="service-icon-custom"><i class="fas fa-camera"></i></div><h3>Photography</h3><p>Capturing authentic moments with a cinematic eye — portrait, fashion, editorial, and fine art photography.</p></div>
+                <div class="service-card-custom"><div class="service-icon-custom"><i class="fas fa-pen-fancy"></i></div><h3>Graphic Design</h3><p>Visual identities, branding, posters, and digital assets that tell compelling stories.</p></div>
+                <div class="service-card-custom"><div class="service-icon-custom"><i class="fas fa-bullseye"></i></div><h3>Branding</h3><p>Complete brand strategy — from logo design to visual identity systems that resonate.</p></div>
+                <div class="service-card-custom"><div class="service-icon-custom"><i class="fas fa-hashtag"></i></div><h3>Social Media Design</h3><p>Scroll-stopping visuals, templates, and content systems for consistent brand presence.</p></div>
             </div>
         </div>
     </section>
 
-      <!-- TECH STACK / TOOLS SECTION -->
+    <!-- Tech Stack Section -->
     <section class="tech-stack-section">
         <div class="container">
-            <div class="section-label">
-                <h2>Tools I Use</h2>
-                <p>Industry-standard software for professional creative work</p>
-            </div>
+            <div class="section-label"><h2>Tools I Use</h2><p>Industry-standard software for professional creative work</p></div>
             <div class="tools-grid-custom">
-                <div class="tool-card-custom">
-                    <div class="tool-icon-custom">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop">
-                    </div>
-                    <h4>Photoshop</h4>
-                </div>
-                <div class="tool-card-custom">
-                    <div class="tool-icon-custom">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator">
-                    </div>
-                    <h4>Illustrator</h4>
-                </div>
-                <div class="tool-card-custom">
-                    <div class="tool-icon-custom">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg" alt="Lightroom">
-                    </div>
-                    <h4>Lightroom</h4>
-                </div>
-                <div class="tool-card-custom">
-                    <div class="tool-icon-custom">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Premiere Pro">
-                    </div>
-                    <h4>Premiere Pro</h4>
-                </div>
-                <div class="tool-card-custom">
-                    <div class="tool-icon-custom">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma">
-                    </div>
-                    <h4>Figma</h4>
-                </div>
+                <div class="tool-card-custom"><div class="tool-icon-custom"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop"></div><h4>Photoshop</h4></div>
+                <div class="tool-card-custom"><div class="tool-icon-custom"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator"></div><h4>Illustrator</h4></div>
+                <div class="tool-card-custom"><div class="tool-icon-custom"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg" alt="Lightroom"></div><h4>Lightroom</h4></div>
+                <div class="tool-card-custom"><div class="tool-icon-custom"><img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Premiere Pro"></div><h4>Premiere Pro</h4></div>
+                <div class="tool-card-custom"><div class="tool-icon-custom"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma"></div><h4>Figma</h4></div>
             </div>
             <div class="separator-custom"></div>
         </div>
     </section>
 
-    <!-- CONTACT SECTION -->
+    <!-- Contact Section -->
     <section id="contact">
         <div class="container">
-            <div class="section-label">
-                <h2>Let's Work Together</h2>
-                <p>Inquiries, commissions, or just to say hello</p>
-            </div>
-            <form class="contact-form" action="#" method="post">
-                <input type="text" placeholder="Your name" required>
-                <input type="email" placeholder="Email address" required>
-                <textarea rows="4" placeholder="Tell me about your project..."></textarea>
-                <button type="submit">Send Message →</button>
-            </form>
+            <div class="section-label"><h2>Let's Work Together</h2><p>Inquiries, commissions, or just to say hello</p></div>
+            <form class="contact-form" action="#" method="post"><input type="text" placeholder="Your name" required><input type="email" placeholder="Email address" required><textarea rows="4" placeholder="Tell me about your project..."></textarea><button type="submit">Send Message →</button></form>
         </div>
     </section>
 
-    <footer>
-        <p>© 2025 BrightFocus Media — Visual Artist. All work is original.</p>
-    </footer>
+    <footer><p>© 2025 BrightFocus Media — Visual Artist. All work is original.</p></footer>
 </div>
 
-<!-- EXPANDED CARD OVERLAY -->
-<div class="card-overlay" id="card-overlay">
-    <div class="card-expanded" id="card-expanded">
-        <button class="card-close" id="card-close">
-            <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-        <img class="card-expanded-img" id="exp-img" src="" alt=""/>
-        <div class="card-expanded-body">
-            <span class="card-expanded-tag" id="exp-tag"></span>
-            <h2 class="card-expanded-title" id="exp-title"></h2>
-            <p class="card-expanded-desc" id="exp-desc"></p>
-            <div class="card-expanded-meta">
-                <div class="card-meta-item">
-                    <span class="card-meta-label">Year</span>
-                    <span class="card-meta-value" id="exp-year"></span>
-                </div>
-                <div class="card-meta-item">
-                    <span class="card-meta-label">Medium</span>
-                    <span class="card-meta-value" id="exp-medium"></span>
-                </div>
-            </div>
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lb-close">✕</button>
+    <button class="lb-nav lb-prev" id="lb-prev">‹</button>
+    <button class="lb-nav lb-next" id="lb-next">›</button>
+    <div class="lightbox-inner">
+        <div class="lightbox-img-wrap"><img class="lightbox-img" id="lb-img" src="" alt=""></div>
+        <div class="lightbox-info">
+            <span class="lb-category" id="lb-cat"></span>
+            <h2 class="lb-title" id="lb-title"></h2>
+            <div class="lb-divider"></div>
+            <p class="lb-desc" id="lb-desc"></p>
+            <div class="lb-specs" id="lb-specs"></div>
         </div>
     </div>
-
-
+</div>
 
 <script src="script.js"></script>
 </body>
