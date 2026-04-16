@@ -195,22 +195,25 @@ window.addEventListener('scroll', () => {
 const UNSPLASH = "https://images.unsplash.com/photo-";
 
 const works = [
-    { id:1, cat:"portrait", title:"Solitude in Light", desc:"A study of natural window light and the quiet moments between thoughts.", img:"1531746020798-e6953c6e8e04?w=800&q=80", ar:"3/4", feat:true, year:"2024", client:"Self-directed", medium:"35mm Film" },
-    { id:2, cat:"landscape", title:"Horizon Drift", desc:"Minimalist coastal photography captured at the edge of dusk.", img:"1506905925346-21bda4d32df4?w=800&q=80", ar:"16/9", feat:false, year:"2023", client:"GEO Magazine", medium:"Digital" },
-    { id:3, cat:"editorial", title:"Autumn Editorial", desc:"Fashion editorial for a sustainable clothing brand, shot in the Scottish Highlands.", img:"1441986300917-64674bd600d8?w=800&q=80", ar:"2/3", feat:false, year:"2024", client:"Vestiture Co.", medium:"Medium Format" },
-    { id:4, cat:"branding", title:"Mara Studio Identity", desc:"Visual identity system and product photography for a ceramics studio.", img:"1493106641515-5b34c38c7d11?w=800&q=80", ar:"1/1", feat:true, year:"2023", client:"Mara Studio", medium:"Digital" },
-    { id:5, cat:"abstract", title:"Chromatic Dissolve", desc:"Long exposure light painting exploring movement and impermanence.", img:"1541701494587-cb58502866ab?w=800&q=80", ar:"4/3", feat:false, year:"2022", client:"Self-directed", medium:"Digital" },
-    { id:6, cat:"portrait", title:"The Architect", desc:"Portrait series documenting contemporary architects in their creative spaces.", img:"1507003211169-0a1dd7228f2d?w=800&q=80", ar:"3/4", feat:false, year:"2024", client:"Dezeen", medium:"35mm Film" },
-    { id:7, cat:"landscape", title:"Alpine Silence", desc:"Winter highlands at first light — a two-day solo expedition in Norway.", img:"1464822759023-fed622ff2c3b?w=800&q=80", ar:"16/9", feat:false, year:"2023", client:"National Geographic", medium:"Digital" },
-    { id:8, cat:"editorial", title:"Monochrome Moods", desc:"A ten-look editorial exploring shadow, form, and the absence of color.", img:"1515886657613-9f3515b0c78f?w=800&q=80", ar:"2/3", feat:false, year:"2024", client:"Noir Journal", medium:"Digital" },
-    { id:9, cat:"branding", title:"Lumière Parfums", desc:"Campaign imagery and brand photography for an indie fragrance house.", img:"1563170351-be9072a9d55e?w=800&q=80", ar:"1/1", feat:true, year:"2024", client:"Lumière", medium:"Medium Format" },
-    { id:10, cat:"abstract", title:"Texture Études", desc:"Macro studies of natural surfaces — bark, stone, water — abstracted beyond recognition.", img:"1558618666-fcd25c85cd64?w=800&q=80", ar:"1/1", feat:false, year:"2022", client:"Self-directed", medium:"Macro Lens" },
-    { id:11, cat:"portrait", title:"Dancer at Rest", desc:"Off-stage moments with the Royal Ballet ensemble between rehearsals.", img:"1518611012118-696072aa579a?w=800&q=80", ar:"3/4", feat:false, year:"2023", client:"The Royal Ballet", medium:"35mm Film" },
-    { id:12, cat:"landscape", title:"Desert Passage", desc:"Three weeks traversing the Sahara — light, dust, and endless geometry.", img:"1509316785289-025f5b846b35?w=800&q=80", ar:"16/9", feat:false, year:"2022", client:"Self-directed", medium:"Digital" },
-    { id:13, cat:"editorial", title:"The New Formal", desc:"Menswear editorial reimagining tailoring for an unstructured generation.", img:"1490481651871-ab68de25d43d?w=800&q=80", ar:"2/3", feat:false, year:"2024", client:"Manifold Mag", medium:"Digital" },
-    { id:14, cat:"branding", title:"Arborist Collective", desc:"Brand campaign for an urban tree-planting nonprofit — rooted in community.", img:"1448375240586-882707db888b?w=800&q=80", ar:"4/3", feat:false, year:"2023", client:"Arborist Co.", medium:"Digital" },
-    { id:15, cat:"abstract", title:"Refraction Study IV", desc:"Prisms, light, and color as compositional elements in a studio series.", img:"1508739773434-c26b3d09e071?w=800&q=80", ar:"1/1", feat:false, year:"2023", client:"Self-directed", medium:"Studio" },
-    { id:16, cat:"portrait", title:"Still Waters", desc:"Environmental portraits of fishermen along the Kerala backwaters at dawn.", img:"1534528741775-53994a69daeb?w=800&q=80", ar:"3/4", feat:false, year:"2022", client:"Documentary", medium:"35mm Film" },
+    { id:1, cat:"portrait", title:"Solitude in Light", desc:"A study of natural window light and the quiet moments between thoughts.", img:"images/pic11.jpg", ar:"3/4", feat:true, year:"2024", client:"Self-directed", medium:"35mm Film" },
+    { id:2, cat:"landscape", title:"Horizon Drift", desc:"Minimalist coastal photography captured at the edge of dusk.", img:"images/pic12.jpg", ar:"16/9", feat:false, year:"2023", client:"GEO Magazine", medium:"Digital" },
+    { id:3, cat:"editorial", title:"Autumn Editorial", desc:"Fashion editorial for a sustainable clothing brand, shot in the Scottish Highlands.", img:"images/flyer5.jpg", ar:"2/3", feat:false, year:"2024", client:"Vestiture Co.", medium:"Medium Format" },
+    { id:4, cat:"branding", title:"Mara Studio Identity", desc:"Visual identity system and product photography for a ceramics studio.", img:"images/pic15.jpg", ar:"1/1", feat:true, year:"2023", client:"Mara Studio", medium:"Digital" },
+    { id:5, cat:"abstract", title:"Chromatic Dissolve", desc:"Long exposure light painting exploring movement and impermanence.", img:"images/shirt3.jpg", ar:"4/3", feat:false, year:"2022", client:"Self-directed", medium:"Digital" },
+    { id:6, cat:"portrait", title:"The Architect", desc:"Portrait series documenting contemporary architects in their creative spaces.", img:"images/pic6.jpg", ar:"3/4", feat:false, year:"2024", client:"Dezeen", medium:"35mm Film" },
+    { id:7, cat:"landscape", title:"Alpine Silence", desc:"Winter highlands at first light — a two-day solo expedition in Norway.", img:"images/shirt1.jpg", ar:"16/9", feat:false, year:"2023", client:"National Geographic", medium:"Digital" },
+    { id:8, cat:"editorial", title:"Monochrome Moods", desc:"A ten-look editorial exploring shadow, form, and the absence of color.", img:"images/flyer6.jpg", ar:"2/3", feat:false, year:"2024", client:"Noir Journal", medium:"Digital" },
+    { id:9, cat:"branding", title:"Lumière Parfums", desc:"Campaign imagery and brand photography for an indie fragrance house.", img:"images/pic16.jpg", ar:"1/1", feat:true, year:"2024", client:"Lumière", medium:"Medium Format" },
+    { id:10, cat:"abstract", title:"Texture Études", desc:"Macro studies of natural surfaces — bark, stone, water — abstracted beyond recognition.", img:"images/pic18.jpg", ar:"1/1", feat:false, year:"2022", client:"Self-directed", medium:"Macro Lens" },
+    { id:11, cat:"portrait", title:"Dancer at Rest", desc:"Off-stage moments with the Royal Ballet ensemble between rehearsals.", img:"images/pic20.jpg", ar:"3/4", feat:false, year:"2023", client:"The Royal Ballet", medium:"35mm Film" },
+    { id:12, cat:"landscape", title:"Desert Passage", desc:"Three weeks traversing the Sahara — light, dust, and endless geometry.", img:"images/flyer4.jpg", ar:"16/9", feat:false, year:"2022", client:"Self-directed", medium:"Digital" },
+    { id:13, cat:"editorial", title:"The New Formal", desc:"Menswear editorial reimagining tailoring for an unstructured generation.", img:"images/pic19.jpg", ar:"2/3", feat:false, year:"2024", client:"Manifold Mag", medium:"Digital" },
+    { id:14, cat:"branding", title:"Arborist Collective", desc:"Brand campaign for an urban tree-planting nonprofit — rooted in community.", img:"images/shirt2.jpg", ar:"4/3", feat:false, year:"2023", client:"Arborist Co.", medium:"Digital" },
+    { id:15, cat:"abstract", title:"Refraction Study IV", desc:"Prisms, light, and color as compositional elements in a studio series.", img:"images/pic17.jpg", ar:"1/1", feat:false, year:"2023", client:"Self-directed", medium:"Studio" },
+    { id:16, cat:"portrait", title:"Still Waters", desc:"Environmental portraits of fishermen along the Kerala backwaters at dawn.", img:"images/pic21.jpg", ar:"3/4", feat:false, year:"2022", client:"Documentary", medium:"35mm Film" },
+      { id:17, cat:"portrait", title:"Additional Portrait", desc:"Filling the masonry gap.", img:"images/flyer2.jpg", ar:"3/4", feat:false, year:"2024", client:"Self-directed", medium:"Digital" },
+    { id:18, cat:"landscape", title:"Additional Landscape", desc:"Filling the masonry gap.", img:"images/pic3.jpg", ar:"3/4", feat:false, year:"2024", client:"Self-directed", medium:"Digital" },
+    { id:19, cat:"landscape", title:"Square Format", desc:"Filling the masonry gap.", img:"images/pic13.jpg", ar:"1/1", feat:false, year:"2024", client:"Self-directed", medium:"Digital" },
 ];
 
 let currentFilter = "all";
@@ -249,7 +252,11 @@ function renderGallery() {
             card.style.gridRow = `span ${s.row}`;
         }
 
-        const imgSrc = `${UNSPLASH}${w.img}`;
+        // FIX: Check if image is a local file or Unsplash URL
+        let imgSrc = w.img;
+        if (!imgSrc.startsWith('images/') && !imgSrc.startsWith('http')) {
+            imgSrc = `${UNSPLASH}${w.img}`;
+        }
 
         card.innerHTML = `
             ${w.feat ? '<span class="featured-badge">Featured</span>' : ''}
@@ -261,54 +268,11 @@ function renderGallery() {
             </div>
         `;
 
-        card.addEventListener("click", () => openLightbox(i));
+
         grid.appendChild(card);
     });
 }
 
-function openLightbox(idx) {
-    lightboxIndex = idx;
-    const w = filtered[idx];
-    document.getElementById("lb-img").src = `${UNSPLASH}${w.img}`;
-    document.getElementById("lb-cat").textContent = w.cat;
-    document.getElementById("lb-title").textContent = w.title;
-    document.getElementById("lb-desc").textContent = w.desc;
-    document.getElementById("lb-specs").innerHTML = `
-        <div class="lb-spec"><span class="lb-spec-key">Year</span><span class="lb-spec-val">${w.year}</span></div>
-        <div class="lb-spec"><span class="lb-spec-key">Client</span><span class="lb-spec-val">${w.client}</span></div>
-        <div class="lb-spec"><span class="lb-spec-key">Medium</span><span class="lb-spec-val">${w.medium}</span></div>
-    `;
-    document.getElementById("lightbox").classList.add("open");
-}
-
-function closeLightbox() {
-    document.getElementById("lightbox").classList.remove("open");
-}
-
-// Gallery event listeners
-document.getElementById("lb-close")?.addEventListener("click", closeLightbox);
-document.getElementById("lb-prev")?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    lightboxIndex = (lightboxIndex - 1 + filtered.length) % filtered.length;
-    openLightbox(lightboxIndex);
-});
-document.getElementById("lb-next")?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    lightboxIndex = (lightboxIndex + 1) % filtered.length;
-    openLightbox(lightboxIndex);
-});
-
-document.getElementById("lightbox")?.addEventListener("click", function(e) {
-    if (e.target === this) closeLightbox();
-});
-
-document.addEventListener("keydown", (e) => {
-    const lb = document.getElementById("lightbox");
-    if (!lb.classList.contains("open")) return;
-    if (e.key === "Escape") closeLightbox();
-    if (e.key === "ArrowRight") { lightboxIndex = (lightboxIndex + 1) % filtered.length; openLightbox(lightboxIndex); }
-    if (e.key === "ArrowLeft") { lightboxIndex = (lightboxIndex - 1 + filtered.length) % filtered.length; openLightbox(lightboxIndex); }
-});
 
 document.querySelectorAll(".filter-btn").forEach(btn => {
     btn.addEventListener("click", () => {

@@ -130,6 +130,9 @@ body {
     position: relative;
     text-decoration: none;
 }
+.focus-text{
+      color: #c9a84c;
+}
 .nav-logo-custom:hover {
     background-position: 100% 0;
     transform: scale(1.05);
@@ -167,7 +170,7 @@ body {
     padding: 0.5rem 0;
 }
 .nav-links-custom a:hover {
-    color: white;
+    color: #c9a84c;
     transform: translateY(-2px);
     text-shadow: 0 0 8px rgba(255,255,255,0.5);
 }
@@ -227,7 +230,7 @@ section { padding: 6rem 5%; }
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center 45%;
     animation: gentleZoom 12s ease-in-out infinite;
 }
 @keyframes gentleZoom {
@@ -391,14 +394,14 @@ section { padding: 6rem 5%; }
 .item-portrait { width: 260px; height: 380px; }
 .item-landscape { width: 380px; height: 260px; }
 
-/* ========== VIDEO SECTION ========== */
+
 .video-section { padding: 6rem 5%; background: #050505; }
 .video-wrapper { position: relative; width: 100%; max-width: 1200px; margin: 0 auto; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); background: #0a0a0a; }
 .looping-video { width: 100%; height: auto; display: block; border-radius: 24px; transition: transform 0.4s ease; }
 .video-wrapper:hover .looping-video { transform: scale(1.02); }
 @media (max-width: 768px) { .video-section { padding: 3rem 5%; } }
 
-/* ========== ABOUT SECTION (PREMIUM) ========== */
+
 .about-premium {
     min-height: 100vh;
     display: flex;
@@ -406,6 +409,24 @@ section { padding: 6rem 5%; }
     overflow: hidden;
     padding: 0;
     background: #050505;
+}
+
+@media (max-width: 1024px) {
+    .hero-image {
+        object-position: center 40%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-image {
+        object-position: center 35%;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-image {
+        object-position: center 30%;
+    }
 }
 
 .deco-lines {
@@ -823,7 +844,6 @@ section { padding: 6rem 5%; }
     gap: 1.5rem;
 }
 .gallery-logo .logo-name {
-    font-family: 'Cormorant Garamond', serif;
     font-size: 2rem;
     font-weight: 300;
     letter-spacing: 0.08em;
@@ -955,15 +975,7 @@ section { padding: 6rem 5%; }
     filter: brightness(0.7) saturate(1.1);
 }
 .card-overlay-gallery {
-    position: absolute;
-    inset: 0;
-    background: rgba(10, 10, 10, 0.62);
-    opacity: 0;
-    transition: opacity 0.4s;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.2rem;
+  display: none;
 }
 .gallery-card:hover .card-overlay-gallery { opacity: 1; }
 .card-tag {
