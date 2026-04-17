@@ -102,20 +102,20 @@ type();
 const imageSet = [
     { url: "images/flyer1.jpg",   size: "tall",      alt: "Portrait study" },
     { url: "images/shirt2.jpg",   size: "landscape",  alt: "Editorial fashion" },
-    { url: "images/pic3.jpg",     size: "tall",       alt: "Urban fashion" },
+    { url: "images/flyer10.jpg",     size: "tall",       alt: "Urban fashion" },
     { url: "images/flyer2.jpg",   size: "wide",       alt: "Landscape view" },
     { url: "images/flyer3.jpg",   size: "tall",       alt: "Editorial portrait" },
     { url: "images/pic1.jpg",     size: "tall",       alt: "Artistic portrait" },
-    { url: "images/pic4.jpg",     size: "wide",       alt: "Mountain range" },
+    { url: "images/flyer12.jpg",     size: "tall",       alt: "Mountain range" },
     { url: "images/pic2.jpg",     size: "wide",       alt: "Cinematic wide shot" },
-    { url: "images/shirt1.jpg",   size: "landscape",  alt: "Creative composition" },
-    { url: "images/pic6.jpg",     size: "square",     alt: "Art direction" },
+    { url: "images/flyer7.jpg",   size: "landscape",  alt: "Creative composition" },
+    { url: "images/flyer8.jpg",     size: "square",     alt: "Art direction" },
     { url: "images/pic7.jpg",     size: "square",     alt: "Design composition" },
     { url: "images/pic8.jpg",     size: "wide",       alt: "Portrait photography" },
     { url: "images/shirt3.jpg",   size: "landscape",  alt: "Fashion portrait" },
     { url: "images/pic9.jpg",     size: "wide",       alt: "Studio portrait" },
     { url: "images/shirt4.png",   size: "landscape",  alt: "Cityscape" },
-    { url: "images/pic10.jpg",    size: "landscape",  alt: "Architecture" },
+    { url: "images/pic11.jpg",    size: "landscape",  alt: "Architecture" },
     { url: "images/shirt1.jpg",   size: "landscape",  alt: "Street photography" }
 ];
 
@@ -256,7 +256,7 @@ startAutoSlide();
 
 // ===== PHOTO GALLERY =====
 const works = [
-    { id:1,  cat:"portrait",   title:"Solitude in Light",   desc:"A study of natural window light and the quiet moments between thoughts.",                                               img:"images/pic11.jpg",  ar:"3/4",   feat:true,  year:"2024", client:"Self-directed",    medium:"35mm Film" },
+    { id:1,  cat:"portrait",   title:"Solitude in Light",   desc:"A study of natural window light and the quiet moments between thoughts.",                                               img:"images/flyer11.jpg",  ar:"3/4",   feat:true,  year:"2024", client:"Self-directed",    medium:"35mm Film" },
     { id:2,  cat:"landscape",  title:"Horizon Drift",        desc:"Minimalist coastal photography captured at the edge of dusk.",                                                           img:"images/pic12.jpg",  ar:"16/9",  feat:false, year:"2023", client:"GEO Magazine",     medium:"Digital" },
     { id:3,  cat:"editorial",  title:"Autumn Editorial",     desc:"Fashion editorial for a sustainable clothing brand, shot in the Scottish Highlands.",                                    img:"images/flyer5.jpg", ar:"2/3",   feat:false, year:"2024", client:"Vestiture Co.",    medium:"Medium Format" },
     { id:4,  cat:"branding",   title:"Mara Studio Identity", desc:"Visual identity system and product photography for a ceramics studio.",                                                  img:"images/pic15.jpg",  ar:"1/1",   feat:true,  year:"2023", client:"Mara Studio",      medium:"Digital" },
@@ -270,11 +270,11 @@ const works = [
     { id:12, cat:"landscape",  title:"Desert Passage",       desc:"Three weeks traversing the Sahara — light, dust, and endless geometry.",                                                 img:"images/flyer4.jpg", ar:"16/9",  feat:false, year:"2022", client:"Self-directed",    medium:"Digital" },
     { id:13, cat:"editorial",  title:"The New Formal",       desc:"Menswear editorial reimagining tailoring for an unstructured generation.",                                               img:"images/pic19.jpg",  ar:"2/3",   feat:false, year:"2024", client:"Manifold Mag",     medium:"Digital" },
     { id:14, cat:"branding",   title:"Arborist Collective",  desc:"Brand campaign for an urban tree-planting nonprofit — rooted in community.",                                             img:"images/shirt2.jpg", ar:"4/3",   feat:false, year:"2023", client:"Arborist Co.",     medium:"Digital" },
-    { id:15, cat:"abstract",   title:"Refraction Study IV",  desc:"Prisms, light, and color as compositional elements in a studio series.",                                                 img:"images/pic17.jpg",  ar:"1/1",   feat:false, year:"2023", client:"Self-directed",    medium:"Studio" },
-    { id:16, cat:"portrait",   title:"Still Waters",         desc:"Environmental portraits of fishermen along the Kerala backwaters at dawn.",                                               img:"images/pic21.jpg",  ar:"3/4",   feat:false, year:"2022", client:"Documentary",      medium:"35mm Film" },
+    { id:15, cat:"abstract",   title:"Refraction Study IV",  desc:"Prisms, light, and color as compositional elements in a studio series.",                                                 img:"images/pic21.jpg",  ar:"1/1",   feat:false, year:"2023", client:"Self-directed",    medium:"Studio" },
+    { id:16, cat:"portrait",   title:"Still Waters",         desc:"Environmental portraits of fishermen along the Kerala backwaters at dawn.",                                               img:"images/flyer11.jpg",  ar:"3/4",   feat:false, year:"2022", client:"Documentary",      medium:"35mm Film" },
     { id:17, cat:"portrait",   title:"Golden Hour",          desc:"Warm light portraits captured in the late afternoon glow.",                                                              img:"images/flyer2.jpg", ar:"3/4",   feat:false, year:"2024", client:"Self-directed",    medium:"Digital" },
     { id:18, cat:"landscape",  title:"Green Canopy",         desc:"Lush forest landscape captured at dawn.",                                                                                img:"images/pic3.jpg",   ar:"3/4",   feat:false, year:"2024", client:"Self-directed",    medium:"Digital" },
-    { id:19, cat:"landscape",  title:"Open Horizon",         desc:"Square format exploration of open spaces.",                                                                              img:"images/pic13.jpg",  ar:"1/1",   feat:false, year:"2024", client:"Self-directed",    medium:"Digital" },
+    { id:19, cat:"landscape",  title:"Open Horizon",         desc:"Square format exploration of open spaces.",                                                                              img:"images/flyer7.jpg",  ar:"1/1",   feat:false, year:"2024", client:"Self-directed",    medium:"Digital" },
 ];
 
 let currentFilter = 'all';
