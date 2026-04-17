@@ -73,6 +73,10 @@
 
     <!-- Mobile Nav Drawer -->
     <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+        <!-- FIX 1: Added close button inside drawer -->
+        <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close menu">
+            <i class="fas fa-times"></i>
+        </button>
         <ul class="mobile-nav-links">
             <li><a href="#home" class="mobile-link">Home</a></li>
             <li><a href="#gallery" class="mobile-link">Work</a></li>
@@ -118,10 +122,6 @@
                 <a href="#contact" class="btn-hero-ghost">Let's Talk</a>
             </div>
         </div>
-
-       
-
-     
     </section>
 
     <!-- ===== MARQUEE GALLERY ===== -->
@@ -191,7 +191,8 @@
                     <span class="astat-lbl">Happy Clients</span>
                 </div>
             </div>
-            <div class="about-cta">
+            <!-- FIX 2: Added margin-bottom to about-cta via class -->
+            <div class="about-cta about-cta--spaced">
                 <a href="#services-custom" class="btn-gold"><span>Area of Expertise</span></a>
                 <a href="#contact" class="btn-ghost-gold">Let's Collaborate</a>
             </div>
@@ -266,29 +267,26 @@
                 <p class="section-sub">Creative services crafted with precision and passion</p>
             </div>
             <div class="services-grid">
+                <!-- FIX 4: Removed .service-arrow from all service cards -->
                 <div class="service-card" data-number="01">
                     <div class="service-icon"><i class="fas fa-camera"></i></div>
                     <h3 class="service-title">Photography</h3>
                     <p class="service-desc">Capturing authentic moments with a cinematic eye — portrait, fashion, editorial, and fine art photography.</p>
-                    <div class="service-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
                 </div>
                 <div class="service-card" data-number="02">
                     <div class="service-icon"><i class="fas fa-pen-fancy"></i></div>
                     <h3 class="service-title">Graphic Design</h3>
                     <p class="service-desc">Visual identities, branding, posters, and digital assets that tell compelling stories.</p>
-                    <div class="service-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
                 </div>
                 <div class="service-card" data-number="03">
                     <div class="service-icon"><i class="fas fa-bullseye"></i></div>
                     <h3 class="service-title">Branding</h3>
                     <p class="service-desc">Complete brand strategy — from logo design to visual identity systems that resonate and endure.</p>
-                    <div class="service-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
                 </div>
                 <div class="service-card" data-number="04">
                     <div class="service-icon"><i class="fas fa-hashtag"></i></div>
                     <h3 class="service-title">Social Media Design</h3>
                     <p class="service-desc">Scroll-stopping visuals, templates, and content systems for consistent brand presence.</p>
-                    <div class="service-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
                 </div>
             </div>
         </div>
@@ -401,7 +399,7 @@
 
 </div><!-- /main-content -->
 
-<!-- Lightbox -->
+<!-- Lightbox (kept for marquee gallery only) -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button class="lb-close" id="lbClose" aria-label="Close"><i class="fas fa-times"></i></button>
     <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>

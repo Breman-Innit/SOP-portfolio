@@ -1,5 +1,5 @@
 /* ============================================================
-   BrightFocus Media — script.js (Upgraded)
+   BrightFocus Media — script.js (Fixed)
    ============================================================ */
 
 // ===== PRELOADER =====
@@ -116,7 +116,7 @@ const imageSet = [
     { url: "images/pic9.jpg",     size: "wide",       alt: "Studio portrait" },
     { url: "images/shirt4.png",   size: "landscape",  alt: "Cityscape" },
     { url: "images/pic10.jpg",    size: "landscape",  alt: "Architecture" },
-    { url: "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop", size: "landscape", alt: "Street photography" }
+    { url: "images/shirt1.jpg",   size: "landscape",  alt: "Street photography" }
 ];
 
 function buildMarqueeHTML(imgs) {
@@ -166,9 +166,10 @@ window.addEventListener('scroll', handleNavScroll, { passive: true });
 
 
 // ===== MOBILE DRAWER =====
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const mobileDrawer  = document.getElementById('mobileDrawer');
-const mobileOverlay = document.getElementById('mobileOverlay');
+const mobileMenuBtn  = document.getElementById('mobileMenuBtn');
+const mobileDrawer   = document.getElementById('mobileDrawer');
+const mobileOverlay  = document.getElementById('mobileOverlay');
+const drawerCloseBtn = document.getElementById('drawerCloseBtn'); // FIX 1
 
 function openDrawer() {
     mobileDrawer.classList.add('open');
@@ -191,6 +192,7 @@ mobileMenuBtn?.addEventListener('click', () => {
     mobileDrawer.classList.contains('open') ? closeDrawer() : openDrawer();
 });
 mobileOverlay?.addEventListener('click', closeDrawer);
+drawerCloseBtn?.addEventListener('click', closeDrawer); // FIX 1: close button wired up
 document.querySelectorAll('.mobile-link').forEach(link => {
     link.addEventListener('click', closeDrawer);
 });
@@ -278,7 +280,6 @@ const works = [
 let currentFilter = 'all';
 let currentLayout = 'masonry';
 let filtered = [...works];
-let lightboxIndex = 0;
 
 function editorialSpan(i) {
     const patterns = [
@@ -311,20 +312,12 @@ function renderGallery() {
         const imgSrc = isFullUrl ? w.img : `https://images.unsplash.com/photo-${w.img}`;
         const needsHeight = currentLayout === 'editorial' || currentLayout === 'uniform';
 
+        // FIX 3: No card-hover-info rendered, no click event attached
         card.innerHTML = `
             ${w.feat ? '<span class="featured-badge">Featured</span>' : ''}
             <img class="card-img" src="${imgSrc}" alt="${w.title}" loading="lazy"
                  style="aspect-ratio:${w.ar};${needsHeight ? 'height:100%;' : ''}">
-            <div class="card-hover-info">
-                <span class="card-tag-label">${w.cat}</span>
-                <div class="card-hover-title">${w.title}</div>
-            </div>
         `;
-
-        card.addEventListener('click', () => {
-            lightboxIndex = i;
-            openLightbox(w);
-        });
 
         grid.appendChild(card);
     });
@@ -358,60 +351,25 @@ document.querySelectorAll('.layout-btn').forEach(btn => {
 renderGallery();
 
 
-// ===== LIGHTBOX =====
+// ===== LIGHTBOX (only used if triggered manually — not from photo grid) =====
 const lightbox = document.getElementById('lightbox');
 const lbClose  = document.getElementById('lbClose');
 const lbPrev   = document.getElementById('lbPrev');
 const lbNext   = document.getElementById('lbNext');
 const lbImg    = document.getElementById('lbImg');
 
-function openLightbox(w) {
-    if (!lightbox) return;
-    const isFullUrl = w.img.startsWith('http') || w.img.startsWith('images/');
-    lbImg.src = isFullUrl ? w.img : `https://images.unsplash.com/photo-${w.img}`;
-    lbImg.alt = w.title;
-    document.getElementById('lbCat').textContent    = w.cat;
-    document.getElementById('lbTitle').textContent  = w.title;
-    document.getElementById('lbDesc').textContent   = w.desc;
-    document.getElementById('lbYear').textContent   = w.year;
-    document.getElementById('lbClient').textContent = w.client;
-    document.getElementById('lbMedium').textContent = w.medium;
-    lightbox.classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-
 function closeLightbox() {
     lightbox?.classList.remove('open');
     document.body.style.overflow = '';
 }
 
-function navigateLightbox(dir) {
-    lightboxIndex = (lightboxIndex + dir + filtered.length) % filtered.length;
-    openLightbox(filtered[lightboxIndex]);
-}
-
 lbClose?.addEventListener('click', closeLightbox);
-lbPrev?.addEventListener('click',  () => navigateLightbox(-1));
-lbNext?.addEventListener('click',  () => navigateLightbox(1));
-
 lightbox?.addEventListener('click', e => {
     if (e.target === lightbox) closeLightbox();
 });
-
-// Keyboard nav
 document.addEventListener('keydown', e => {
     if (!lightbox?.classList.contains('open')) return;
-    if (e.key === 'Escape')    closeLightbox();
-    if (e.key === 'ArrowLeft') navigateLightbox(-1);
-    if (e.key === 'ArrowRight')navigateLightbox(1);
-});
-
-// Lightbox swipe
-let lbTouchX = 0;
-lightbox?.addEventListener('touchstart', e => { lbTouchX = e.touches[0].clientX; }, { passive:true });
-lightbox?.addEventListener('touchend',   e => {
-    const diff = lbTouchX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) navigateLightbox(diff > 0 ? 1 : -1);
+    if (e.key === 'Escape') closeLightbox();
 });
 
 
@@ -480,13 +438,7 @@ if (cursor && cursorRing) {
         requestAnimationFrame(animRing);
     })();
 
-    const hoverMap = {
-        'a, button, .gallery-card, .service-card, .tool-card, .marquee-item, .filter-btn, .layout-btn': 'VIEW',
-        '.btn-hero-primary, .btn-gold':    'GO',
-        '.hero-cta':                        'ENTER',
-    };
-
-    document.querySelectorAll('a, button, .gallery-card, .service-card, .tool-card, .marquee-item, .filter-btn, .layout-btn, .btn-hero-primary, .btn-gold').forEach(el => {
+    document.querySelectorAll('a, button, .service-card, .tool-card, .marquee-item, .filter-btn, .layout-btn, .btn-hero-primary, .btn-gold').forEach(el => {
         el.addEventListener('mouseenter', () => {
             cursorRing.classList.add('expanded');
             if (cursorText) cursorText.textContent = 'VIEW';
@@ -497,7 +449,6 @@ if (cursor && cursorRing) {
         });
     });
 
-    // Hide on leave, show on enter
     document.addEventListener('mouseleave', () => { cursor.style.opacity='0'; cursorRing.style.opacity='0'; });
     document.addEventListener('mouseenter', () => { cursor.style.opacity='1'; cursorRing.style.opacity='1'; });
 }
@@ -506,8 +457,6 @@ if (cursor && cursorRing) {
 // ===== INIT ALL =====
 function initAllAfterLoad() {
     observeRevealTargets();
-
-    // Re-observe after gallery renders
     setTimeout(observeRevealTargets, 500);
 }
 
