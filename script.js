@@ -256,7 +256,7 @@ startAutoSlide();
 
 // ===== PHOTO GALLERY =====
 const works = [
-    { id:1,  cat:"portrait",   title:"Solitude in Light",   desc:"A study of natural window light and the quiet moments between thoughts.",                                               img:"images/flyer11.webp",  ar:"3/4",   feat:true,  year:"2024", client:"Self-directed",    medium:"35mm Film" },
+    { id:1,  cat:"portrait",   title:"Solitude in Light",   desc:"A study of natural window light and the quiet moments between thoughts.",                                               img:"images/flyer12.webp",  ar:"3/4",   feat:true,  year:"2024", client:"Self-directed",    medium:"35mm Film" },
     { id:2,  cat:"landscape",  title:"Horizon Drift",        desc:"Minimalist coastal photography captured at the edge of dusk.",                                                           img:"images/pic12.webp",  ar:"16/9",  feat:false, year:"2023", client:"GEO Magazine",     medium:"Digital" },
     { id:3,  cat:"editorial",  title:"Autumn Editorial",     desc:"Fashion editorial for a sustainable clothing brand, shot in the Scottish Highlands.",                                    img:"images/flyer5.webp", ar:"2/3",   feat:false, year:"2024", client:"Vestiture Co.",    medium:"Medium Format" },
     { id:4,  cat:"branding",   title:"Mara Studio Identity", desc:"Visual identity system and product photography for a ceramics studio.",                                                  img:"images/pic15.webp",  ar:"1/1",   feat:true,  year:"2023", client:"Mara Studio",      medium:"Digital" },
