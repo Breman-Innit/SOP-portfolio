@@ -1,5 +1,5 @@
 /* ============================================================
-   BrightFocus Media — script.js (Fixed)
+   BrightFocus Media — script.js (Logo Redesign)
    ============================================================ */
 
 // ===== PRELOADER =====
@@ -102,14 +102,14 @@ type();
 const imageSet = [
     { url: "images/flyer1.webp",   size: "tall",      alt: "Portrait study" },
     { url: "images/shirt2.webp",   size: "landscape",  alt: "Editorial fashion" },
-    { url: "images/flyer10.webp",     size: "tall",       alt: "Urban fashion" },
+    { url: "images/flyer10.webp",  size: "tall",       alt: "Urban fashion" },
     { url: "images/flyer2.webp",   size: "wide",       alt: "Landscape view" },
     { url: "images/flyer3.webp",   size: "tall",       alt: "Editorial portrait" },
     { url: "images/pic1.webp",     size: "tall",       alt: "Artistic portrait" },
-    { url: "images/flyer12.webp",     size: "tall",       alt: "Mountain range" },
+    { url: "images/flyer12.webp",  size: "tall",       alt: "Mountain range" },
     { url: "images/pic2.webp",     size: "wide",       alt: "Cinematic wide shot" },
     { url: "images/flyer7.webp",   size: "landscape",  alt: "Creative composition" },
-    { url: "images/flyer8.webp",     size: "square",     alt: "Art direction" },
+    { url: "images/flyer8.webp",   size: "square",     alt: "Art direction" },
     { url: "images/pic7.webp",     size: "square",     alt: "Design composition" },
     { url: "images/pic8.webp",     size: "wide",       alt: "Portrait photography" },
     { url: "images/shirt3.webp",   size: "landscape",  alt: "Fashion portrait" },
@@ -149,7 +149,6 @@ function handleNavScroll() {
         mainNavbar.classList.remove('scrolled');
     }
 
-    // Active link tracking
     let current = '';
     document.querySelectorAll('section[id]').forEach(section => {
         if (window.scrollY + 120 >= section.offsetTop) {
@@ -169,7 +168,7 @@ window.addEventListener('scroll', handleNavScroll, { passive: true });
 const mobileMenuBtn  = document.getElementById('mobileMenuBtn');
 const mobileDrawer   = document.getElementById('mobileDrawer');
 const mobileOverlay  = document.getElementById('mobileOverlay');
-const drawerCloseBtn = document.getElementById('drawerCloseBtn'); // FIX 1
+const drawerCloseBtn = document.getElementById('drawerCloseBtn');
 
 function openDrawer() {
     mobileDrawer.classList.add('open');
@@ -192,7 +191,7 @@ mobileMenuBtn?.addEventListener('click', () => {
     mobileDrawer.classList.contains('open') ? closeDrawer() : openDrawer();
 });
 mobileOverlay?.addEventListener('click', closeDrawer);
-drawerCloseBtn?.addEventListener('click', closeDrawer); // FIX 1: close button wired up
+drawerCloseBtn?.addEventListener('click', closeDrawer);
 document.querySelectorAll('.mobile-link').forEach(link => {
     link.addEventListener('click', closeDrawer);
 });
@@ -243,7 +242,6 @@ const sliderWrap = document.querySelector('.about-slider-wrap');
 sliderWrap?.addEventListener('mouseenter', stopAutoSlide);
 sliderWrap?.addEventListener('mouseleave', startAutoSlide);
 
-// Swipe support for slider
 let touchStartX = 0;
 sliderWrap?.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive:true });
 sliderWrap?.addEventListener('touchend', e => {
@@ -271,10 +269,10 @@ const works = [
     { id:13, cat:"editorial",  title:"The New Formal",       desc:"Menswear editorial reimagining tailoring for an unstructured generation.",                                               img:"images/pic19.webp",  ar:"2/3",   feat:false, year:"2024", client:"Manifold Mag",     medium:"Digital" },
     { id:14, cat:"branding",   title:"Arborist Collective",  desc:"Brand campaign for an urban tree-planting nonprofit — rooted in community.",                                             img:"images/shirt2.webp", ar:"4/3",   feat:false, year:"2023", client:"Arborist Co.",     medium:"Digital" },
     { id:15, cat:"abstract",   title:"Refraction Study IV",  desc:"Prisms, light, and color as compositional elements in a studio series.",                                                 img:"images/pic21.webp",  ar:"1/1",   feat:false, year:"2023", client:"Self-directed",    medium:"Studio" },
-    { id:16, cat:"portrait",   title:"Still Waters",         desc:"Environmental portraits of fishermen along the Kerala backwaters at dawn.",                                               img:"images/flyer11.webp",  ar:"3/4",   feat:false, year:"2022", client:"Documentary",      medium:"35mm Film" },
+    { id:16, cat:"portrait",   title:"Still Waters",         desc:"Environmental portraits of fishermen along the Kerala backwaters at dawn.",                                               img:"images/flyer11.webp",  ar:"3/4", feat:false, year:"2022", client:"Documentary",      medium:"35mm Film" },
     { id:17, cat:"portrait",   title:"Golden Hour",          desc:"Warm light portraits captured in the late afternoon glow.",                                                              img:"images/flyer2.webp", ar:"3/4",   feat:false, year:"2024", client:"Self-directed",    medium:"Digital" },
     { id:18, cat:"landscape",  title:"Green Canopy",         desc:"Lush forest landscape captured at dawn.",                                                                                img:"images/pic3.webp",   ar:"3/4",   feat:false, year:"2024", client:"Self-directed",    medium:"Digital" },
-    { id:19, cat:"landscape",  title:"Open Horizon",         desc:"Square format exploration of open spaces.",                                                                              img:"images/flyer7.webp",  ar:"1/1",   feat:false, year:"2024", client:"Self-directed",    medium:"Digital" },
+    { id:19, cat:"landscape",  title:"Open Horizon",         desc:"Square format exploration of open spaces.",                                                                              img:"images/flyer7.webp",  ar:"1/1",  feat:false, year:"2024", client:"Self-directed",    medium:"Digital" },
 ];
 
 let currentFilter = 'all';
@@ -312,7 +310,6 @@ function renderGallery() {
         const imgSrc = isFullUrl ? w.img : `https://images.unsplash.com/photo-${w.img}`;
         const needsHeight = currentLayout === 'editorial' || currentLayout === 'uniform';
 
-        // FIX 3: No card-hover-info rendered, no click event attached
         card.innerHTML = `
             ${w.feat ? '<span class="featured-badge">Featured</span>' : ''}
             <img class="card-img" src="${imgSrc}" alt="${w.title}" loading="lazy"
@@ -351,12 +348,9 @@ document.querySelectorAll('.layout-btn').forEach(btn => {
 renderGallery();
 
 
-// ===== LIGHTBOX (only used if triggered manually — not from photo grid) =====
+// ===== LIGHTBOX =====
 const lightbox = document.getElementById('lightbox');
 const lbClose  = document.getElementById('lbClose');
-const lbPrev   = document.getElementById('lbPrev');
-const lbNext   = document.getElementById('lbNext');
-const lbImg    = document.getElementById('lbImg');
 
 function closeLightbox() {
     lightbox?.classList.remove('open');
@@ -383,7 +377,7 @@ contactForm?.addEventListener('submit', e => {
     btn.disabled = true;
     setTimeout(() => {
         txt.textContent = 'Message Sent ✓';
-        btn.style.background = '#2a9d5c';
+        btn.style.background = 'linear-gradient(135deg, #1a6fc4, #2e9fd8)';
         setTimeout(() => {
             txt.textContent = 'Send Message';
             btn.disabled = false;
@@ -460,7 +454,6 @@ function initAllAfterLoad() {
     setTimeout(observeRevealTargets, 500);
 }
 
-// Initial call in case elements already in view
 setTimeout(() => {
     observeRevealTargets();
     handleNavScroll();

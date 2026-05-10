@@ -26,14 +26,8 @@
 <!-- Preloader -->
 <div class="preloader" id="preloader">
     <div class="preloader-content">
-        <div class="preloader-logo">
-            <span class="pre-logo-bright">Bright</span><span class="pre-logo-focus">Focus</span>
-        </div> 
-        <div class="preloader-aperture">
-            <div class="ap-ring ap-ring--1"></div>
-            <div class="ap-ring ap-ring--2"></div>
-            <div class="ap-ring ap-ring--3"></div>
-            <div class="ap-dot"></div>
+        <div class="preloader-logo-wrap">
+            <img src="images/logo.png" alt="BrightFocus Media Logo" class="preloader-logo-img">
         </div>
         <div class="preloader-tagline">VISUAL ARTIST &nbsp;·&nbsp; MULTIMEDIA CREATOR</div>
         <div class="progress-wrap">
@@ -54,7 +48,8 @@
     <!-- Navigation -->
     <nav class="main-nav" id="mainNavbar">
         <a class="nav-logo" href="#">
-            Bright<span class="focus-accent">Focus</span><span class="nav-dot">.</span>
+            <img src="images/logo.png" alt="BrightFocus Media" class="nav-logo-img">
+            <span class="nav-logo-text">Bright<span class="focus-accent">Focus</span><span class="nav-dot">.</span></span>
         </a>
         <ul class="nav-links" id="navLinks">
             <li><a href="#home" class="nav-link">Home</a></li>
@@ -73,10 +68,12 @@
 
     <!-- Mobile Nav Drawer -->
     <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
-        <!-- FIX 1: Added close button inside drawer -->
         <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close menu">
             <i class="fas fa-times"></i>
         </button>
+        <div class="mobile-drawer-logo">
+            <img src="images/logo.png" alt="BrightFocus Media" class="mobile-logo-img">
+        </div>
         <ul class="mobile-nav-links">
             <li><a href="#home" class="mobile-link">Home</a></li>
             <li><a href="#gallery" class="mobile-link">Work</a></li>
@@ -99,7 +96,14 @@
             <div class="hero-gradient"></div>
         </div>
 
+        <!-- Decorative flame orbs matching logo -->
+        <div class="hero-orb hero-orb--blue" aria-hidden="true"></div>
+        <div class="hero-orb hero-orb--gold" aria-hidden="true"></div>
+
         <div class="hero-content">
+            <div class="hero-logo-badge">
+                <img src="images/logo.png" alt="BrightFocus Media" class="hero-logo-img">
+            </div>
             <div class="hero-eyebrow">
                 <span class="eyebrow-line"></span>
                 <span class="eyebrow-text">Portfolio 2026</span>
@@ -121,6 +125,11 @@
                 </a>
                 <a href="#contact" class="btn-hero-ghost">Let's Talk</a>
             </div>
+        </div>
+
+        <div class="hero-scroll-hint">
+            <div class="scroll-line"></div>
+            <span>Scroll</span>
         </div>
     </section>
 
@@ -165,6 +174,11 @@
         <div class="about-deco-line about-deco-line--v" aria-hidden="true"></div>
         <div class="about-deco-line about-deco-line--h" aria-hidden="true"></div>
 
+        <!-- Floating logo watermark -->
+        <div class="about-watermark" aria-hidden="true">
+            <img src="images/logo.png" alt="">
+        </div>
+
         <div class="about-left">
             <p class="about-eyebrow">Visual Storyteller &amp; Multimedia Artist</p>
             <h2 class="about-name">
@@ -191,7 +205,6 @@
                     <span class="astat-lbl">Happy Clients</span>
                 </div>
             </div>
-            <!-- FIX 2: Added margin-bottom to about-cta via class -->
             <div class="about-cta about-cta--spaced">
                 <a href="#services-custom" class="btn-gold"><span>Area of Expertise</span></a>
                 <a href="#contact" class="btn-ghost-gold">Let's Collaborate</a>
@@ -267,7 +280,6 @@
                 <p class="section-sub">Creative services crafted with precision and passion</p>
             </div>
             <div class="services-grid">
-                <!-- FIX 4: Removed .service-arrow from all service cards -->
                 <div class="service-card" data-number="01">
                     <div class="service-icon"><i class="fas fa-camera"></i></div>
                     <h3 class="service-title">Photography</h3>
@@ -339,7 +351,7 @@
                     <span class="section-tag">Get in Touch</span>
                     <h2 class="contact-title">Let's Work<br><em>Together</em></h2>
                     <p class="contact-desc">Have a project in mind? I'd love to hear about it. Let's create something extraordinary together.</p>
-                  <div class="contact-links">
+                    <div class="contact-links">
                         <a href="mailto:quahmibryt@gmail.com" class="contact-link">
                             <i class="fas fa-envelope"></i>
                             <span>quahmibryt@gmail.com</span>
@@ -389,7 +401,10 @@
     <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-inner">
-            <a class="footer-logo" href="#">Bright<span class="focus-accent">Focus</span>.</a>
+            <a class="footer-logo" href="#">
+                <img src="images/logo.png" alt="BrightFocus Media" class="footer-logo-img">
+                <span>Bright<span class="focus-accent">Focus</span>.</span>
+            </a>
             <p class="footer-copy">© 2026 BrightFocus Media — Visual Artist. All work is original.</p>
             <div class="footer-links">
                 <a href="#home">Home</a>
@@ -402,7 +417,7 @@
 
 </div><!-- /main-content -->
 
-<!-- Lightbox (kept for marquee gallery only) -->
+<!-- Lightbox -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button class="lb-close" id="lbClose" aria-label="Close"><i class="fas fa-times"></i></button>
     <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
