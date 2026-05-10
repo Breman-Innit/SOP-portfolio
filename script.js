@@ -381,27 +381,53 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeLightbox();
 });
 
-
-// ===== CONTACT FORM =====
+// ===== CONTACT FORM (Cloudflare Worker) =====
 const contactForm = document.getElementById('contactForm');
-contactForm?.addEventListener('submit', e => {
-    e.preventDefault();
-    const btn = contactForm.querySelector('.btn-submit');
-    const txt = btn.querySelector('.btn-submit-text');
-    txt.textContent = 'Sending…';
-    btn.disabled = true;
-    setTimeout(() => {
-        txt.textContent = 'Message Sent ✓';
-        btn.style.background = 'linear-gradient(135deg, #1a6fc4, #2e9fd8)';
-        setTimeout(() => {
-            txt.textContent = 'Send Message';
-            btn.disabled = false;
-            btn.style.background = '';
-            contactForm.reset();
-        }, 3000);
-    }, 1500);
-});
 
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const btn = contactForm.querySelector('.btn-submit');
+        const txt = btn.querySelector('.btn-submit-text');
+        const originalText = txt.textContent;
+        
+        txt.textContent = 'Sending...';
+        btn.disabled = true;
+        
+        const formData = new FormData(contactForm);
+        
+        try {
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                txt.textContent = 'Message Sent ✓';
+                btn.style.background = 'linear-gradient(135deg, #1a6fc4, #2e9fd8)';
+                contactForm.reset();
+                setTimeout(() => {
+                    txt.textContent = originalText;
+                    btn.disabled = false;
+                    btn.style.background = '';
+                }, 3000);
+            } else {
+                throw new Error(result.message || 'Failed to send');
+            }
+        } catch (error) {
+            txt.textContent = 'Error — Try Again';
+            btn.style.background = '#d9534f';
+            setTimeout(() => {
+                txt.textContent = originalText;
+                btn.disabled = false;
+                btn.style.background = '';
+            }, 3000);
+        }
+    });
+}
 
 // ===== SCROLL REVEAL =====
 const revealObserver = new IntersectionObserver((entries) => {
