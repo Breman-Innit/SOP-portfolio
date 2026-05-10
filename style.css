@@ -1,30 +1,20 @@
-/* ============================================================
-   BrightFocus Media — style.css (Logo Redesign)
-   Brand palette: Deep Blue + Gold from BrightFocus logo
-   Fonts: Playfair Display, DM Sans, Cormorant Garamond
-   ============================================================ */
 
-/* ===== CSS VARIABLES ===== */
 :root {
-    /* Brand Blues — from logo */
     --blue:        #1a6fc4;
     --blue-bright: #2e9fd8;
     --blue-deep:   #0d4a87;
     --blue-dim:    rgba(26,111,196,0.15);
     --blue-glow:   rgba(46,159,216,0.25);
 
-    /* Brand Gold — from logo */
     --gold:        #c9a84c;
     --gold-light:  #e2c97e;
     --gold-dim:    rgba(201,168,76,0.15);
     --gold-glow:   rgba(201,168,76,0.3);
 
-    /* Accent — flame gradient */
     --flame-start: #1a6fc4;
     --flame-end:   #c9a84c;
     --flame-grad:  linear-gradient(135deg, var(--blue-bright) 0%, var(--blue) 40%, var(--gold) 100%);
 
-    /* Surfaces */
     --bg-main:   #04080f;
     --bg-card:   #090e18;
     --bg-card2:  #0d1422;
@@ -45,7 +35,7 @@
     --font-editorial: 'Cormorant Garamond', Georgia, serif;
 }
 
-/* ===== RESET & BASE ===== */
+
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; font-size: 16px; }
 body {

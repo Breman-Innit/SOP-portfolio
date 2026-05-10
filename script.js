@@ -1,5 +1,4 @@
 
-
 // ===== PRELOADER =====
 const preloader    = document.getElementById('preloader');
 const mainContent  = document.getElementById('mainContent');
