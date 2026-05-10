@@ -1,6 +1,4 @@
-/* ============================================================
-   BrightFocus Media — script.js (Logo Redesign)
-   ============================================================ */
+
 
 // ===== PRELOADER =====
 const preloader    = document.getElementById('preloader');
