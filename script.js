@@ -380,8 +380,7 @@ document.addEventListener('keydown', e => {
     if (!lightbox?.classList.contains('open')) return;
     if (e.key === 'Escape') closeLightbox();
 });
-
-// ===== CONTACT FORM (Cloudflare Worker) =====
+// ===== CONTACT FORM (Direct Web3Forms) =====
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
@@ -398,7 +397,7 @@ if (contactForm) {
         const formData = new FormData(contactForm);
         
         try {
-            const response = await fetch(contactForm.action, {
+            const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 body: formData
             });

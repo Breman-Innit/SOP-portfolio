@@ -368,27 +368,34 @@
                     </div>
                 </div>
                 <div class="contact-form-wrap">
-                   <form class="contact-form" id="contactForm" action="https://brightfocus-contact-worker.visualworks.workers.dev" method="POST" novalidate>
-                        <div class="form-group">
-                            <input type="text" id="formName" name="name" placeholder=" " required autocomplete="name">
-                            <label for="formName">Your Name</label>
-                            <span class="form-line"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="formEmail" name="email" placeholder=" " required autocomplete="email">
-                            <label for="formEmail">Email Address</label>
-                            <span class="form-line"></span>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="formMsg" name="message" rows="4" placeholder=" " required></textarea>
-                            <label for="formMsg">Your Message</label>
-                            <span class="form-line"></span>
-                        </div>
-                        <button type="submit" class="btn-submit">
-                            <span class="btn-submit-text">Send Message</span>
-                            <svg class="btn-submit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-                        </button>
-                    </form>
+                  <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="d7853f64-bba6-4c25-87c8-66f872acb08f">
+    <input type="hidden" name="subject" value="New message from BrightFocus Media website">
+    <input type="hidden" name="from_name" value="BrightFocus Media Contact Form">
+    
+    <!-- Honeypot spam prevention -->
+    <input type="checkbox" name="botcheck" style="display: none;">
+    
+    <div class="form-group">
+        <input type="text" id="formName" name="name" placeholder=" " required>
+        <label for="formName">Your Name</label>
+        <span class="form-line"></span>
+    </div>
+    <div class="form-group">
+        <input type="email" id="formEmail" name="email" placeholder=" " required>
+        <label for="formEmail">Email Address</label>
+        <span class="form-line"></span>
+    </div>
+    <div class="form-group">
+        <textarea id="formMsg" name="message" rows="4" placeholder=" " required></textarea>
+        <label for="formMsg">Your Message</label>
+        <span class="form-line"></span>
+    </div>
+    <button type="submit" class="btn-submit">
+        <span class="btn-submit-text">Send Message</span>
+        <svg class="btn-submit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+</form>
                 </div>
             </div>
         </div>
@@ -435,6 +442,13 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+    (function() {
+        emailjs.init("8pO0NoyixdOTQFQ5D");
+    })();
+
+</script>
 
 <script src="script.js"></script>
 </body>
