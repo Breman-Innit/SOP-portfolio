@@ -253,26 +253,43 @@ startAutoSlide();
 
 
 // ===== PHOTO GALLERY =====
+// Categories: flyers (flyer*.webp), photos (pic*.webp), branding (shirt*.webp)
 const works = [
-    { id:1,  cat:"portrait",   title:"Solitude in Light",   desc:"A study of natural window light and the quiet moments between thoughts.",                                               img:"images/flyer12.webp",  ar:"3/4",   feat:true,  year:"2024", client:"Self-directed",    medium:"35mm Film" },
-    { id:2,  cat:"landscape",  title:"Horizon Drift",        desc:"Minimalist coastal photography captured at the edge of dusk.",                                                           img:"images/pic12.webp",  ar:"16/9",  feat:false, year:"2023", client:"GEO Magazine",     medium:"Digital" },
-    { id:3,  cat:"editorial",  title:"Autumn Editorial",     desc:"Fashion editorial for a sustainable clothing brand, shot in the Scottish Highlands.",                                    img:"images/flyer5.webp", ar:"2/3",   feat:false, year:"2024", client:"Vestiture Co.",    medium:"Medium Format" },
-    { id:4,  cat:"branding",   title:"Mara Studio Identity", desc:"Visual identity system and product photography for a ceramics studio.",                                                  img:"images/pic15.webp",  ar:"1/1",   feat:true,  year:"2023", client:"Mara Studio",      medium:"Digital" },
-    { id:5,  cat:"abstract",   title:"Chromatic Dissolve",   desc:"Long exposure light painting exploring movement and impermanence.",                                                       img:"images/shirt3.webp", ar:"4/3",   feat:false, year:"2022", client:"Self-directed",    medium:"Digital" },
-    { id:6,  cat:"portrait",   title:"The Architect",        desc:"Portrait series documenting contemporary architects in their creative spaces.",                                           img:"images/pic6.webp",   ar:"3/4",   feat:false, year:"2024", client:"Dezeen",           medium:"35mm Film" },
-    { id:7,  cat:"landscape",  title:"Alpine Silence",       desc:"Winter highlands at first light — a two-day solo expedition in Norway.",                                                 img:"images/shirt1.webp", ar:"16/9",  feat:false, year:"2023", client:"National Geographic",medium:"Digital" },
-    { id:8,  cat:"editorial",  title:"Monochrome Moods",     desc:"A ten-look editorial exploring shadow, form, and the absence of color.",                                                 img:"images/flyer6.webp", ar:"2/3",   feat:false, year:"2024", client:"Noir Journal",     medium:"Digital" },
-    { id:9,  cat:"branding",   title:"Lumière Parfums",      desc:"Campaign imagery and brand photography for an indie fragrance house.",                                                   img:"images/pic16.webp",  ar:"1/1",   feat:true,  year:"2024", client:"Lumière",          medium:"Medium Format" },
-    { id:10, cat:"abstract",   title:"Texture Études",       desc:"Macro studies of natural surfaces — bark, stone, water — abstracted beyond recognition.",                                img:"images/pic18.webp",  ar:"1/1",   feat:false, year:"2022", client:"Self-directed",    medium:"Macro Lens" },
-    { id:11, cat:"portrait",   title:"Dancer at Rest",       desc:"Off-stage moments with the Royal Ballet ensemble between rehearsals.",                                                   img:"images/pic20.webp",  ar:"3/4",   feat:false, year:"2023", client:"The Royal Ballet", medium:"35mm Film" },
-    { id:12, cat:"landscape",  title:"Desert Passage",       desc:"Three weeks traversing the Sahara — light, dust, and endless geometry.",                                                 img:"images/flyer4.webp", ar:"16/9",  feat:false, year:"2022", client:"Self-directed",    medium:"Digital" },
-    { id:13, cat:"editorial",  title:"The New Formal",       desc:"Menswear editorial reimagining tailoring for an unstructured generation.",                                               img:"images/pic19.webp",  ar:"2/3",   feat:false, year:"2024", client:"Manifold Mag",     medium:"Digital" },
-    { id:14, cat:"branding",   title:"Arborist Collective",  desc:"Brand campaign for an urban tree-planting nonprofit — rooted in community.",                                             img:"images/shirt2.webp", ar:"4/3",   feat:false, year:"2023", client:"Arborist Co.",     medium:"Digital" },
-    { id:15, cat:"abstract",   title:"Refraction Study IV",  desc:"Prisms, light, and color as compositional elements in a studio series.",                                                 img:"images/pic21.webp",  ar:"1/1",   feat:false, year:"2023", client:"Self-directed",    medium:"Studio" },
-    { id:16, cat:"portrait",   title:"Still Waters",         desc:"Environmental portraits of fishermen along the Kerala backwaters at dawn.",                                               img:"images/flyer11.webp",  ar:"3/4", feat:false, year:"2022", client:"Documentary",      medium:"35mm Film" },
-    { id:17, cat:"portrait",   title:"Golden Hour",          desc:"Warm light portraits captured in the late afternoon glow.",                                                              img:"images/flyer2.webp", ar:"3/4",   feat:false, year:"2024", client:"Self-directed",    medium:"Digital" },
-    { id:18, cat:"landscape",  title:"Green Canopy",         desc:"Lush forest landscape captured at dawn.",                                                                                img:"images/pic3.webp",   ar:"3/4",   feat:false, year:"2024", client:"Self-directed",    medium:"Digital" },
-    { id:19, cat:"landscape",  title:"Open Horizon",         desc:"Square format exploration of open spaces.",                                                                              img:"images/flyer7.webp",  ar:"1/1",  feat:false, year:"2024", client:"Self-directed",    medium:"Digital" },
+    // ── FLYERS ──────────────────────────────────────────────────────────────
+    { id:1,  cat:"flyers",   title:"Event Flyer I",        desc:"Bold typographic event flyer designed for maximum visual impact.",                          img:"images/flyer1.webp",   ar:"3/4",   feat:true,  year:"2024", client:"Self-directed",  medium:"Digital" },
+    { id:2,  cat:"flyers",   title:"Promo Flyer II",       desc:"Promotional design with layered gradients and striking headline treatment.",                  img:"images/flyer2.webp",   ar:"3/4",   feat:false, year:"2024", client:"Client Project", medium:"Digital" },
+    { id:3,  cat:"flyers",   title:"Event Flyer III",      desc:"Clean layout flyer balancing photography and bold typography.",                               img:"images/flyer3.webp",   ar:"3/4",   feat:false, year:"2023", client:"Self-directed",  medium:"Digital" },
+    { id:4,  cat:"flyers",   title:"Promo Flyer IV",       desc:"Vibrant promotional piece built around a strong color palette.",                              img:"images/flyer4.webp",   ar:"3/4",   feat:false, year:"2023", client:"Client Project", medium:"Digital" },
+    { id:5,  cat:"flyers",   title:"Event Flyer V",        desc:"High-energy flyer with dynamic composition and layered visual elements.",                     img:"images/flyer5.webp",   ar:"3/4",   feat:false, year:"2024", client:"Self-directed",  medium:"Digital" },
+    { id:6,  cat:"flyers",   title:"Promo Flyer VI",       desc:"Dark-themed promotional graphic with cinematic atmosphere.",                                  img:"images/flyer6.webp",   ar:"3/4",   feat:false, year:"2024", client:"Client Project", medium:"Digital" },
+    { id:7,  cat:"flyers",   title:"Event Flyer VII",      desc:"Minimal yet impactful flyer design using negative space effectively.",                        img:"images/flyer7.webp",   ar:"1/1",   feat:false, year:"2023", client:"Self-directed",  medium:"Digital" },
+    { id:8,  cat:"flyers",   title:"Promo Flyer VIII",     desc:"Split-layout flyer combining photographic and illustrated elements.",                         img:"images/flyer8.webp",   ar:"3/4",   feat:false, year:"2023", client:"Client Project", medium:"Digital" },
+    { id:9,  cat:"flyers",   title:"Event Flyer X",        desc:"Neon-accent flyer for a night event — bold, atmospheric, and striking.",                      img:"images/flyer10.webp",  ar:"3/4",   feat:false, year:"2024", client:"Self-directed",  medium:"Digital" },
+    { id:10, cat:"flyers",   title:"Event Flyer XI",       desc:"Textured background flyer with hand-crafted typographic hierarchy.",                          img:"images/flyer11.webp",  ar:"3/4",   feat:false, year:"2023", client:"Client Project", medium:"Digital" },
+    { id:11, cat:"flyers",   title:"Event Flyer XII",      desc:"Cinematic wide-format flyer merging photography and graphic elements.",                       img:"images/flyer12.webp",  ar:"3/4",   feat:true,  year:"2024", client:"Self-directed",  medium:"Digital" },
+
+    // ── PHOTOS ──────────────────────────────────────────────────────────────
+    { id:12, cat:"photos",   title:"Portrait Series I",    desc:"Natural light portrait study — quiet intensity captured in a single frame.",                  img:"images/pic1.webp",     ar:"3/4",   feat:true,  year:"2024", client:"Self-directed",  medium:"35mm Film" },
+    { id:13, cat:"photos",   title:"Street Frame II",      desc:"Candid street moment — the decisive instant frozen mid-motion.",                              img:"images/pic2.webp",     ar:"16/9",  feat:false, year:"2023", client:"Documentary",     medium:"Digital" },
+    { id:14, cat:"photos",   title:"Green Canopy III",     desc:"Lush forest landscape captured at dawn — soft light through the canopy.",                     img:"images/pic3.webp",     ar:"3/4",   feat:false, year:"2024", client:"Self-directed",  medium:"Digital" },
+    { id:15, cat:"photos",   title:"Portrait Study VI",    desc:"Environmental portrait — subject placed within a meaningful context.",                        img:"images/pic6.webp",     ar:"3/4",   feat:false, year:"2024", client:"Dezeen",          medium:"35mm Film" },
+    { id:16, cat:"photos",   title:"Golden Frame VII",     desc:"Warm late-afternoon light wrapping a composed portrait session.",                             img:"images/pic7.webp",     ar:"1/1",   feat:false, year:"2023", client:"Self-directed",  medium:"Digital" },
+    { id:17, cat:"photos",   title:"Studio Shot VIII",     desc:"Clean studio photography with precise lighting and minimal styling.",                         img:"images/pic8.webp",     ar:"16/9",  feat:false, year:"2024", client:"Client Project", medium:"Studio" },
+    { id:18, cat:"photos",   title:"Outdoor Frame IX",     desc:"Outdoor portrait using natural reflectors and soft overcast light.",                          img:"images/pic9.webp",     ar:"16/9",  feat:false, year:"2023", client:"Self-directed",  medium:"Digital" },
+    { id:19, cat:"photos",   title:"Editorial Look XI",    desc:"Strong editorial framing — leading lines and deliberate negative space.",                     img:"images/pic11.webp",    ar:"16/9",  feat:false, year:"2024", client:"Noir Journal",    medium:"Digital" },
+    { id:20, cat:"photos",   title:"Fine Art XII",         desc:"Fine art photograph exploring light, texture, and minimal composition.",                      img:"images/pic12.webp",    ar:"16/9",  feat:false, year:"2023", client:"Self-directed",  medium:"Digital" },
+    { id:21, cat:"photos",   title:"Colour Study XV",      desc:"Richly saturated colour study — subject and environment in dialogue.",                        img:"images/pic15.webp",    ar:"1/1",   feat:false, year:"2023", client:"Self-directed",  medium:"Digital" },
+    { id:22, cat:"photos",   title:"Texture Study XVI",    desc:"Macro photography — surfaces abstracted into graphic compositions.",                          img:"images/pic16.webp",    ar:"1/1",   feat:false, year:"2022", client:"Self-directed",  medium:"Macro Lens" },
+    { id:23, cat:"photos",   title:"Ambient Light XVIII",  desc:"Available-light portrait captured in a documentary style.",                                   img:"images/pic18.webp",    ar:"1/1",   feat:false, year:"2023", client:"Documentary",     medium:"35mm Film" },
+    { id:24, cat:"photos",   title:"Motion Study XIX",     desc:"Controlled motion blur — movement rendered as visual poetry.",                                img:"images/pic19.webp",    ar:"2/3",   feat:false, year:"2024", client:"Self-directed",  medium:"Digital" },
+    { id:25, cat:"photos",   title:"Portrait Depth XX",    desc:"Shallow depth-of-field portrait — subject emerging from soft bokeh.",                        img:"images/pic20.webp",    ar:"3/4",   feat:false, year:"2023", client:"The Royal Ballet", medium:"35mm Film" },
+    { id:26, cat:"photos",   title:"Prism Study XXI",      desc:"Prism-refracted light creating abstract colour explosions in camera.",                        img:"images/pic21.webp",    ar:"1/1",   feat:false, year:"2023", client:"Self-directed",  medium:"Studio" },
+
+    // ── BRANDING ─────────────────────────────────────────────────────────────
+    { id:27, cat:"branding", title:"Apparel Brand I",      desc:"Product photography and brand identity work for a premium apparel label.",                   img:"images/shirt1.webp",   ar:"16/9",  feat:true,  year:"2024", client:"Apparel Client", medium:"Digital" },
+    { id:28, cat:"branding", title:"Apparel Brand II",     desc:"Clean lifestyle photography for a minimalist clothing range.",                                img:"images/shirt2.webp",   ar:"16/9",  feat:false, year:"2024", client:"Apparel Client", medium:"Digital" },
+    { id:29, cat:"branding", title:"Apparel Brand III",    desc:"Campaign imagery combining texture, colour, and strong art direction.",                       img:"images/shirt3.webp",   ar:"16/9",  feat:false, year:"2023", client:"Apparel Client", medium:"Digital" },
+    { id:30, cat:"branding", title:"Apparel Brand IV",     desc:"On-model product shoot — clean, editorial, and commercially driven.",                        img:"images/shirt4.webp",   ar:"16/9",  feat:false, year:"2023", client:"Apparel Client", medium:"Digital" },
 ];
 
 let currentFilter = 'all';
@@ -306,13 +323,11 @@ function renderGallery() {
             card.style.gridRow    = `span ${s.row}`;
         }
 
-        const isFullUrl = w.img.startsWith('http') || w.img.startsWith('images/');
-        const imgSrc = isFullUrl ? w.img : `https://images.unsplash.com/photo-${w.img}`;
         const needsHeight = currentLayout === 'editorial' || currentLayout === 'uniform';
 
         card.innerHTML = `
             ${w.feat ? '<span class="featured-badge">Featured</span>' : ''}
-            <img class="card-img" src="${imgSrc}" alt="${w.title}" loading="lazy"
+            <img class="card-img" src="${w.img}" alt="${w.title}" loading="lazy"
                  style="aspect-ratio:${w.ar};${needsHeight ? 'height:100%;' : ''}">
         `;
 
@@ -335,7 +350,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
 });
 
-// Layout
+// Layout toggle
 document.querySelectorAll('.layout-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.layout-btn').forEach(b => b.classList.remove('active'));
