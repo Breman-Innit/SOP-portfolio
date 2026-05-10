@@ -380,11 +380,11 @@ document.addEventListener('keydown', e => {
     if (!lightbox?.classList.contains('open')) return;
     if (e.key === 'Escape') closeLightbox();
 });
-// ===== CONTACT FORM (Direct Web3Forms) =====
+// ===== CONTACT FORM (EmailJS) =====
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
-    contactForm.addEventListener('submit', async function(e) {
+    contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
         const btn = contactForm.querySelector('.btn-submit');
@@ -394,29 +394,27 @@ if (contactForm) {
         txt.textContent = 'Sending...';
         btn.disabled = true;
         
-        const formData = new FormData(contactForm);
+        const name = document.getElementById('formName').value;
+        const email = document.getElementById('formEmail').value;
+        const message = document.getElementById('formMsg').value;
         
-        try {
-            const response = await fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                txt.textContent = 'Message Sent ✓';
-                btn.style.background = 'linear-gradient(135deg, #1a6fc4, #2e9fd8)';
-                contactForm.reset();
-                setTimeout(() => {
-                    txt.textContent = originalText;
-                    btn.disabled = false;
-                    btn.style.background = '';
-                }, 3000);
-            } else {
-                throw new Error(result.message || 'Failed to send');
-            }
-        } catch (error) {
+        emailjs.send('service_sx3hhmj', 'template_eacohmr', {
+            name: name,
+            email: email,
+            message: message,
+        })
+        .then(function(response) {
+            txt.textContent = 'Message Sent ✓';
+            btn.style.background = 'linear-gradient(135deg, #1a6fc4, #2e9fd8)';
+            contactForm.reset();
+            setTimeout(() => {
+                txt.textContent = originalText;
+                btn.disabled = false;
+                btn.style.background = '';
+            }, 3000);
+        })
+        .catch(function(error) {
+            console.error('EmailJS error:', error);
             txt.textContent = 'Error — Try Again';
             btn.style.background = '#d9534f';
             setTimeout(() => {
@@ -424,7 +422,7 @@ if (contactForm) {
                 btn.disabled = false;
                 btn.style.background = '';
             }, 3000);
-        }
+        });
     });
 }
 

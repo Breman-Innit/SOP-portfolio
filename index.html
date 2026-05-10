@@ -368,21 +368,14 @@
                     </div>
                 </div>
                 <div class="contact-form-wrap">
-                  <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
-    <input type="hidden" name="access_key" value="d7853f64-bba6-4c25-87c8-66f872acb08f">
-    <input type="hidden" name="subject" value="New message from BrightFocus Media website">
-    <input type="hidden" name="from_name" value="BrightFocus Media Contact Form">
-    
-    <!-- Honeypot spam prevention -->
-    <input type="checkbox" name="botcheck" style="display: none;">
-    
+                <form class="contact-form" id="contactForm" novalidate>
     <div class="form-group">
-        <input type="text" id="formName" name="name" placeholder=" " required>
+        <input type="text" id="formName" name="name" placeholder=" " required autocomplete="name">
         <label for="formName">Your Name</label>
         <span class="form-line"></span>
     </div>
     <div class="form-group">
-        <input type="email" id="formEmail" name="email" placeholder=" " required>
+        <input type="email" id="formEmail" name="email" placeholder=" " required autocomplete="email">
         <label for="formEmail">Email Address</label>
         <span class="form-line"></span>
     </div>
