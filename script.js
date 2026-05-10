@@ -253,7 +253,6 @@ startAutoSlide();
 
 
 // ===== PHOTO GALLERY =====
-// Categories: flyers (flyer*.webp), photos (pic*.webp), branding (shirt*.webp)
 const works = [
     // ── FLYERS ──────────────────────────────────────────────────────────────
     { id:1,  cat:"flyers",   title:"Event Flyer I",        desc:"Bold typographic event flyer designed for maximum visual impact.",                          img:"images/flyer1.webp",   ar:"3/4",   feat:true,  year:"2024", client:"Self-directed",  medium:"Digital" },
@@ -296,6 +295,15 @@ let currentFilter = 'all';
 let currentLayout = 'masonry';
 let filtered = [...works];
 
+// ===== MOBILE GALLERY COLLAPSE =====
+// Only active on screens <= 768px
+const MOBILE_GALLERY_LIMIT = 7;
+let mobileGalleryExpanded = false;
+
+function isMobile() {
+    return window.innerWidth <= 768;
+}
+
 function editorialSpan(i) {
     const patterns = [
         [7,4],[5,4],[4,3],[4,3],[4,3],[6,4],[6,4],[3,3],[5,3],[4,3],
@@ -311,7 +319,12 @@ function renderGallery() {
     grid.innerHTML = '';
     grid.className = `grid-${currentLayout}`;
 
-    filtered.forEach((w, i) => {
+    // On mobile, limit to 7 unless expanded
+    const displayItems = (isMobile() && !mobileGalleryExpanded)
+        ? filtered.slice(0, MOBILE_GALLERY_LIMIT)
+        : filtered;
+
+    displayItems.forEach((w, i) => {
         const card = document.createElement('div');
         card.className = 'gallery-card';
         card.style.animationDelay = `${Math.min(i * 0.045, 0.5)}s`;
@@ -333,6 +346,119 @@ function renderGallery() {
 
         grid.appendChild(card);
     });
+
+    // Update mobile expand/collapse UI
+    updateMobileGalleryFooter();
+}
+
+function updateMobileGalleryFooter() {
+    // Only render on mobile
+    const existing = document.getElementById('mobileGalleryFooter');
+    if (existing) existing.remove();
+
+    if (!isMobile()) return;
+
+    const hiddenCount = filtered.length - MOBILE_GALLERY_LIMIT;
+    if (hiddenCount <= 0) return; // no need if everything fits
+
+    const footer = document.createElement('div');
+    footer.id = 'mobileGalleryFooter';
+    footer.className = 'mobile-gallery-footer';
+
+    if (!mobileGalleryExpanded) {
+        footer.innerHTML = `
+            <div class="mgf-fade"></div>
+            <div class="mgf-inner">
+                <div class="mgf-count-badge">
+                    <span class="mgf-count-num">+${hiddenCount}</span>
+                    <span class="mgf-count-lbl">more works</span>
+                </div>
+                <button class="mgf-expand-btn" id="mgfExpandBtn">
+                    <span class="mgf-btn-text">View All Works</span>
+                    <span class="mgf-btn-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </span>
+                </button>
+                <a href="#services-custom" class="mgf-skip-btn">
+                    <span>Skip to Services</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        `;
+    } else {
+        footer.innerHTML = `
+            <div class="mgf-inner mgf-inner--collapse">
+                <button class="mgf-collapse-btn" id="mgfCollapseBtn">
+                    <span class="mgf-btn-icon mgf-btn-icon--up">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+                    </span>
+                    <span class="mgf-btn-text">Show Less</span>
+                </button>
+            </div>
+        `;
+    }
+
+    // Insert after gallery container
+    const gc = document.getElementById('galleryContainer');
+    if (gc && gc.parentNode) {
+        gc.parentNode.insertBefore(footer, gc.nextSibling);
+    }
+
+    // Bind buttons
+    const expandBtn = document.getElementById('mgfExpandBtn');
+    if (expandBtn) {
+        expandBtn.addEventListener('click', () => {
+            mobileGalleryExpanded = true;
+
+            // Animate button before re-render
+            expandBtn.classList.add('mgf-btn--loading');
+            expandBtn.querySelector('.mgf-btn-text').textContent = 'Loading...';
+
+            setTimeout(() => {
+                const gc = document.getElementById('galleryContainer');
+                if (gc) {
+                    gc.style.opacity = '0';
+                    setTimeout(() => {
+                        renderGallery();
+                        gc.style.opacity = '1';
+                        // Smooth scroll to keep user oriented
+                        gc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 220);
+                }
+            }, 300);
+        });
+    }
+
+    const collapseBtn = document.getElementById('mgfCollapseBtn');
+    if (collapseBtn) {
+        collapseBtn.addEventListener('click', () => {
+            mobileGalleryExpanded = false;
+            const gc = document.getElementById('galleryContainer');
+            if (gc) {
+                gc.style.opacity = '0';
+                setTimeout(() => {
+                    renderGallery();
+                    gc.style.opacity = '1';
+                    // Scroll back to gallery top
+                    document.getElementById('photo-gallery')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 220);
+            }
+        });
+    }
+
+    // Re-bind smooth scroll for the skip link
+    const skipBtn = footer.querySelector('.mgf-skip-btn');
+    if (skipBtn) {
+        skipBtn.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelector('#services-custom')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
+}
+
+// Reset mobile expanded state when filter changes
+function resetMobileGallery() {
+    mobileGalleryExpanded = false;
 }
 
 // Filter
@@ -342,6 +468,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.add('active');
         currentFilter = btn.dataset.filter;
         filtered = currentFilter === 'all' ? [...works] : works.filter(w => w.cat === currentFilter);
+        resetMobileGallery();
         const gc = document.getElementById('galleryContainer');
         if (gc) {
             gc.style.opacity = '0';
@@ -358,6 +485,15 @@ document.querySelectorAll('.layout-btn').forEach(btn => {
         currentLayout = btn.dataset.layout;
         renderGallery();
     });
+});
+
+// Re-render on resize to handle mobile/desktop switching
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        renderGallery();
+    }, 250);
 });
 
 renderGallery();
@@ -380,24 +516,25 @@ document.addEventListener('keydown', e => {
     if (!lightbox?.classList.contains('open')) return;
     if (e.key === 'Escape') closeLightbox();
 });
+
 // ===== CONTACT FORM (EmailJS) =====
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         const btn = contactForm.querySelector('.btn-submit');
         const txt = btn.querySelector('.btn-submit-text');
         const originalText = txt.textContent;
-        
+
         txt.textContent = 'Sending...';
         btn.disabled = true;
-        
+
         const name = document.getElementById('formName').value;
         const email = document.getElementById('formEmail').value;
         const message = document.getElementById('formMsg').value;
-        
+
         emailjs.send('service_sx3hhmj', 'template_eacohmr', {
             name: name,
             email: email,

@@ -14,16 +14,12 @@
 </head>
 <body>
 
-<!-- Noise Overlay -->
 <div class="noise-overlay" aria-hidden="true"></div>
-
-<!-- Custom Cursor -->
 <div class="custom-cursor" id="customCursor"></div>
 <div class="custom-cursor-ring" id="customCursorRing">
     <span class="cursor-text" id="cursorText"></span>
 </div>
 
-<!-- Preloader -->
 <div class="preloader" id="preloader">
     <div class="preloader-content">
         <div class="preloader-logo-wrap">
@@ -42,10 +38,8 @@
     </div>
 </div>
 
-<!-- Main Content -->
 <div class="main-content" id="mainContent">
 
-    <!-- Navigation -->
     <nav class="main-nav" id="mainNavbar">
         <a class="nav-logo" href="#">
             <img src="images/logo.png" alt="BrightFocus Media" class="nav-logo-img">
@@ -66,7 +60,6 @@
         </button>
     </nav>
 
-    <!-- Mobile Nav Drawer -->
     <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
         <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close menu">
             <i class="fas fa-times"></i>
@@ -88,17 +81,14 @@
     </div>
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <!-- ===== HERO SECTION ===== -->
     <section id="home" class="hero">
         <div class="hero-bg">
             <img class="hero-image" src="https://images.pexels.com/photos/17021253/pexels-photo-17021253.jpeg" alt="Photographer with camera" loading="eager" fetchpriority="high">
             <div class="hero-overlay"></div>
             <div class="hero-gradient"></div>
         </div>
-
         <div class="hero-orb hero-orb--blue" aria-hidden="true"></div>
         <div class="hero-orb hero-orb--gold" aria-hidden="true"></div>
-
         <div class="hero-content">
             <div class="hero-logo-badge">
                 <img src="images/logo.png" alt="BrightFocus Media" class="hero-logo-img">
@@ -125,11 +115,8 @@
                 <a href="#contact" class="btn-hero-ghost">Let's Talk</a>
             </div>
         </div>
-
-   
     </section>
 
-    <!-- ===== MARQUEE GALLERY ===== -->
     <section id="gallery" class="marquee-section">
         <div class="section-intro">
             <span class="section-tag">Selected Work</span>
@@ -144,7 +131,6 @@
         </div>
     </section>
 
-    <!-- ===== VIDEO SECTION ===== -->
     <section class="video-section">
         <div class="container">
             <div class="section-intro section-intro--left">
@@ -165,15 +151,12 @@
         </div>
     </section>
 
-    <!-- ===== ABOUT SECTION ===== -->
     <section id="about" class="about-section">
         <div class="about-deco-line about-deco-line--v" aria-hidden="true"></div>
         <div class="about-deco-line about-deco-line--h" aria-hidden="true"></div>
-
         <div class="about-watermark" aria-hidden="true">
             <img src="images/logo.png" alt="">
         </div>
-
         <div class="about-left">
             <p class="about-eyebrow">Visual Storyteller &amp; Multimedia Artist</p>
             <h2 class="about-name">
@@ -205,7 +188,6 @@
                 <a href="#contact" class="btn-ghost-gold">Let's Collaborate</a>
             </div>
         </div>
-
         <div class="about-right">
             <div class="about-slider-wrap">
                 <div class="slider-track">
@@ -237,7 +219,6 @@
         </div>
     </section>
 
-    <!-- ===== PHOTO GALLERY SECTION ===== -->
     <section id="photo-gallery" class="photo-gallery-section">
         <div class="container">
             <div class="gallery-header">
@@ -252,22 +233,18 @@
                     <button class="layout-btn" data-layout="editorial" title="Editorial"><i class="fas fa-columns"></i></button>
                 </div>
             </div>
-
-            <!-- Updated filter buttons: Flyers | Photos | Branding -->
             <div class="filter-bar" role="tablist" aria-label="Filter gallery">
                 <button class="filter-btn active" data-filter="all" role="tab">All Works</button>
                 <button class="filter-btn" data-filter="flyers" role="tab">Flyers</button>
                 <button class="filter-btn" data-filter="photos" role="tab">Photos</button>
                 <button class="filter-btn" data-filter="branding" role="tab">Branding</button>
             </div>
-
             <div class="gallery-container" id="galleryContainer">
                 <div class="grid-masonry" id="photoGrid"></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SERVICES SECTION ===== -->
     <section id="services-custom" class="services-section">
         <div class="container">
             <div class="section-intro">
@@ -300,7 +277,6 @@
         </div>
     </section>
 
-    <!-- ===== TOOLS SECTION ===== -->
     <section class="tools-section">
         <div class="container">
             <div class="section-intro">
@@ -338,7 +314,6 @@
         </div>
     </section>
 
-    <!-- ===== CONTACT SECTION ===== -->
     <section id="contact" class="contact-section">
         <div class="contact-bg-text" aria-hidden="true">CONTACT</div>
         <div class="container">
@@ -368,33 +343,32 @@
                     </div>
                 </div>
                 <div class="contact-form-wrap">
-                <form class="contact-form" id="contactForm" novalidate>
-    <div class="form-group">
-        <input type="text" id="formName" name="name" placeholder=" " required autocomplete="name">
-        <label for="formName">Your Name</label>
-        <span class="form-line"></span>
-    </div>
-    <div class="form-group">
-        <input type="email" id="formEmail" name="email" placeholder=" " required autocomplete="email">
-        <label for="formEmail">Email Address</label>
-        <span class="form-line"></span>
-    </div>
-    <div class="form-group">
-        <textarea id="formMsg" name="message" rows="4" placeholder=" " required></textarea>
-        <label for="formMsg">Your Message</label>
-        <span class="form-line"></span>
-    </div>
-    <button type="submit" class="btn-submit">
-        <span class="btn-submit-text">Send Message</span>
-        <svg class="btn-submit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-    </button>
-</form>
+                    <form class="contact-form" id="contactForm" novalidate>
+                        <div class="form-group">
+                            <input type="text" id="formName" name="name" placeholder=" " required autocomplete="name">
+                            <label for="formName">Your Name</label>
+                            <span class="form-line"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="formEmail" name="email" placeholder=" " required autocomplete="email">
+                            <label for="formEmail">Email Address</label>
+                            <span class="form-line"></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="formMsg" name="message" rows="4" placeholder=" " required></textarea>
+                            <label for="formMsg">Your Message</label>
+                            <span class="form-line"></span>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <span class="btn-submit-text">Send Message</span>
+                            <svg class="btn-submit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-inner">
             <a class="footer-logo" href="#">
@@ -411,9 +385,8 @@
         </div>
     </footer>
 
-</div><!-- /main-content -->
+</div>
 
-<!-- Lightbox -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button class="lb-close" id="lbClose" aria-label="Close"><i class="fas fa-times"></i></button>
     <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
@@ -435,14 +408,13 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
     (function() {
         emailjs.init("8pO0NoyixdOTQFQ5D");
     })();
-
 </script>
-
 <script src="script.js"></script>
 </body>
 </html>
