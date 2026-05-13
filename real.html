@@ -20,23 +20,107 @@
     <span class="cursor-text" id="cursorText"></span>
 </div>
 
-<div class="preloader" id="preloader">
-    <div class="preloader-content">
-        <div class="preloader-logo-wrap">
-            <img src="images/logo.png" alt="BrightFocus Media Logo" class="preloader-logo-img">
-        </div>
-        <div class="preloader-tagline">VISUAL ARTIST &nbsp;·&nbsp; MULTIMEDIA CREATOR</div>
-        <div class="progress-wrap">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-        <div class="progress-num" id="progressText">0%</div>
+
+<div id="splash">
+
+    <div class="splash-top-bar"></div>
+    <div class="splash-grid-bg"></div>
+    <div class="splash-orb splash-orb--blue"></div>
+    <div class="splash-orb splash-orb--gold"></div>
+    <div class="splash-scanline"></div>
+
+    <div class="splash-corner splash-corner--tl"></div>
+    <div class="splash-corner splash-corner--tr"></div>
+    <div class="splash-corner splash-corner--bl"></div>
+    <div class="splash-corner splash-corner--br"></div>
+
+    <div class="splash-status">
+        <div class="splash-status-dot"></div>
+        <span>Loading portfolio</span>
     </div>
-    <div class="preloader-filmstrip" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
+
+    <!-- Logo -->
+    <div class="splash-logo-wrap">
+        <div class="splash-ring splash-ring--1"></div>
+        <div class="splash-ring splash-ring--2"></div>
+        <div class="splash-ring splash-ring--3"></div>
+
+        <div class="splash-aperture">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="90" stroke="rgba(46,159,216,0.35)" stroke-width="1"/>
+                <circle cx="100" cy="100" r="70" stroke="rgba(201,168,76,0.2)"   stroke-width="0.8" stroke-dasharray="8 6"/>
+                <circle cx="100" cy="100" r="50" stroke="rgba(46,159,216,0.15)"  stroke-width="0.6" stroke-dasharray="4 8"/>
+                <g opacity="0.5">
+                    <line x1="100" y1="10"  x2="100" y2="50"  stroke="rgba(46,159,216,0.6)" stroke-width="1"/>
+                    <line x1="100" y1="150" x2="100" y2="190" stroke="rgba(46,159,216,0.6)" stroke-width="1"/>
+                    <line x1="10"  y1="100" x2="50"  y2="100" stroke="rgba(46,159,216,0.6)" stroke-width="1"/>
+                    <line x1="150" y1="100" x2="190" y2="100" stroke="rgba(46,159,216,0.6)" stroke-width="1"/>
+                    <line x1="27"  y1="27"  x2="55"  y2="55"  stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+                    <line x1="145" y1="145" x2="173" y2="173" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+                    <line x1="173" y1="27"  x2="145" y2="55"  stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+                    <line x1="55"  y1="145" x2="27"  y2="173" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+                </g>
+            </svg>
+        </div>
+
+        <img
+            class="splash-logo-img"
+            src="images/logo.png"
+            alt="BrightFocus Media"
+            onerror="this.style.display='none'; document.getElementById('splashLogoFallback').style.display='flex';"
+        >
+        <div class="splash-logo-fallback" id="splashLogoFallback">
+            <span class="slf-letters">BF</span>
+            <span class="slf-sub">Media</span>
+        </div>
     </div>
+
+    <!-- Brand name -->
+    <div class="splash-brand-row">
+        <div class="splash-brand-name">
+            Bright<span class="splash-focus">Focus</span><span class="splash-dot">.</span>
+        </div>
+        <div class="splash-brand-tag">Visual Artist &nbsp;·&nbsp; Multimedia Creator</div>
+    </div>
+
+    <!-- Eyebrow -->
+    <div class="splash-eyebrow">
+        <div class="splash-e-line splash-e-line--l"></div>
+        <div class="splash-e-text">Portfolio 2026</div>
+        <div class="splash-e-line splash-e-line--r"></div>
+    </div>
+
+    <!-- Progress -->
+    <div class="splash-progress-wrap">
+        <div class="splash-progress-track">
+            <div class="splash-progress-fill" id="splashProgressFill"></div>
+        </div>
+        <div class="splash-progress-num" id="splashProgressNum">0%</div>
+    </div>
+
+    <!-- Filmstrip bars -->
+    <div class="splash-filmstrip">
+        <div class="splash-film-bar" style="height:14px; animation-delay:0s"></div>
+        <div class="splash-film-bar" style="height:22px; animation-delay:0.1s"></div>
+        <div class="splash-film-bar" style="height:10px; animation-delay:0.2s"></div>
+        <div class="splash-film-bar" style="height:26px; animation-delay:0.3s"></div>
+        <div class="splash-film-bar" style="height:16px; animation-delay:0.4s"></div>
+        <div class="splash-film-bar" style="height:20px; animation-delay:0.5s"></div>
+        <div class="splash-film-bar" style="height:12px; animation-delay:0.6s"></div>
+        <div class="splash-film-bar" style="height:24px; animation-delay:0.7s"></div>
+        <div class="splash-film-bar" style="height:18px; animation-delay:0.8s"></div>
+        <div class="splash-film-bar" style="height:14px; animation-delay:0.9s"></div>
+        <div class="splash-film-bar" style="height:20px; animation-delay:1.0s"></div>
+    </div>
+
+    <!-- Coordinates -->
+    <div class="splash-coords">
+        <span>5.6°N · 0.2°W</span>
+        <span>Accra, GH · 2026</span>
+    </div>
+
 </div>
+<!-- END SPLASH SCREEN -->
 
 <div class="main-content" id="mainContent">
 

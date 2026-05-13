@@ -1,71 +1,120 @@
+// ===== SPLASH SCREEN =====
+// The splash screen is driven by a realistic eased progress ticker.
+// Once it reaches 100 % it fades out and reveals .main-content.
+(function () {
+    var fill    = document.getElementById('splashProgressFill');
+    var numEl   = document.getElementById('splashProgressNum');
+    var splash  = document.getElementById('splash');
+    var content = document.getElementById('mainContent');
 
-// ===== PRELOADER =====
-const preloader    = document.getElementById('preloader');
-const mainContent  = document.getElementById('mainContent');
-const progressBar  = document.getElementById('progressBar');
-const progressText = document.getElementById('progressText');
+    if (!splash || !content) return;
 
-const imageUrls = [
-    "https://images.pexels.com/photos/2253879/pexels-photo-2253879.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
-    "https://images.pexels.com/photos/3785706/pexels-photo-3785706.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
-    "https://images.pexels.com/photos/2853629/pexels-photo-2853629.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
-    "https://images.pexels.com/photos/3611546/pexels-photo-3611546.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
-    "https://images.pexels.com/photos/3205494/pexels-photo-3205494.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
-    "https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
-    "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
-    "https://images.pexels.com/photos/2082947/pexels-photo-2082947.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
-    "https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
-    "https://images.pexels.com/photos/1590549/pexels-photo-1590549.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
-    "https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
-    "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop",
-    "https://images.pexels.com/photos/2897897/pexels-photo-2897897.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop",
-    "https://images.pexels.com/photos/3823086/pexels-photo-3823086.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop",
-    "https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop",
-    "https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop",
-    "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop",
-    "https://images.pexels.com/photos/6941204/pexels-photo-6941204.jpeg"
-];
+    var pct  = 0;
+    var done = false;
 
-let loadedCount = 0;
-const totalImages = imageUrls.length;
+    // Preload the same images as before — progress bar tracks real loading
+    var imageUrls = [
+        "https://images.pexels.com/photos/2253879/pexels-photo-2253879.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+        "https://images.pexels.com/photos/3785706/pexels-photo-3785706.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+        "https://images.pexels.com/photos/2853629/pexels-photo-2853629.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+        "https://images.pexels.com/photos/3611546/pexels-photo-3611546.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+        "https://images.pexels.com/photos/3205494/pexels-photo-3205494.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&fit=crop",
+        "https://images.pexels.com/photos/2101187/pexels-photo-2101187.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+        "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+        "https://images.pexels.com/photos/2082947/pexels-photo-2082947.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+        "https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/1590549/pexels-photo-1590549.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop",
+        "https://images.pexels.com/photos/2897897/pexels-photo-2897897.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop",
+        "https://images.pexels.com/photos/3823086/pexels-photo-3823086.jpeg?auto=compress&cs=tinysrgb&w=800&h=1100&fit=crop",
+        "https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop",
+        "https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop",
+        "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1100&h=800&fit=crop",
+        "https://images.pexels.com/photos/6941204/pexels-photo-6941204.jpeg"
+    ];
 
-function updateProgress() {
-    const pct = Math.floor((loadedCount / totalImages) * 100);
-    progressBar.style.width = pct + '%';
-    progressText.textContent = pct + '%';
-}
+    var loaded = 0;
+    var total  = imageUrls.length;
+    var imagesFinished = false;
 
-function preloadImages() {
-    imageUrls.forEach(url => {
-        const img = new Image();
-        img.onload = img.onerror = () => {
-            loadedCount++;
-            updateProgress();
-            if (loadedCount >= totalImages) finishLoading();
-        };
+    function onImageDone() {
+        loaded++;
+        if (loaded >= total && !imagesFinished) {
+            imagesFinished = true;
+            // Images done — allow ticker to race to 100
+        }
+    }
+
+    imageUrls.forEach(function(url) {
+        var img = new Image();
+        img.onload = img.onerror = onImageDone;
         img.src = url;
     });
-}
 
-function finishLoading() {
-    setTimeout(() => {
-        preloader.classList.add('hide');
-        mainContent.classList.add('visible');
-        setTimeout(() => preloader.style.display = 'none', 900);
-        initAllAfterLoad();
-    }, 600);
-}
+    // Realistic eased progress ticker (matches splash screen standalone behaviour)
+    function tick() {
+        if (done) return;
 
-preloadImages();
+        // If images are done and we're past 80 %, accelerate to finish
+        var speed;
+        if (imagesFinished && pct > 80) {
+            speed = 2 + Math.random() * 2;
+        } else if (pct < 20) {
+            speed = 2.2 + Math.random() * 2;
+        } else if (pct < 50) {
+            speed = 3.5 + Math.random() * 3;
+        } else if (pct < 75) {
+            speed = 2.0 + Math.random() * 2;
+        } else if (pct < 92) {
+            speed = 0.8 + Math.random() * 1;
+        } else {
+            // Slow drip near 100 % — only finish once images are loaded
+            if (!imagesFinished) {
+                speed = 0.05 + Math.random() * 0.1;
+                pct = Math.min(pct + speed, 98); // hold at 98 until images done
+            } else {
+                speed = 0.3 + Math.random() * 0.5;
+            }
+        }
 
-// Safety net — hide loader after 6s regardless
-setTimeout(() => {
-    if (!mainContent.classList.contains('visible')) {
-        progressBar.style.width = '100%';
-        progressText.textContent = '100%';
-        finishLoading();
+        if (!imagesFinished) {
+            // Don't go past 98 while images are still loading
+            pct = Math.min(pct + (imagesFinished ? speed : Math.min(speed, 0.5)), 98);
+        } else {
+            pct = Math.min(pct + speed, 100);
+        }
+
+        if (fill)  fill.style.width  = pct + '%';
+        if (numEl) numEl.textContent  = Math.floor(pct) + '%';
+
+        if (pct >= 100) {
+            done = true;
+            setTimeout(finishSplash, 600);
+        } else {
+            setTimeout(tick, 55 + Math.random() * 40);
+        }
     }
-}, 6000);
+
+    function finishSplash() {
+        splash.classList.add('exit');
+        content.classList.add('visible');
+        setTimeout(function () {
+            splash.style.display = 'none';
+            initAllAfterLoad();
+        }, 1100);
+    }
+
+    // Safety net — hide splash after 8 s regardless
+    setTimeout(function () {
+        if (!content.classList.contains('visible')) {
+            imagesFinished = true; // let ticker race to 100
+        }
+    }, 8000);
+
+    // Start ticker after intro animations have had time to play
+    setTimeout(tick, 1800);
+})();
 
 
 // ===== TYPED TEXT =====
@@ -293,7 +342,6 @@ let currentLayout = 'masonry';
 let filtered = [...works];
 
 // ===== MOBILE GALLERY COLLAPSE =====
-// Only active on screens <= 768px
 const MOBILE_GALLERY_LIMIT = 7;
 let mobileGalleryExpanded = false;
 
@@ -316,7 +364,6 @@ function renderGallery() {
     grid.innerHTML = '';
     grid.className = `grid-${currentLayout}`;
 
-    // On mobile, limit to 7 unless expanded
     const displayItems = (isMobile() && !mobileGalleryExpanded)
         ? filtered.slice(0, MOBILE_GALLERY_LIMIT)
         : filtered;
@@ -344,19 +391,17 @@ function renderGallery() {
         grid.appendChild(card);
     });
 
-    // Update mobile expand/collapse UI
     updateMobileGalleryFooter();
 }
 
 function updateMobileGalleryFooter() {
-    // Only render on mobile
     const existing = document.getElementById('mobileGalleryFooter');
     if (existing) existing.remove();
 
     if (!isMobile()) return;
 
     const hiddenCount = filtered.length - MOBILE_GALLERY_LIMIT;
-    if (hiddenCount <= 0) return; // no need if everything fits
+    if (hiddenCount <= 0) return;
 
     const footer = document.createElement('div');
     footer.id = 'mobileGalleryFooter';
@@ -395,22 +440,17 @@ function updateMobileGalleryFooter() {
         `;
     }
 
-    // Insert after gallery container
     const gc = document.getElementById('galleryContainer');
     if (gc && gc.parentNode) {
         gc.parentNode.insertBefore(footer, gc.nextSibling);
     }
 
-    // Bind buttons
     const expandBtn = document.getElementById('mgfExpandBtn');
     if (expandBtn) {
         expandBtn.addEventListener('click', () => {
             mobileGalleryExpanded = true;
-
-            // Animate button before re-render
             expandBtn.classList.add('mgf-btn--loading');
             expandBtn.querySelector('.mgf-btn-text').textContent = 'Loading...';
-
             setTimeout(() => {
                 const gc = document.getElementById('galleryContainer');
                 if (gc) {
@@ -418,7 +458,6 @@ function updateMobileGalleryFooter() {
                     setTimeout(() => {
                         renderGallery();
                         gc.style.opacity = '1';
-                        // Smooth scroll to keep user oriented
                         gc.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }, 220);
                 }
@@ -436,14 +475,12 @@ function updateMobileGalleryFooter() {
                 setTimeout(() => {
                     renderGallery();
                     gc.style.opacity = '1';
-                    // Scroll back to gallery top
                     document.getElementById('photo-gallery')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 220);
             }
         });
     }
 
-    // Re-bind smooth scroll for the skip link
     const skipBtn = footer.querySelector('.mgf-skip-btn');
     if (skipBtn) {
         skipBtn.addEventListener('click', e => {
@@ -453,7 +490,6 @@ function updateMobileGalleryFooter() {
     }
 }
 
-// Reset mobile expanded state when filter changes
 function resetMobileGallery() {
     mobileGalleryExpanded = false;
 }
@@ -484,13 +520,11 @@ document.querySelectorAll('.layout-btn').forEach(btn => {
     });
 });
 
-// Re-render on resize to handle mobile/desktop switching
+// Re-render on resize
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-        renderGallery();
-    }, 250);
+    resizeTimer = setTimeout(() => { renderGallery(); }, 250);
 });
 
 renderGallery();
@@ -514,6 +548,7 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeLightbox();
 });
 
+
 // ===== CONTACT FORM (EmailJS) =====
 const contactForm = document.getElementById('contactForm');
 
@@ -528,8 +563,8 @@ if (contactForm) {
         txt.textContent = 'Sending...';
         btn.disabled = true;
 
-        const name = document.getElementById('formName').value;
-        const email = document.getElementById('formEmail').value;
+        const name    = document.getElementById('formName').value;
+        const email   = document.getElementById('formEmail').value;
         const message = document.getElementById('formMsg').value;
 
         emailjs.send('service_sx3hhmj', 'template_eacohmr', {
@@ -537,7 +572,7 @@ if (contactForm) {
             email: email,
             message: message,
         })
-        .then(function(response) {
+        .then(function() {
             txt.textContent = 'Message Sent ✓';
             btn.style.background = 'linear-gradient(135deg, #1a6fc4, #2e9fd8)';
             contactForm.reset();
@@ -559,6 +594,7 @@ if (contactForm) {
         });
     });
 }
+
 
 // ===== SCROLL REVEAL =====
 const revealObserver = new IntersectionObserver((entries) => {
@@ -620,12 +656,14 @@ if (cursor && cursorRing) {
 }
 
 
-// ===== INIT ALL =====
+// ===== INIT ALL (called after splash exits) =====
 function initAllAfterLoad() {
     observeRevealTargets();
     setTimeout(observeRevealTargets, 500);
+    handleNavScroll();
 }
 
+// Also run a soft init in case the splash resolves very quickly
 setTimeout(() => {
     observeRevealTargets();
     handleNavScroll();

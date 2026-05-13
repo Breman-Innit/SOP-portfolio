@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrightFocus Media — Splash Screen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --blue:        #1a6fc4;
+  --blue-bright: #2e9fd8;
+  --gold:        #c9a84c;
+  --gold-light:  #e2c97e;
+  --bg:          #04080f;
+  --text:        #eef2f8;
+  --text-dim:    #445066;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--bg);
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── SPLASH WRAPPER ── */
+#splash {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 1s ease, transform 1s ease;
+}
+#splash.exit {
+  opacity: 0;
+  transform: scale(1.06);
+  pointer-events: none;
+}
+
+/* ── TOP GRADIENT BAR ── */
+.top-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--blue) 30%, var(--blue-bright) 55%, var(--gold) 80%, transparent 100%);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: barSlide 1.4s 0.2s cubic-bezier(0.23,1,0.32,1) forwards;
+}
+@keyframes barSlide { to { transform: scaleX(1); } }
+
+/* ── GRID BG ── */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-image:
+    linear-gradient(rgba(26,111,196,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,111,196,0.06) 1px, transparent 1px);
+  background-size: 70px 70px;
+  animation: fadeIn 1.4s 0.4s ease forwards;
+}
+
+/* ── GLOW ORBS ── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeIn 2.5s 0.3s ease forwards;
+}
+.orb-blue {
+  width: 600px; height: 600px;
+  top: -150px; left: -150px;
+  background: radial-gradient(circle, rgba(26,111,196,0.18) 0%, transparent 65%);
+}
+.orb-gold {
+  width: 500px; height: 500px;
+  bottom: -100px; right: -100px;
+  background: radial-gradient(circle, rgba(201,168,76,0.13) 0%, transparent 65%);
+  animation-delay: 0.6s;
+}
+
+/* ── SCANLINE SWEEP ── */
+.scanline {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, rgba(46,159,216,0.7) 40%, rgba(201,168,76,0.5) 60%, transparent 100%);
+  top: 0;
+  opacity: 0;
+  animation: scanSweep 2s 0.3s ease-in-out forwards;
+  pointer-events: none;
+}
+@keyframes scanSweep {
+  0%   { top: 0;    opacity: 0; }
+  5%   { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ── CORNER BRACKETS ── */
+.corner {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+.corner::before, .corner::after {
+  content: '';
+  position: absolute;
+}
+.corner::before {
+  width: 100%; height: 1.5px;
+  background: linear-gradient(90deg, rgba(46,159,216,0.8), transparent);
+  top: 0; left: 0;
+}
+.corner::after {
+  width: 1.5px; height: 100%;
+  background: linear-gradient(180deg, rgba(46,159,216,0.8), transparent);
+  top: 0; left: 0;
+}
+.corner-tl { top: 28px; left: 28px; animation-delay: 0.6s; }
+.corner-tr { top: 28px; right: 28px; transform: scaleX(-1); animation-delay: 0.7s; }
+.corner-bl { bottom: 28px; left: 28px; transform: scaleY(-1); animation-delay: 0.8s; }
+.corner-br { bottom: 28px; right: 28px; transform: scale(-1); animation-delay: 0.9s; }
+
+/* ── STATUS BADGE ── */
+.status {
+  position: absolute;
+  top: 22px; right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  opacity: 0;
+  animation: fadeIn 0.5s 1.1s ease forwards;
+}
+.status-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--blue-bright);
+  animation: blink 1.3s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.15;} }
+.status span:last-child {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(46,159,216,0.55);
+}
+
+/* ── COORDS ── */
+.coords {
+  position: absolute;
+  bottom: 72px; right: 32px;
+  text-align: right;
+  opacity: 0;
+  animation: fadeIn 0.5s 2s ease forwards;
+}
+.coords span {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(138,150,170,0.3);
+  line-height: 1.7;
+}
+
+/* ── LOGO AREA ── */
+.logo-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(36px) scale(0.82);
+  animation: logoIn 1.2s 0.8s cubic-bezier(0.23,1,0.32,1) forwards;
+}
+@keyframes logoIn {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Rings */
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid;
+}
+.ring-1 {
+  width: 190px; height: 190px;
+  border-color: rgba(46,159,216,0.22);
+  animation: ringBreath 3.5s 2s ease-in-out infinite;
+}
+.ring-2 {
+  width: 255px; height: 255px;
+  border-color: rgba(46,159,216,0.1);
+  animation: ringBreath 3.5s 2.3s ease-in-out infinite;
+}
+.ring-3 {
+  width: 320px; height: 320px;
+  border-color: rgba(201,168,76,0.07);
+  animation: ringBreath 3.5s 2.6s ease-in-out infinite;
+}
+@keyframes ringBreath {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.05); opacity: 0.5; }
+}
+
+/* Aperture (camera iris) */
+.aperture {
+  position: absolute;
+  width: 170px; height: 170px;
+}
+.aperture svg {
+  width: 100%; height: 100%;
+  animation: apertureSpin 18s linear infinite;
+  opacity: 0.3;
+}
+@keyframes apertureSpin { to { transform: rotate(360deg); } }
+
+/* Logo image */
+.logo-img {
+  width: 130px; height: 130px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  animation: logoGlow 3s 2.2s ease-in-out infinite;
+  /* Drop shadow for the logo — adjust glow color to suit your logo */
+  filter:
+    drop-shadow(0 0 22px rgba(46,159,216,0.75))
+    drop-shadow(0 0 55px rgba(201,168,76,0.4))
+    brightness(1.2);
+}
+@keyframes logoGlow {
+  0%,100% {
+    filter:
+      drop-shadow(0 0 18px rgba(46,159,216,0.6))
+      drop-shadow(0 0 40px rgba(201,168,76,0.3))
+      brightness(1.15);
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 38px rgba(46,159,216,1))
+      drop-shadow(0 0 80px rgba(201,168,76,0.6))
+      brightness(1.35);
+  }
+}
+
+/* Logo fallback (if image fails) */
+.logo-fallback {
+  display: none;
+  width: 130px; height: 130px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--blue-bright) 50%, var(--gold));
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+}
+.logo-fallback .lf-letters {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+.logo-fallback .lf-sub {
+  font-size: 8px;
+  letter-spacing: 0.35em;
+  color: rgba(255,255,255,0.75);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ── BRAND TEXT ── */
+.brand-row {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeUp 0.9s 1.3s cubic-bezier(0.23,1,0.32,1) forwards;
+  margin-bottom: 10px;
+}
+.brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 8vw, 56px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1;
+}
+.brand-name .focus { color: var(--blue-bright); font-style: italic; }
+.brand-name .dot   { color: var(--blue-bright); }
+.brand-tag {
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(138,150,170,0.6);
+  margin-top: 7px;
+}
+
+/* ── EYEBROW DIVIDER ── */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  animation: fadeIn 0.7s 1.6s ease forwards;
+  margin-bottom: 30px;
+}
+.e-line      { flex: 1; max-width: 70px; height: 1px; }
+.e-line.l    { background: linear-gradient(90deg, transparent, rgba(46,159,216,0.45)); }
+.e-line.r    { background: linear-gradient(90deg, rgba(46,159,216,0.45), transparent); }
+.e-text {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(238,242,248,0.35);
+}
+
+/* ── PROGRESS ── */
+.progress-wrap {
+  width: 240px;
+  opacity: 0;
+  animation: fadeIn 0.6s 1.75s ease forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+}
+.progress-track {
+  width: 100%;
+  height: 1.5px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--blue-bright) 50%, var(--gold));
+  border-radius: 2px;
+  position: relative;
+  transition: width 0.08s linear;
+}
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  right: -1px; top: -3px;
+  width: 8px; height: 7px;
+  background: rgba(46,159,216,0.9);
+  border-radius: 50%;
+  filter: blur(3px);
+}
+.progress-num {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: rgba(138,150,170,0.55);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── FILMSTRIP ── */
+.filmstrip {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  align-items: flex-end;
+  opacity: 0;
+  animation: fadeIn 0.7s 1.9s ease forwards;
+}
+.film-bar {
+  width: 3px;
+  border-radius: 2px;
+  background: rgba(46,159,216,0.35);
+  animation: filmWave 1.5s ease-in-out infinite;
+}
+@keyframes filmWave { 0%,100%{opacity:0.2;transform:scaleY(0.55);} 50%{opacity:1;transform:scaleY(1);} }
+
+/* ── UTILS ── */
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* ── BEHIND SPLASH (site content placeholder) ── */
+#site-content {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+#site-content.visible { opacity: 1; }
+.site-placeholder {
+  text-align: center;
+}
+.site-placeholder h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 900;
+  color: rgba(238,242,248,0.2);
+  letter-spacing: -0.02em;
+}
+.site-placeholder h1 em { color: rgba(46,159,216,0.35); font-style: italic; }
+
+@media (max-width: 480px) {
+  .corner { width: 32px; height: 32px; }
+  .corner-tl { top: 18px; left: 18px; }
+  .corner-tr { top: 18px; right: 18px; }
+  .corner-bl { bottom: 18px; left: 18px; }
+  .corner-br { bottom: 18px; right: 18px; }
+  .ring-2, .ring-3 { display: none; }
+  .logo-img { width: 100px; height: 100px; }
+  .aperture { width: 130px; height: 130px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Site content shows after splash -->
+<div id="site-content">
+  <div class="site-placeholder">
+    <h1>BrightFocus <em>Media</em></h1>
+  </div>
+</div>
+
+<!-- SPLASH SCREEN -->
+<div id="splash">
+
+  <div class="top-bar"></div>
+  <div class="grid-bg"></div>
+  <div class="orb orb-blue"></div>
+  <div class="orb orb-gold"></div>
+  <div class="scanline"></div>
+
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <div class="status">
+    <div class="status-dot"></div>
+    <span>Loading portfolio</span>
+  </div>
+
+  <!-- Logo -->
+  <div class="logo-wrap">
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+    <div class="ring ring-3"></div>
+
+    <!-- Aperture / camera iris SVG -->
+    <div class="aperture">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="90" stroke="rgba(46,159,216,0.35)" stroke-width="1"/>
+        <circle cx="100" cy="100" r="70" stroke="rgba(201,168,76,0.2)" stroke-width="0.8" stroke-dasharray="8 6"/>
+        <circle cx="100" cy="100" r="50" stroke="rgba(46,159,216,0.15)" stroke-width="0.6" stroke-dasharray="4 8"/>
+        <!-- Iris blades -->
+        <g opacity="0.5">
+          <line x1="100" y1="10"  x2="100" y2="50"  stroke="rgba(46,159,216,0.6)" stroke-width="1"/>
+          <line x1="100" y1="150" x2="100" y2="190" stroke="rgba(46,159,216,0.6)" stroke-width="1"/>
+          <line x1="10"  y1="100" x2="50"  y2="100" stroke="rgba(46,159,216,0.6)" stroke-width="1"/>
+          <line x1="150" y1="100" x2="190" y2="100" stroke="rgba(46,159,216,0.6)" stroke-width="1"/>
+          <line x1="27"  y1="27"  x2="55"  y2="55"  stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+          <line x1="145" y1="145" x2="173" y2="173" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+          <line x1="173" y1="27"  x2="145" y2="55"  stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+          <line x1="55"  y1="145" x2="27"  y2="173" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+        </g>
+      </svg>
+    </div>
+
+    <!--
+      LOGO IMAGE — replace src with your actual logo path when integrating:
+      <img class="logo-img" src="images/logo.png" alt="BrightFocus Media">
+    -->
+    <img
+      class="logo-img"
+      src="images/logo.png"
+      alt="BrightFocus Media"
+      onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';"
+    >
+    <div class="logo-fallback" id="logoFallback">
+      <span class="lf-letters">BF</span>
+      <span class="lf-sub">Media</span>
+    </div>
+  </div>
+
+  <!-- Brand name -->
+  <div class="brand-row">
+    <div class="brand-name">
+      Bright<span class="focus">Focus</span><span class="dot">.</span>
+    </div>
+    <div class="brand-tag">Visual Artist &nbsp;·&nbsp; Multimedia Creator</div>
+  </div>
+
+  <!-- Eyebrow -->
+  <div class="eyebrow">
+    <div class="e-line l"></div>
+    <div class="e-text">Portfolio 2026</div>
+    <div class="e-line r"></div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-num" id="progressNum">0%</div>
+  </div>
+
+  <!-- Filmstrip bars -->
+  <div class="filmstrip">
+    <div class="film-bar" style="height:14px; animation-delay:0s"></div>
+    <div class="film-bar" style="height:22px; animation-delay:0.1s"></div>
+    <div class="film-bar" style="height:10px; animation-delay:0.2s"></div>
+    <div class="film-bar" style="height:26px; animation-delay:0.3s"></div>
+    <div class="film-bar" style="height:16px; animation-delay:0.4s"></div>
+    <div class="film-bar" style="height:20px; animation-delay:0.5s"></div>
+    <div class="film-bar" style="height:12px; animation-delay:0.6s"></div>
+    <div class="film-bar" style="height:24px; animation-delay:0.7s"></div>
+    <div class="film-bar" style="height:18px; animation-delay:0.8s"></div>
+    <div class="film-bar" style="height:14px; animation-delay:0.9s"></div>
+    <div class="film-bar" style="height:20px; animation-delay:1.0s"></div>
+  </div>
+
+  <!-- Coordinates -->
+  <div class="coords">
+    <span>5.6°N · 0.2°W</span>
+    <span>Accra, GH · 2026</span>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var fill    = document.getElementById('progressFill');
+  var numEl   = document.getElementById('progressNum');
+  var splash  = document.getElementById('splash');
+  var content = document.getElementById('site-content');
+
+  var pct  = 0;
+  var done = false;
+
+  // Realistic eased progress
+  function tick() {
+    if (done) return;
+    var speed;
+    if      (pct < 20)  speed = 2.2 + Math.random() * 2;
+    else if (pct < 50)  speed = 3.5 + Math.random() * 3;
+    else if (pct < 75)  speed = 2.0 + Math.random() * 2;
+    else if (pct < 92)  speed = 0.8 + Math.random() * 1;
+    else                speed = 0.3 + Math.random() * 0.5;
+
+    pct = Math.min(pct + speed, 100);
+    fill.style.width = pct + '%';
+    numEl.textContent = Math.floor(pct) + '%';
+
+    if (pct >= 100) {
+      done = true;
+      setTimeout(finish, 600);
+    } else {
+      setTimeout(tick, 55 + Math.random() * 40);
+    }
+  }
+
+  function finish() {
+    splash.classList.add('exit');
+    content.classList.add('visible');
+    setTimeout(function () { splash.style.display = 'none'; }, 1100);
+  }
+
+  // Start progress after animations have settled
+  setTimeout(tick, 1800);
+})();
+</script>
+</body>
+</html>
