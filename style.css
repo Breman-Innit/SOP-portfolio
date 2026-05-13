@@ -191,15 +191,7 @@ ul { list-style:none; }
     color: rgba(46,159,216,0.55);
 }
 
-/* Coordinates */
-.splash-coords {
-    position: absolute; bottom: 72px; right: 32px; text-align: right;
-    opacity: 0; animation: splashFadeIn 0.5s 2s ease forwards;
-}
-.splash-coords span {
-    display: block; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: rgba(138,150,170,0.3); line-height: 1.7;
-}
+
 
 /* Logo area */
 .splash-logo-wrap {
